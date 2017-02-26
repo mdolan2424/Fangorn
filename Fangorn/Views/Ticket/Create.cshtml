@@ -8,16 +8,16 @@
 
 <h2>@ViewData["Title"]</h2>
 <p>hello</p>
-<form asp-controller="Ticket" asp-action="NewTicket" method="post">
+<form asp-controller="Ticket" asp-action="Create" method="post">
     
     <div class="row">
         <div class="col-md-8">
             
-            Title:  <input asp-for="Title" />
-            Description:  <input asp-for="Description"/>
+            Title:  <input asp-for="Title" /> </br>
+            Description:  <input asp-for="Description"/></br>
 
-            Create Date:  <input asp-for="CreateDate" />
-            Close Date:  <input asp-for="CloseDate" />
+            Create Date:  <input asp-for="DueDate" /></br>
+            
            
             
             

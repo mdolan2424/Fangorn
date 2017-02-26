@@ -8,9 +8,10 @@ using Fangorn.Data;
 namespace Fangorn.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170226221227_DBTicket")]
+    partial class DBTicket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -202,7 +203,7 @@ namespace Fangorn.Data.Migrations
 
             modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
                 {
-                    b.HasOne("Fangorn.Models.ApplicationUser", "User")
+                    b.HasOne("Fangorn.Models.ApplicationUser", "user")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });

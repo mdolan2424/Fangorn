@@ -25,6 +25,9 @@ namespace Fangorn.Models.TicketViewModels
 
         public DateTime CloseDate { get; set; }
 
+        public String UserId { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
       
 
     }
