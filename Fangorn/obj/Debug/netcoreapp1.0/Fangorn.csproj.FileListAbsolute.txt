@@ -1,0 +1,10 @@
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.deps.json
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.runtimeconfig.json
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.runtimeconfig.dev.json
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.dll
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.pdb
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.csprojResolveAssemblyReference.cache
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.AssemblyInfo.cs
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.dll
+c:\users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.pdb
+C:\Users\mdola\documents\visual studio 2017\Projects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs

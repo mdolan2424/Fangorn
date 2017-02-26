@@ -1,0 +1,55 @@
+﻿@model Fangorn.Models.TicketViewModels.Ticket
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "New Ticket";
+    DateTime.Now.ToString("dd-MM-yyyy");
+}
+
+
+<h2>@ViewData["Title"]</h2>
+<p>hello</p>
+<form asp-controller="Ticket" asp-action="NewTicket" method="post">
+    
+    <div class="row">
+        <div class="col-md-8">
+            
+            Title:  <input asp-for="Title" />
+            Description:  <input asp-for="Description"/>
+
+            Create Date:  <input asp-for="CreateDate" />
+            Close Date:  <input asp-for="CloseDate" />
+           
+            
+            
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                orientation: "top right",
+                todayHighlight: true
+
+            });
+            
+
+
+        });
+
+    </script>
+
+
+}
