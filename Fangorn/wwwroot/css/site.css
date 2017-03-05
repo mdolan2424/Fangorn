@@ -1,8 +1,11 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #39870C !important;
 }
-
+.navbar-default {
+    background-color: #39870C !important;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
