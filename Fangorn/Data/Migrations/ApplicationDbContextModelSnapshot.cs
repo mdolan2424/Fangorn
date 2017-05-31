@@ -66,12 +66,36 @@ namespace Fangorn.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+            modelBuilder.Entity("Fangorn.Models.ProjectViewModels.Project", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AssignedId");
+
                     b.Property<DateTime>("CloseDate");
+
+                    b.Property<string>("ClosedUserId");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -81,16 +105,44 @@ namespace Fangorn.Data.Migrations
 
                     b.Property<DateTime>("DueDate");
 
+                    b.Property<string>("OpenUserId");
+
                     b.Property<string>("Title")
                         .IsRequired();
 
                     b.Property<string>("UserId");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AssignedId");
+
+                    b.HasIndex("ClosedUserId");
+
+                    b.HasIndex("OpenUserId");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TicketViewModels.TicketComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CommentorId");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int?>("TicketId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentorId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("TicketComment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -200,11 +252,37 @@ namespace Fangorn.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+            modelBuilder.Entity("Fangorn.Models.ProjectViewModels.Project", b =>
                 {
                     b.HasOne("Fangorn.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+                {
+                    b.HasOne("Fangorn.Models.ApplicationUser", "AssignedTo")
+                        .WithMany()
+                        .HasForeignKey("AssignedId");
+
+                    b.HasOne("Fangorn.Models.ApplicationUser", "ClosedBY")
+                        .WithMany()
+                        .HasForeignKey("ClosedUserId");
+
+                    b.HasOne("Fangorn.Models.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("OpenUserId");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TicketViewModels.TicketComment", b =>
+                {
+                    b.HasOne("Fangorn.Models.ApplicationUser", "Commentor")
+                        .WithMany()
+                        .HasForeignKey("CommentorId");
+
+                    b.HasOne("Fangorn.Models.TicketViewModels.Ticket", "ticket")
+                        .WithMany("Comments")
+                        .HasForeignKey("TicketId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

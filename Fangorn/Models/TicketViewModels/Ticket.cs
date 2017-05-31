@@ -10,7 +10,7 @@ namespace Fangorn.Models.TicketViewModels
     public class Ticket
     {
         
-        public int ID { get; set; }
+        public int Id { get; set; }
         [Required]
         
         public string Title { get; set; }
@@ -19,16 +19,22 @@ namespace Fangorn.Models.TicketViewModels
         [MinLength(0)]
         [MaxLength(2000)]
         public string Description { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd H:mm}", ApplyFormatInEditMode = true)]
         public DateTime CreateDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd H:mm}", ApplyFormatInEditMode = true)]
         public DateTime DueDate { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd H:mm}", ApplyFormatInEditMode = true)]
         public DateTime CloseDate { get; set; }
-
+        
         public String UserId { get; set; }
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
-      
+        //public List<Tag> Tags { get; set; }
+        [ForeignKey("AssignedId")]
+        public ApplicationUser AssignedTo { get; set; }
+        [ForeignKey("OpenUserId")]
+        public ApplicationUser Creator { get; set; }
+        [ForeignKey("ClosedUserId")]
+        public ApplicationUser ClosedBY { get; set; }
+        public TicketComment[] Comments { get; }
 
     }
 }

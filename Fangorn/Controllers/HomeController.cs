@@ -12,7 +12,7 @@ namespace Fangorn.Controllers
         {
             return View();
         }
-
+        
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -20,7 +20,7 @@ namespace Fangorn.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Tickets()
         {
             ViewData["Message"] = "Your contact page.";
 

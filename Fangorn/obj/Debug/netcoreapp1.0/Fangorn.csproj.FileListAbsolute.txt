@@ -18,3 +18,13 @@ C:\Users\Matt\Desktop\Github\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.dll
 C:\Users\Matt\Desktop\Github\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.pdb
 C:\Users\Matt\Desktop\Github\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.csprojResolveAssemblyReference.cache
 C:\Users\Matt\Desktop\Github\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.deps.json
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.runtimeconfig.json
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.runtimeconfig.dev.json
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.dll
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.pdb
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.csprojResolveAssemblyReference.cache
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.AssemblyInfo.cs
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.dll
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.pdb
+C:\Users\mdola\Desktop\School\gitprojects\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Fangorn.Models;
 using Fangorn.Models.TicketViewModels;
+using Fangorn.Models.ProjectViewModels;
 
 namespace Fangorn.Data
 {
@@ -15,6 +16,7 @@ namespace Fangorn.Data
             : base(options)
         {}
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Project> Projects { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
