@@ -6,7 +6,30 @@
 }
 .navbar-default {
     background-color: #203a44 !important;
+    
 }
+.navbar-inverse .navbar-header .navbar-brand {
+    color: #F5F5F5 !important;
+}
+
+
+/*background color of navbar*/
+.navbar-inverse {
+    background-color: #033bb5 !important;
+}
+/*link colors*/
+.nav.navbar-nav li a {
+    color: #F5F5F5;
+}
+.nav.navbar-nav button {
+    color: #F5F5F5;
+}
+
+.nav.navbar-nav a:hover {
+    color: grey;
+}   
+
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {

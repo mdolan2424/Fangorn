@@ -43,12 +43,11 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="Data\Migrations\" />
     <Folder Include="Models\FeedViewModels\" />
     <Folder Include="Models\LocationViewModels\" />
     <Folder Include="Models\TagViewModels\" />
     <Folder Include="Models\VaultViewModels\" />
-    <Folder Include="Models\TeamViewModels\" />
     <Folder Include="Models\WikiViewModels\" />
   </ItemGroup>
 

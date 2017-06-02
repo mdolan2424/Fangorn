@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Fangorn.Models;
 using Fangorn.Models.TicketViewModels;
 using Fangorn.Models.ProjectViewModels;
-
+using Fangorn.Models.TeamViewModels;
 namespace Fangorn.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -15,8 +15,12 @@ namespace Fangorn.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {}
+
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Team> Teams { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

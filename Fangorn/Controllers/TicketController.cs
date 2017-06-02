@@ -139,12 +139,6 @@ namespace Fangorn.Controllers
             return View(ticket);
 
             
-
-
-
-
-
-            return RedirectToAction("Index");
         }
 
         

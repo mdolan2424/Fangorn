@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Fangorn.Data;
 
-namespace Fangorn.Data.Migrations
+namespace Fangorn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170310222436_testmigration")]
-    partial class testmigration
+    [Migration("20170602160035_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,9 +92,11 @@ namespace Fangorn.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ClosdUserId");
+                    b.Property<string>("AssignedId");
 
                     b.Property<DateTime>("CloseDate");
+
+                    b.Property<string>("ClosedUserId");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -113,7 +115,9 @@ namespace Fangorn.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClosdUserId");
+                    b.HasIndex("AssignedId");
+
+                    b.HasIndex("ClosedUserId");
 
                     b.HasIndex("OpenUserId");
 
@@ -258,9 +262,13 @@ namespace Fangorn.Data.Migrations
 
             modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
                 {
+                    b.HasOne("Fangorn.Models.ApplicationUser", "AssignedTo")
+                        .WithMany()
+                        .HasForeignKey("AssignedId");
+
                     b.HasOne("Fangorn.Models.ApplicationUser", "ClosedBY")
                         .WithMany()
-                        .HasForeignKey("ClosdUserId");
+                        .HasForeignKey("ClosedUserId");
 
                     b.HasOne("Fangorn.Models.ApplicationUser", "Creator")
                         .WithMany()

@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Fangorn.Data;
 
-namespace Fangorn.Data.Migrations
+namespace Fangorn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170329013035_Tickets")]
-    partial class Tickets
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -50,6 +49,8 @@ namespace Fangorn.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<int?>("TeamId");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -63,6 +64,8 @@ namespace Fangorn.Data.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -85,6 +88,20 @@ namespace Fangorn.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TeamViewModels.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
@@ -251,6 +268,13 @@ namespace Fangorn.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("Fangorn.Models.TeamViewModels.Team")
+                        .WithMany("Members")
+                        .HasForeignKey("TeamId");
                 });
 
             modelBuilder.Entity("Fangorn.Models.ProjectViewModels.Project", b =>
