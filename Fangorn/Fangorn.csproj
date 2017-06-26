@@ -13,6 +13,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\card.cs" />
+    <Content Include="wwwroot\css\cards.css" />
+    <Content Include="wwwroot\js\team.js" />
     <Content Include="wwwroot\js\ticket.js" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +49,7 @@
     <Folder Include="Data\Migrations\" />
     <Folder Include="Models\FeedViewModels\" />
     <Folder Include="Models\LocationViewModels\" />
+    <Folder Include="Models\CheckoutViewModels\" />
     <Folder Include="Models\TagViewModels\" />
     <Folder Include="Models\VaultViewModels\" />
     <Folder Include="Models\WikiViewModels\" />

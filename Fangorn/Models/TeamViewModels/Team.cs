@@ -13,7 +13,7 @@ namespace Fangorn.Models.TeamViewModels
 
         public String Description { get; set; }
 
-        public List<ApplicationUser> Members { get; set; }
+        public IEnumerable<ApplicationUser> Members { get; set; }
 
 
 

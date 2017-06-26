@@ -70,6 +70,28 @@ namespace Fangorn.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Fangorn.Models.InventoryViewModels.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<decimal?>("Cost");
+
+                    b.Property<string>("Manufacturer");
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal?>("Price");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Item");
+                });
+
             modelBuilder.Entity("Fangorn.Models.ProjectViewModels.Project", b =>
                 {
                     b.Property<int>("ID")

@@ -28,7 +28,15 @@ namespace Fangorn.Controllers
 
 
         // GET: /<controller>/
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
+        {
+            
+
+            return View(await _context.Tickets.ToListAsync());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> IndexGrid()
         {
             return View(await _context.Tickets.ToListAsync());
         }

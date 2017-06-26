@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "view";
+    DateTime.Now.ToString("dd-MM-yyyy");
+}
+
+
+<table id="table"
+       data-unique-id="Code"
+       data-sort-name="Code"
+       data-sort-order="asc"
+       data-classes="table table-condensed table-hover table-striped"
+       data-toggle="table"
+       data-side-pagination="server"
+       data-url="Load"
+       data-pagination="true"
+       data-search="true"
+       data-show-refresh="true"
+       data-toolbar="#toolbar"
+       data-page-size="20"
+       data-page-list="[5,10,20,50,100,All]">
+    <thead>
+        <tr>
+            <th data-field="ISO2" data-sortable="false"
+                data-halign="center" data-align="center"
+                data-formatter="flagFormatter">Flag</th>
+            <th data-field="Code" data-sortable="true"
+                data-halign="center" data-align="center">Code</th>
+            <th data-field="ISO3" data-sortable="true">ISO 3</th>
+            <th data-field="Name" data-sortable="true">Name</th>
+        </tr>
+    </thead>
+</table>
+
+
+@section scripts {
+
+    @await Html.PartialAsync("bootstraptable");
+
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/ticket.js"></script>
+
+}
+
+

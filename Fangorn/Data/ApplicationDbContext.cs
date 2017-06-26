@@ -8,6 +8,8 @@ using Fangorn.Models;
 using Fangorn.Models.TicketViewModels;
 using Fangorn.Models.ProjectViewModels;
 using Fangorn.Models.TeamViewModels;
+using Fangorn.Models.InventoryViewModels;
+using Fangorn.Models.HomeViewModels;
 namespace Fangorn.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +31,11 @@ namespace Fangorn.Data
             // Add your customizations after calling base.OnModelCreating(builder);
             
         }
+
+
+        public DbSet<Fangorn.Models.InventoryViewModels.Item> Item { get; set; }
+
+
+        public DbSet<Fangorn.Models.HomeViewModels.ContactModel> ContactModel { get; set; }
     }
 }

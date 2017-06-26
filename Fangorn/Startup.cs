@@ -73,6 +73,7 @@ namespace Fangorn
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            
             app.UseStaticFiles();
 
             app.UseIdentity();
