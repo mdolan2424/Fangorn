@@ -1,12 +1,12 @@
 @model Fangorn.Models.HomeViewModels.ContactModel
 
 @{
-    ViewData["Title"] = "ContactView";
+    ViewData["Title"] = "Contact the Company";
 }
 
 <h2>Contact Us</h2>
 
-<form asp-action="Contact">
+<form asp-controller="Home" asp-action="contact" method="post">
     <div class="form-horizontal">
         <h4>We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</h4>
         <hr />

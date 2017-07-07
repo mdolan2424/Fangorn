@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Fangorn.Models.InventoryViewModels
 {
+    /// <summary>
+    /// An item is owned by you.
+    /// </summary>
     public class Item
     {
 

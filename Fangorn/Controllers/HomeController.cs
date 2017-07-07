@@ -15,6 +15,11 @@ namespace Fangorn.Controllers
        
         private readonly ApplicationDbContext _context;
         private AuthMessageSender _mail;
+        
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
@@ -45,15 +50,22 @@ namespace Fangorn.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> Contact([Bind("Email,Subject,Message")] ContactModel c)
+        public async Task<IActionResult> Contact([Bind("Name,Email,Subject,Message")] ContactModel c)
         {
             if (ModelState.IsValid)
             {
+                string name = c.Name;
                 string email = c.Email;
                 string subject = c.Subject;
                 string message = c.Message;
 
-                await _mail.SendEmailAsync(email, subject, message);
+                //await _mail.SendEmailAsync(email, subject, message);
+                
+                //Store in Database
+                
+                ContactModel contact = c;
+                _context.Add(contact);
+                await _context.SaveChangesAsync();
 
                 return View();
             }
