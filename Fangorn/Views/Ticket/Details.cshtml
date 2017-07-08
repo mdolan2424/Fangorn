@@ -1,54 +1,7 @@
+
+
+@using Fangorn.Models.TicketViewModels;
 @model Fangorn.Models.TicketViewModels.Ticket
 
-@{
-    ViewData["Title"] = "View";
-}
-
-<h2>Ticket</h2>
-
-<div>
-    
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DueDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DueDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CloseDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CloseDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+@Html.Partial("~/Views/Ticket/TicketCommentDetailsView.cshtml", Model)
+@Html.Partial("~/Views/Ticket/Comment/CommentCreate.cshtml", new TicketComment())

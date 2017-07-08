@@ -55,6 +55,7 @@
     <Folder Include="Models\VaultViewModels\" />
     <Folder Include="Models\WikiViewModels\" />
     <Folder Include="Views\Clients\" />
+    <Folder Include="Views\Ticket\Comment\" />
   </ItemGroup>
 
 </Project>

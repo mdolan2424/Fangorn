@@ -92,13 +92,13 @@ namespace Fangorn.Controllers
             {
                 return NotFound();
             }
-
-
             var ticket = _context.Tickets.Find(ID);
-           
+
             return View(ticket);
+            
         }
 
+      
         [HttpGet]
         public async Task<IActionResult> Edit(int? ID)
         {
