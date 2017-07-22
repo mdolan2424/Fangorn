@@ -1,4 +1,4 @@
-
+@model IEnumerable<Fangorn.Models.TicketViewModels.Ticket>
 @{
     ViewData["Title"] = "view";
     DateTime.Now.ToString("dd-MM-yyyy");
@@ -17,30 +17,57 @@
         <table id="tableTickets" class="table table-hover table-condensed">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th><a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]"></a></th>
-                    <th>Due Date</th>
-                    <th>Creator</th>
-                    <th>Description</th>
-
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DueDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CloseDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Creator.UserName)
+                    </th>
+                    <th></th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach (var ticket in Model)
-            {
-                    <div id=collapse@ticket.Title>
-                        <tr id=@ticket.Id>
-                            <th>@ticket.Id</th>
-                            <td><a asp-action="Details" asp-controller="Ticket" asp-route-id="@ticket.Id">@ticket.Title</a></td>
-                            <td>@ticket.DueDate</td>
-                            <td>@ticket.Creator</td>
-                            <td>@ticket.Description</td>
-                            <td><a asp-action="Edit" asp-route-id="@ticket.Id">View</a></td>
-                            <td><a asp-action="Edit" asp-route-id="@ticket.Id">Edit</a></td>
-                        </tr>
-                    </div>
-                }
+             @foreach (var item in Model)
+             {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CloseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Creator.UserName)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+             }
             </tbody>
         </table>
         <form asp-action="Create" method="get">

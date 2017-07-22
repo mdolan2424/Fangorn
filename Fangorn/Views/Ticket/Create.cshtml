@@ -7,16 +7,23 @@
 
 <h2>@ViewData["Title"]</h2>
 
+
 <form asp-controller="Ticket" asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row">
         <div class="col-md-10">
-            Title:  <input asp-for="Title" class="form-control"/> </br>
-            
-            Description:  <textarea asp-for="Description" rows="5" cols="10" class="form-control"/></textarea></br>
-            Due Date:  <input asp-for="DueDate" class="form-control" /></br>  
-            Add to Calendar <input type="checkbox" class="form-control"/>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
+            Title:  <input asp-for="Title" class="form-control"/> <span asp-validation-for="Title" class="text-danger"></span></br></br>
+            Description:  <textarea asp-for="Description" rows="5" cols="10" class="form-control"/></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+                </br></br>
+
+                Due Date:  <input asp-for="DueDate" class="form-control" /><span asp-validation-for="DueDate" class="text-danger"></span></br>
+
+
+                <button type="submit" class="btn btn-default">Submit</button>
+
+
+</div>
     </div>
 </form>
 

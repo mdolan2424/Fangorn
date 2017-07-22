@@ -30,17 +30,12 @@ namespace Fangorn.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index(string sortOrder)
         {
-            
+            var tickets = await _context.Tickets.Include(creator => creator.Creator).ToListAsync();
 
-            return View(await _context.Tickets.ToListAsync());
+            return View(tickets);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> IndexGrid()
-        {
-            return View(await _context.Tickets.ToListAsync());
-        }
-
+        
+        
         [HttpGet]
         public IActionResult Create()
         {
@@ -55,29 +50,35 @@ namespace Fangorn.Controllers
             //get form data
            try
             {
-                if (ModelState.IsValid)
-                {
-                    
-                    Ticket ticket = t;
-                    //get logged in user
-                    ApplicationUser user = await _userManager.GetUserAsync(User);
-                   
-                    ticket.CreateDate = DateTime.Now;
-                    ticket.Creator = user;
-                    _context.Add(ticket);
-                   
-                    await _context.SaveChangesAsync();
-                   
-                    return View();
+                
+                    if (ModelState.IsValid)
+                    {
 
-                }
+                        Ticket ticket = t;
+                        
+                        var user = await _userManager.GetUserAsync(User);
+
+                        ticket.CreateDate = DateTime.Now;
+                        ticket.Creator = user;
+                        
+                        _context.Add(ticket);
+
+                        await _context.SaveChangesAsync();
+                        
+                        return RedirectToAction("Index");
+
+                    }
+                
+                
+
+                
                 
             }
 
 
             catch
             {
-                Console.WriteLine("An error occurred");
+                return View();
             }
             //post to database
 
@@ -98,7 +99,45 @@ namespace Fangorn.Controllers
             
         }
 
-      
+        [HttpGet]
+        public IActionResult CommentCreate(int? ID)
+        {
+            if (ID == null)
+            {
+                return NotFound();
+            }
+            var ticket = _context.Tickets.Find(ID);
+            
+            return View(ticket);
+
+        }
+
+        [HttpPost]
+        public IActionResult CommentCreate()
+        {
+           try
+            {
+                if (ModelState.IsValid)
+                {
+                    var comment = new TicketComment();
+
+                    return RedirectToAction("Index");
+                }
+
+                else
+                {
+                    return View();
+                }
+            }
+
+            catch
+            {
+                return View();
+            }
+            
+
+
+        }
         [HttpGet]
         public async Task<IActionResult> Edit(int? ID)
         {
@@ -165,5 +204,7 @@ namespace Fangorn.Controllers
 
             return View();
         }
+
+  
     }   
 }
