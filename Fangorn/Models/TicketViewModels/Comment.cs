@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fangorn.Models.TicketViewModels
 {
-    public class TicketComment
+    public class Comment
     {
         public int Id { get; set; }
         [ForeignKey("TicketId")]

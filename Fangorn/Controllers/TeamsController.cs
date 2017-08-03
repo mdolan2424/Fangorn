@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fangorn.Data;
 using Fangorn.Models.TeamViewModels;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Fangorn.Controllers
 {
@@ -44,21 +43,27 @@ namespace Fangorn.Controllers
         }
 
         // GET: Teams/Create
-        public IActionResult Create()
+        public IActionResult CreateTeam()
         {
-            //generate a list of ApplicationUsers.
+            //user list from database
+            var users = _context.Users.ToList();
 
-            return View();
+            CreateTeamViewModel model = new CreateTeamViewModel();
+            model.Users = new MultiSelectList(users);
+
+            return View(model);
         }
 
         // POST: Teams/Create
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Team team)
+        public async Task<IActionResult> CreateTeam([Bind("Id,Name,Description,Members")] Team team)
         {
             if (ModelState.IsValid)
             {
+
+
                 _context.Add(team);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -82,9 +87,7 @@ namespace Fangorn.Controllers
             return View(team);
         }
 
-        // POST: Teams/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Team team)

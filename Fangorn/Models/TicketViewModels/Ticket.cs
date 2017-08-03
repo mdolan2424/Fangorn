@@ -38,11 +38,11 @@ namespace Fangorn.Models.TicketViewModels
         public ApplicationUser Creator { get; set; }
 
         [ForeignKey("ClosedUserId")]
-        public ApplicationUser ClosedBY { get; set; }
+        public ApplicationUser ClosedBy { get; set; }
 
         public Contact contact { get; set; }
 
-        public IEnumerable<TicketComment> comments { get; }
+        public IEnumerable<Comment> comments { get; }
 
         
 

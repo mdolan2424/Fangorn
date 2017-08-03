@@ -39,6 +39,6 @@ namespace Fangorn.Data
         public DbSet<Fangorn.Models.HomeViewModels.ContactModel> ContactModel { get; set; }
 
 
-        public DbSet<Fangorn.Models.TicketViewModels.TicketComment> TicketComment { get; set; }
+        public DbSet<Fangorn.Models.TicketViewModels.Comment> TicketComment { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Fangorn.Models.TicketViewModels;
 using Microsoft.EntityFrameworkCore;
 using Fangorn.Data;
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+   
 
 namespace Fangorn.Controllers
 {
@@ -17,7 +17,6 @@ namespace Fangorn.Controllers
     public class TicketController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        //database
         private readonly ApplicationDbContext _context;
 
         public TicketController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
@@ -30,6 +29,7 @@ namespace Fangorn.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index(string sortOrder)
         {
+            //Creator is passed in as extra information to the view.
             var tickets = await _context.Tickets.Include(creator => creator.Creator).ToListAsync();
 
             return View(tickets);
@@ -47,7 +47,6 @@ namespace Fangorn.Controllers
         public async Task<IActionResult> Create([Bind("Title,Description,DueDate")] Ticket t)
         {
 
-            //get form data
            try
             {
                 
@@ -119,7 +118,7 @@ namespace Fangorn.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var comment = new TicketComment();
+                    var comment = new Comment();
 
                     return RedirectToAction("Index");
                 }
@@ -148,10 +147,12 @@ namespace Fangorn.Controllers
             }
 
             var ticket = await _context.Tickets.SingleOrDefaultAsync(t => t.Id == ID);
+            
             if (ticket == null)
             {
                 return NotFound();
             }
+
 
             return View(ticket);
         }

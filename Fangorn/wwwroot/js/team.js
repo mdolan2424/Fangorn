@@ -1,16 +1,25 @@
 ﻿
+$(function () {
 
-function moveListBoxItem(leftID, rightID, isMoveAll)
-{
-    if (isMoveAll == true)
-    {
-        $("#" + leftID + " option").remove().appendTo("#" + rightID).removeAttr("selected");
-
+    function moveUsers(source, destination) {
+        $(source).find(":selected").appendTo(destination);
     }
 
-    else
-    {
 
-        $("#" + leftID + " option:selected").remove().appendTo("#" + rightID).removeAttr("selected");
-    }
-}
+
+    $('#left').click(function () {
+        moveUsers('#Users', '#Members');
+    });
+
+    $('#right').on('click', function () {
+        moveUsers('#Members', '#Users');
+    });
+
+    $('#leftall').on('click', function () {
+        moveUsers('#sbTwo', '#sbOne');
+    });
+
+    $('#rightall').on('click', function () {
+        moveUsers('#sbOne', '#sbTwo');
+    });
+});
