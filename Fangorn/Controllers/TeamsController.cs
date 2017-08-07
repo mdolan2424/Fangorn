@@ -25,15 +25,20 @@ namespace Fangorn.Controllers
         }
 
         // GET: Teams/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
+            //ThenInclude will grab additional attributes from related tables.
             var team = await _context.Teams
+                .Include(t => t.Members).ThenInclude(m => m.User)
                 .SingleOrDefaultAsync(m => m.Id == id);
+                
+            
+            
             if (team == null)
             {
                 return NotFound();
@@ -43,11 +48,11 @@ namespace Fangorn.Controllers
         }
 
         // GET: Teams/Create
+        //ModelView
         public IActionResult CreateTeam()
         {
-            //user list from database
+            
             var users = _context.Users.ToList();
-
             CreateTeamViewModel model = new CreateTeamViewModel();
             model.Users = new MultiSelectList(users);
 
@@ -55,24 +60,59 @@ namespace Fangorn.Controllers
         }
 
         // POST: Teams/Create
-      
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateTeam([Bind("Id,Name,Description,Members")] Team team)
+        public async Task<IActionResult> CreateTeam([Bind("Name,Description")] CreateTeamViewModel createTeam, string[] members)
         {
             if (ModelState.IsValid)
             {
-
-
+                //Many-to-Many relationship
+                Team team = new Team();
+                team.Members = new List<TeamUser>();
+                team.Description = createTeam.Description;
+                team.Name = createTeam.Name;
                 _context.Add(team);
+
+                _context.SaveChanges();
+
+                foreach (var member in members )
+                {
+
+                    var savedTeam = (from t in _context.Teams where t.Name == team.Name select team).SingleOrDefault();
+                    //fails if not found.
+                    var user = (from u in _context.Users where u.Email == member select u).SingleOrDefault();
+                    var TeamUser = new TeamUser { TeamId = savedTeam.Id, Team = savedTeam, UserId = user.Id, User = user };
+                    team.Members.Append(TeamUser);
+                    _context.Add(TeamUser);
+                }
+
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
+
+
+                /*
+                Team team = new Team();
+
+                team.Name = createTeam.Name;
+                team.Description = createTeam.Description;
+                
+                _context.Add(team);
+
+                
+
+                
+                
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");*/
             }
-            return View(team);
+            return View();
         }
 
+        
         // GET: Teams/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+       /* public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -85,9 +125,9 @@ namespace Fangorn.Controllers
                 return NotFound();
             }
             return View(team);
-        }
+        }*/
 
-        
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Team team)
@@ -152,6 +192,6 @@ namespace Fangorn.Controllers
         private bool TeamExists(int id)
         {
             return _context.Teams.Any(e => e.Id == id);
-        }
+        }*/
     }
 }

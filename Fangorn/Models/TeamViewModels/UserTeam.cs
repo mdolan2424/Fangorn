@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 
 namespace Fangorn.Models.TeamViewModels
 {
-    public class UserTeam
+    public class TeamUser
     {
 
-        public Team team { get; set; }
-        public ApplicationUser user { get; set; }
+        public String UserId { get; set; }
+        public ApplicationUser User { get; set; }
+
+        public String TeamId { get; set; }
+        public Team Team { get; set; }
+
     }
 }

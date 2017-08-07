@@ -8,8 +8,8 @@ using Fangorn.Data;
 namespace Fangorn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170626210727_Contact")]
-    partial class Contact
+    [Migration("20170807170924_myFirstMigration")]
+    partial class myFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,6 @@ namespace Fangorn.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int?>("TeamId");
-
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -66,9 +64,73 @@ namespace Fangorn.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.HasIndex("TeamId");
-
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.ClientViewModels.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("MainContact");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Phone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Client");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.ClientViewModels.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ClientID");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<string>("firstName")
+                        .IsRequired();
+
+                    b.Property<string>("lastName")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientID");
+
+                    b.ToTable("Contact");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.HomeViewModels.ContactModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(400);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactModel");
                 });
 
             modelBuilder.Entity("Fangorn.Models.InventoryViewModels.Item", b =>
@@ -115,7 +177,7 @@ namespace Fangorn.Migrations
 
             modelBuilder.Entity("Fangorn.Models.TeamViewModels.Team", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
@@ -125,6 +187,41 @@ namespace Fangorn.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TeamViewModels.TeamUser", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("TeamId");
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamUsers");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CommentorId");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int?>("TicketId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentorId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("TicketComment");
                 });
 
             modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
@@ -153,6 +250,8 @@ namespace Fangorn.Migrations
 
                     b.Property<string>("UserId");
 
+                    b.Property<int?>("contactId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedId");
@@ -161,29 +260,9 @@ namespace Fangorn.Migrations
 
                     b.HasIndex("OpenUserId");
 
+                    b.HasIndex("contactId");
+
                     b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.TicketComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CommentorId");
-
-                    b.Property<string>("Content");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<int?>("TicketId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentorId");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("TicketComment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -293,11 +372,11 @@ namespace Fangorn.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Fangorn.Models.ClientViewModels.Contact", b =>
                 {
-                    b.HasOne("Fangorn.Models.TeamViewModels.Team")
-                        .WithMany("Members")
-                        .HasForeignKey("TeamId");
+                    b.HasOne("Fangorn.Models.ClientViewModels.Client", "client")
+                        .WithMany()
+                        .HasForeignKey("ClientID");
                 });
 
             modelBuilder.Entity("Fangorn.Models.ProjectViewModels.Project", b =>
@@ -307,30 +386,47 @@ namespace Fangorn.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+            modelBuilder.Entity("Fangorn.Models.TeamViewModels.TeamUser", b =>
                 {
-                    b.HasOne("Fangorn.Models.ApplicationUser", "AssignedTo")
-                        .WithMany()
-                        .HasForeignKey("AssignedId");
+                    b.HasOne("Fangorn.Models.TeamViewModels.Team", "Team")
+                        .WithMany("Members")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Fangorn.Models.ApplicationUser", "ClosedBY")
-                        .WithMany()
-                        .HasForeignKey("ClosedUserId");
-
-                    b.HasOne("Fangorn.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("OpenUserId");
+                    b.HasOne("Fangorn.Models.ApplicationUser", "User")
+                        .WithMany("teams")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.TicketComment", b =>
+            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Comment", b =>
                 {
                     b.HasOne("Fangorn.Models.ApplicationUser", "Commentor")
                         .WithMany()
                         .HasForeignKey("CommentorId");
 
                     b.HasOne("Fangorn.Models.TicketViewModels.Ticket", "ticket")
-                        .WithMany("Comments")
+                        .WithMany("comments")
                         .HasForeignKey("TicketId");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+                {
+                    b.HasOne("Fangorn.Models.ApplicationUser", "AssignedTo")
+                        .WithMany()
+                        .HasForeignKey("AssignedId");
+
+                    b.HasOne("Fangorn.Models.ApplicationUser", "ClosedBy")
+                        .WithMany()
+                        .HasForeignKey("ClosedUserId");
+
+                    b.HasOne("Fangorn.Models.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("OpenUserId");
+
+                    b.HasOne("Fangorn.Models.ClientViewModels.Contact", "contact")
+                        .WithMany()
+                        .HasForeignKey("contactId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

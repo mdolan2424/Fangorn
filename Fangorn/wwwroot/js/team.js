@@ -15,11 +15,8 @@ $(function () {
         moveUsers('#Members', '#Users');
     });
 
-    $('#leftall').on('click', function () {
-        moveUsers('#sbTwo', '#sbOne');
-    });
 
-    $('#rightall').on('click', function () {
-        moveUsers('#sbOne', '#sbTwo');
-    });
+
+
+    
 });

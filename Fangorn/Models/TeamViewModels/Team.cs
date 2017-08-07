@@ -7,13 +7,13 @@ namespace Fangorn.Models.TeamViewModels
 {
     public class Team
     {
-        public int Id { get; set; }
+        public String Id { get; set; }
 
         public String Name { get; set; }
 
         public String Description { get; set; }
 
-        public IEnumerable<ApplicationUser> Members { get; set; }
+        public IEnumerable<TeamUser> Members { get; set; }
 
 
 
