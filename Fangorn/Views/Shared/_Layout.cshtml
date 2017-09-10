@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     @Html.Raw(JavaScriptSnippet.FullScript)
+    
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -40,11 +41,16 @@
                     <li><a asp-area="" asp-controller="Teams" asp-action="Index">Teams</a>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
+                
             </div>
         </div>
     </nav>
+
+    <div>@await Html.PartialAsync("_dashboard")</div>
     <div class="container body-content">
+        
         @RenderBody()
+        
         <hr />
         <footer>
             <ul class="list-inline">
@@ -75,7 +81,8 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
+    @RenderSection("Styles", required: false)
     @RenderSection("Scripts", required: false)
+    
 </body>
 </html>

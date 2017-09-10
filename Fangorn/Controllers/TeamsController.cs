@@ -74,7 +74,8 @@ namespace Fangorn.Controllers
                 team.Name = createTeam.Name;
                 _context.Add(team);
 
-                _context.SaveChanges();
+                //recent
+                await _context.SaveChangesAsync();
 
                 foreach (var member in members )
                 {
@@ -90,29 +91,14 @@ namespace Fangorn.Controllers
                 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
-
-
-                /*
-                Team team = new Team();
-
-                team.Name = createTeam.Name;
-                team.Description = createTeam.Description;
                 
-                _context.Add(team);
-
-                
-
-                
-                
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");*/
             }
             return View();
         }
 
         
         // GET: Teams/Edit/5
-       /* public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -125,7 +111,7 @@ namespace Fangorn.Controllers
                 return NotFound();
             }
             return View(team);
-        }*/
+        }
 
         /*
         [HttpPost]

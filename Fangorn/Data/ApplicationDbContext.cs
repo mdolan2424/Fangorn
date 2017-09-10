@@ -10,6 +10,8 @@ using Fangorn.Models.ProjectViewModels;
 using Fangorn.Models.TeamViewModels;
 using Fangorn.Models.InventoryViewModels;
 using Fangorn.Models.HomeViewModels;
+using Fangorn.Models.ClientViewModels;
+using Fangorn.Models.LocationViewModels;
 namespace Fangorn.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -45,5 +47,11 @@ namespace Fangorn.Data
 
 
         public DbSet<Fangorn.Models.TicketViewModels.Comment> TicketComment { get; set; }
+
+
+        public DbSet<Fangorn.Models.ClientViewModels.Client> Client { get; set; }
+
+
+        public DbSet<Fangorn.Models.LocationViewModels.Address> Address { get; set; }
     }
 }

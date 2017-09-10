@@ -30,61 +30,49 @@ namespace Fangorn.Controllers
         public async Task<IActionResult> Index(string sortOrder)
         {
             //Creator is passed in as extra information to the view.
-            var tickets = await _context.Tickets.Include(creator => creator.Creator).ToListAsync();
+            var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).ToListAsync();
+            
+            //taken from teams controller
+            /*var team = await _context.Teams
+                .Include(t => t.Members).ThenInclude(m => m.User)
+                .SingleOrDefaultAsync(m => m.Id == id);*/
+
 
             return View(tickets);
         }
         
         
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateTicket()
         {
-            return View();
+            var techs = _context.Users.OrderBy(u=>u.Email).Select(x => x.Email);
+
+            var model = new CreateTicketViewModel();
+            model.TeamMembers = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(techs);
+            return View(model);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,DueDate")] Ticket t)
+        public async Task<IActionResult> CreateTicket(CreateTicketViewModel ct)
         {
+            Ticket t = new Ticket();
+            t.Title = ct.Title;
+            t.Description = ct.Description;
+            t.AssignedTo = await _userManager.FindByEmailAsync(ct.AssignedTo);
+            var user = await _userManager.GetUserAsync(User);
 
-           try
-            {
-                
-                    if (ModelState.IsValid)
-                    {
+            t.Creator = user;
 
-                        Ticket ticket = t;
-                        
-                        var user = await _userManager.GetUserAsync(User);
-
-                        ticket.CreateDate = DateTime.Now;
-                        ticket.Creator = user;
-                        
-                        _context.Add(ticket);
-
-                        await _context.SaveChangesAsync();
-                        
-                        return RedirectToAction("Index");
-
-                    }
-                
-                
-
-                
-                
-            }
+            _context.Add(t);
 
 
-            catch
-            {
-                return View();
-            }
-            //post to database
+            await _context.SaveChangesAsync();
 
-            return View();
+                    return RedirectToAction("Index");
+
+              
         }
 
-        
         [HttpGet]
         public ActionResult Details(int? ID)
         {

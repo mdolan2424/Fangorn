@@ -7,6 +7,8 @@ using Fangorn.Models.HomeViewModels;
 using Fangorn.Data;
 using Microsoft.EntityFrameworkCore;
 using Fangorn.Services;
+using Microsoft.AspNetCore.Identity;
+using Fangorn.Models;
 
 namespace Fangorn.Controllers
 {
@@ -15,14 +17,32 @@ namespace Fangorn.Controllers
        
         private readonly ApplicationDbContext _context;
         private AuthMessageSender _mail;
+        private SignInManager<ApplicationUser> SignInManager;
+        private UserManager<ApplicationUser> _userManager;
+
         
-        public HomeController(ApplicationDbContext context)
+        
+        public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                
+
+            }
+
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
             return View();
         }
         

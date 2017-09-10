@@ -1,5 +1,8 @@
 ﻿// Write your Javascript code.
 
+
+
+
 $(document).ready(function () {
 
     //destroy modal and data to prevent caching.
@@ -13,6 +16,7 @@ $(document).ready(function () {
         sideBySide: true
         
     });
+
 
 
 

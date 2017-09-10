@@ -13,10 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\css\card.cs" />
-    <Content Include="wwwroot\css\cards.css" />
-    <Content Include="wwwroot\js\team.js" />
-    <Content Include="wwwroot\js\ticket.js" />
+    <Content Include="wwwroot\.vs\ProjectSettings.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Bootstrap.Datepicker" Version="1.6.4" />
@@ -49,13 +46,15 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Models\FeedViewModels\" />
-    <Folder Include="Models\LocationViewModels\" />
     <Folder Include="Models\CheckoutViewModels\" />
     <Folder Include="Models\TagViewModels\" />
     <Folder Include="Models\VaultViewModels\" />
     <Folder Include="Models\WikiViewModels\" />
-    <Folder Include="Views\Clients\" />
+    <Folder Include="Views\Location\" />
     <Folder Include="Views\Ticket\Comment\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\.vs\slnx.sqlite" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: #F5F5F5 !important;
+    background-color: #FFFFFF !important;
     color: black;
 }
 .navbar-default {
@@ -15,7 +15,7 @@
 
 /*background color of navbar*/
 .navbar-inverse {
-    background-color: #890404 !important;
+    background-color: #089DD8 !important;
 }
 /*link colors*/
 .nav.navbar-nav li a {

@@ -4,25 +4,30 @@
     DateTime.Now.ToString("dd-MM-yyyy");
 }
 
+@section Styles {
+    <link href="~/css/ticket.css" rel="stylesheet" type="text/css"/>
+}
+
+<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+
 
 <div id="dataContainer">
     <h2>Tickets</h2>
 
-    <div>
+    <div class="ticket-grid">
 
 
-        <form asp-action="Create" method="get">
+        <form asp-action="CreateTicket" method="get">
             <button type="submit">New Ticket</button>
         </form>
-        <table id="tableTickets" class="table table-hover table-condensed">
+        <table id="tableTickets" class="table table-hover table-condensed table-bordered">
             <thead>
                 <tr>
-                    <th>
+                    <th class="col-md-2">
+                        
                         @Html.DisplayNameFor(model => model.Title)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
+                    
                     <th>
                         @Html.DisplayNameFor(model => model.CreateDate)
                     </th>
@@ -35,7 +40,12 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Creator.UserName)
                     </th>
-                    <th></th>
+                    <th>
+                        Watch
+                    </th>
+                    <th>
+                        Options
+                    </th>
                 </tr>
             </thead>
 
@@ -44,11 +54,10 @@
              {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Title)
+                        
+                        <a asp-action="Edit" asp-route-id="@item.Id">@item.Title</a>
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
+                
                     <td>
                         @Html.DisplayFor(modelItem => item.CreateDate)
                     </td>
@@ -59,7 +68,10 @@
                         @Html.DisplayFor(modelItem => item.CloseDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Creator.UserName)
+                        @Html.DisplayFor(modelItem => item.AssignedTo.Email)
+                    </td>
+                    <td>
+
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -88,4 +100,4 @@
 </div>
 <!--Create an pagination property on particular tickets-->
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/js/ticket.js"></script>
+
