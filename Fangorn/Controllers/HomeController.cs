@@ -28,6 +28,7 @@ namespace Fangorn.Controllers
             _context = context;
         }
 
+        //require a login to access the website.
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -68,6 +69,7 @@ namespace Fangorn.Controllers
         }
 
 
+        //requires email integration
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Contact([Bind("Name,Email,Subject,Message")] ContactModel c)

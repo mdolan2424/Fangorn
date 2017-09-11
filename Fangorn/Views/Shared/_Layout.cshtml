@@ -45,11 +45,37 @@
             </div>
         </div>
     </nav>
+    <div class="container-fluid">
+        <div class="row row-offcanvas row-offcanvas-left">
 
-    <div>@await Html.PartialAsync("_dashboard")</div>
+            <br>@await Html.PartialAsync("_dashboard");
+            <div class="col-xs-12 col-sm-9">
+                
+                <div class="jumbotron">
+                    
+                    <a href="#" class="visible-xs" data-toggle="offcanvas"><i class="fa fa-lg fa-reorder"></i></a>
+                   @RenderBody()
+                </div>
+                <div class="row">
+                    
+                    
+                </div>
+                
+            </div>
+           
+
+        </div>
+        
+
+        <hr>
+
+        
+
+    </div>
+    
     <div class="container body-content">
         
-        @RenderBody()
+      
         
         <hr />
         <footer>

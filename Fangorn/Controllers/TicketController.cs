@@ -178,9 +178,22 @@ namespace Fangorn.Controllers
         }
 
         
+        [HttpGet]
+        public ActionResult Delete(int? ID)
+        {
+            if (ID == null)
+            {
+                return NotFound();
+            }
+
+            var ticket = _context.Tickets.Find(ID);
+
+            return View(ticket);
+        }
 
         [HttpPost]
-        public ActionResult Delete(int? ID)
+        [ActionName("Delete")]
+        public ActionResult DeleteTicket(int? ID)
         {
             if (ID ==null)
             {
@@ -191,9 +204,25 @@ namespace Fangorn.Controllers
 
             _context.Remove(ticket);
 
-            return View();
+            _context.SaveChanges();
+            return RedirectToAction("index");
         }
+        
+        [HttpPost]
+        [ActionName("Index")]
+        public async Task<IActionResult> IndexSearch(string search)
+        {
+            
 
+            if (!String.IsNullOrEmpty(search))
+            {
+                var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.Description.Contains(search)).Where(t=>t.Description.Contains(search)).ToListAsync();
+                return View(tickets);
+            }
+
+            return RedirectToAction("Index");
+            
+        }
   
     }   
 }
