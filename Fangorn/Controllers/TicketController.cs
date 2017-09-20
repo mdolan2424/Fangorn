@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Identity;
 using Fangorn.Models.TicketViewModels;
 using Microsoft.EntityFrameworkCore;
 using Fangorn.Data;
-   
+using Microsoft.AspNetCore.Authorization;
+using Fangorn.Models.TicketViewModels.CommentViewModels;
 
 namespace Fangorn.Controllers
 {
-    
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -74,16 +75,18 @@ namespace Fangorn.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int? ID)
+        public ActionResult TicketCommentsDetailsView(int? ID)
         {
             if (ID==null)
             {
                 return NotFound();
             }
             var ticket = _context.Tickets.Find(ID);
+            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel();
+            ticketComments.Ticket = ticket;
 
-            return View(ticket);
-            
+            return View(ticketComments);
+
         }
 
         [HttpGet]
@@ -94,33 +97,30 @@ namespace Fangorn.Controllers
                 return NotFound();
             }
             var ticket = _context.Tickets.Find(ID);
+            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel();
+            ticketComments.Ticket = ticket;
+            ticketComments.Ticket.Title = "Pancakes";
             
-            return View(ticket);
+            return View(ticketComments);
 
         }
 
         [HttpPost]
-        public IActionResult CommentCreate()
+        public async Task<IActionResult> CommentCreate(int? ID, [Bind("Content")] Comment c)
         {
-           try
-            {
-                if (ModelState.IsValid)
-                {
-                    var comment = new Comment();
+           
+                    var ticket = _context.Tickets.Find(ID);
+                    var user = await _userManager.GetUserAsync(User);
+                    c.Ticket = ticket;
+                    c.Commentor = user;
+                    c.Date = DateTime.Now;
+   
+                    _context.Add(c);
+
+                    _context.SaveChanges();
 
                     return RedirectToAction("Index");
-                }
-
-                else
-                {
-                    return View();
-                }
-            }
-
-            catch
-            {
-                return View();
-            }
+               
             
 
 
