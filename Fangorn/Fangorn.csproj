@@ -51,7 +51,6 @@
     <Folder Include="Models\VaultViewModels\" />
     <Folder Include="Models\WikiViewModels\" />
     <Folder Include="Views\Location\" />
-    <Folder Include="Views\Ticket\Comment\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\.vs\slnx.sqlite" />

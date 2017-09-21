@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Fangorn.Data;
 using Fangorn.Models;
 using Fangorn.Services;
-
+using Microsoft.AspNetCore.Http;
 
 namespace Fangorn
 {
@@ -49,6 +49,11 @@ namespace Fangorn
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            //Only authorized users are allowed to view pages
+            services.Configure<CookieAuthenticationOptions>(options =>
+            {
+                options.LoginPath = new PathString("Account/Login");
+            });
             services.AddMvc();
 
             // Add application services.

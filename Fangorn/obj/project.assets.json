@@ -11938,11 +11938,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Matt\\Source\\Repos\\Fangorn\\Fangorn\\Fangorn.csproj",
+      "projectUniqueName": "C:\\Users\\Matt\\Source\\Repos\\Backups\\Fangorn\\Fangorn\\Fangorn.csproj",
       "projectName": "Fangorn",
-      "projectPath": "C:\\Users\\Matt\\Source\\Repos\\Fangorn\\Fangorn\\Fangorn.csproj",
+      "projectPath": "C:\\Users\\Matt\\Source\\Repos\\Backups\\Fangorn\\Fangorn\\Fangorn.csproj",
       "packagesPath": "C:\\Users\\Matt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Matt\\Source\\Repos\\Fangorn\\Fangorn\\obj\\",
+      "outputPath": "C:\\Users\\Matt\\Source\\Repos\\Backups\\Fangorn\\Fangorn\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Matt\\AppData\\Roaming\\NuGet\\NuGet.Config",
