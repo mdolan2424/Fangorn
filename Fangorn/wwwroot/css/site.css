@@ -26,7 +26,7 @@
 }
 
 .nav.navbar-nav a:hover {
-    color: black !important;
+    color: grey;
 }   
 
 
@@ -142,16 +142,4 @@ body.modal-open div.modal-backdrop {
     
     
     text-align: right;
-}
-
-.jumbotron {
-    background-color: #dcdcdc;
-}
-
-.body-site {
-    background-color: #1e1e1e !important;
-}
-
-.footer {
-    color: #F5F5F5;
 }

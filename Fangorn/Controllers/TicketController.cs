@@ -9,12 +9,11 @@ using Microsoft.AspNetCore.Identity;
 using Fangorn.Models.TicketViewModels;
 using Microsoft.EntityFrameworkCore;
 using Fangorn.Data;
-using Microsoft.AspNetCore.Authorization;
-using Fangorn.Models.TicketViewModels.CommentViewModels;
+   
 
 namespace Fangorn.Controllers
 {
-    [Authorize]
+    
     public class TicketController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -75,18 +74,16 @@ namespace Fangorn.Controllers
         }
 
         [HttpGet]
-        public ActionResult TicketCommentsDetailsView(int? ID)
+        public ActionResult Details(int? ID)
         {
             if (ID==null)
             {
                 return NotFound();
             }
             var ticket = _context.Tickets.Find(ID);
-            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel();
-            ticketComments.Ticket = ticket;
 
-            return View(ticketComments);
-
+            return View(ticket);
+            
         }
 
         [HttpGet]
@@ -97,30 +94,33 @@ namespace Fangorn.Controllers
                 return NotFound();
             }
             var ticket = _context.Tickets.Find(ID);
-            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel();
-            ticketComments.Ticket = ticket;
-            ticketComments.Ticket.Title = "Pancakes";
             
-            return View(ticketComments);
+            return View(ticket);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> CommentCreate(int? ID, [Bind("Content")] Comment c)
+        public IActionResult CommentCreate()
         {
-           
-                    var ticket = _context.Tickets.Find(ID);
-                    var user = await _userManager.GetUserAsync(User);
-                    c.Ticket = ticket;
-                    c.Commentor = user;
-                    c.Date = DateTime.Now;
-   
-                    _context.Add(c);
-
-                    _context.SaveChanges();
+           try
+            {
+                if (ModelState.IsValid)
+                {
+                    var comment = new Comment();
 
                     return RedirectToAction("Index");
-               
+                }
+
+                else
+                {
+                    return View();
+                }
+            }
+
+            catch
+            {
+                return View();
+            }
             
 
 

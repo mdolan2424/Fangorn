@@ -5,8 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Fangorn.Models.ClientViewModels;
-using Fangorn.Models.TicketViewModels.CommentViewModels;
-
 namespace Fangorn.Models.TicketViewModels
 {
     public class Ticket
@@ -47,7 +45,7 @@ namespace Fangorn.Models.TicketViewModels
         [ForeignKey("ClosedUserId")]
         public ApplicationUser ClosedBy { get; set; }
 
-        public Contact Contact { get; set; }
+        public Contact contact { get; set; }
 
         public IEnumerable<Comment> comments { get; }
 

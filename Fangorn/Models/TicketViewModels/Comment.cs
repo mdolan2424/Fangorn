@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Fangorn.Models.TicketViewModels.CommentViewModels
+namespace Fangorn.Models.TicketViewModels
 {
     public class Comment
     {
         public int Id { get; set; }
         [ForeignKey("TicketId")]
-        public Ticket Ticket { get; set; }
+        public Ticket ticket { get; set; }
         public ApplicationUser Commentor { get; set; }
         public DateTime Date { get; set; }
         public String Content { get; set; }
-        
+
+
+
     }
 }

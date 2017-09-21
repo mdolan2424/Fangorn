@@ -6,6 +6,7 @@
         -moz-transition: all 0.25s ease-out;
         transition: all 0.25s ease-out;
         
+        background-color: #06d63d;
     }
 
     .row-offcanvas-left .sidebar-offcanvas {
@@ -14,7 +15,6 @@
 
     .row-offcanvas-left.active {
         left: 20%;
-       
     }
 
     .sidebar-offcanvas {
@@ -22,13 +22,12 @@
         top: 0;
         width: 20%;
         margin-left: 12px;
-       
+        
+        background-color: #06d63d;
     }
 
     .sidebar-design {
-        
-        color: #ffffff;
-        background-color: #ff0000 !important;
+        background-color: #06d63d;
     }
 }
 
@@ -36,19 +35,7 @@
     padding: 15px;
     margin-top: 10px;
     
+    background-color: #06d63d;
 }
 
-#sidebar a {
-    color: #ffffff;
-    background-color: #02b200 !important;
-    
-}
 
-    #sidebar a {
-        color: #ffffff;
-        background-color: #02b200 !important;
-    }
-
-.sidebar-nav a:hover{
-    color: #000000 !important;
-}

@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 using Fangorn.Models.ClientViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-
 namespace Fangorn.Models.TicketViewModels
 {
-    
     public class CreateTicketViewModel
     {
         
