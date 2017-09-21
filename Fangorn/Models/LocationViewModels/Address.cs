@@ -11,11 +11,9 @@ namespace Fangorn.Models.LocationViewModels
         public int Id { get; set; }
 
         [Required]
-        [Display(Name ="Address Line 1")]
-        public String Line1 { get; set; }
+        public String Street { get; set; }
         
-        [Display(Name = "Address Line 2")]
-        public String Line2 { get; set; }
+        public String Apartment { get; set; }
         
         [Required]
         public String City { get; set; }
@@ -31,6 +29,8 @@ namespace Fangorn.Models.LocationViewModels
         [Required]
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip code.")]
         public String Zip { get; set; }
-        
+
+
+
     }
 }

@@ -8,6 +8,7 @@ namespace Fangorn.Models.ClientViewModels
 {
     public class Client
     {
+
         public int Id { get; set; }
 
         [Required]
@@ -25,7 +26,11 @@ namespace Fangorn.Models.ClientViewModels
         public String Phone { get; set; }   
 
         [Required]
-        public Address Address { get; set; }
-        public Company Company { get; set; }
+        public Address Address { get; set; }  
+        
+
+        
+
+
     }
 }
