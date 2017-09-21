@@ -48,18 +48,22 @@ namespace Fangorn.Controllers
         {
             var techs = _context.Users.OrderBy(u=>u.Email).Select(x => x.Email);
 
-            var model = new CreateTicketViewModel();
-            model.TeamMembers = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(techs);
+            var model = new CreateTicketViewModel
+            {
+                TeamMembers = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(techs)
+            };
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateTicket(CreateTicketViewModel ct)
         {
-            Ticket t = new Ticket();
-            t.Title = ct.Title;
-            t.Description = ct.Description;
-            t.AssignedTo = await _userManager.FindByEmailAsync(ct.AssignedTo);
+            Ticket t = new Ticket
+            {
+                Title = ct.Title,
+                Description = ct.Description,
+                AssignedTo = await _userManager.FindByEmailAsync(ct.AssignedTo)
+            };
             var user = await _userManager.GetUserAsync(User);
 
             t.Creator = user;
@@ -81,10 +85,14 @@ namespace Fangorn.Controllers
             {
                 return NotFound();
             }
-            var ticket = _context.Tickets.Find(ID);
-            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel();
-            ticketComments.Ticket = ticket;
 
+            var ticket = _context.Tickets.Find(ID);
+            var comments = _context.Comment.Where(c => c.Ticket.Id == ID).Include(c => c.Commentor);
+            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel
+            {
+                Ticket = ticket,
+                Comments = comments.ToList()
+            };
             return View(ticketComments);
 
         }
@@ -97,34 +105,38 @@ namespace Fangorn.Controllers
                 return NotFound();
             }
             var ticket = _context.Tickets.Find(ID);
-            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel();
-            ticketComments.Ticket = ticket;
-            ticketComments.Ticket.Title = "Pancakes";
-            
+            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel
+            {
+                Ticket = ticket
+            };
+
+
             return View(ticketComments);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> CommentCreate(int? ID, [Bind("Content")] Comment c)
+        public async Task<IActionResult> createComment (TicketCommentsViewModel c, int id)
         {
-           
-                    var ticket = _context.Tickets.Find(ID);
-                    var user = await _userManager.GetUserAsync(User);
-                    c.Ticket = ticket;
-                    c.Commentor = user;
-                    c.Date = DateTime.Now;
-   
-                    _context.Add(c);
+                
+            var user = await _userManager.GetUserAsync(User);
+            var ticket = _context.Tickets.Find(id);
 
-                    _context.SaveChanges();
+            Comment Comment = new Comment
+            {
+                Commentor = user,
+                Date = DateTime.Now,
+                Content = c.Comment.Content,
+                Ticket = ticket
+            };
 
-                    return RedirectToAction("Index");
+            _context.Add(Comment);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
                
-            
-
-
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(int? ID)
         {

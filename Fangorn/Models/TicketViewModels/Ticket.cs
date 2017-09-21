@@ -48,9 +48,7 @@ namespace Fangorn.Models.TicketViewModels
         public ApplicationUser ClosedBy { get; set; }
 
         public Contact Contact { get; set; }
-
-        public IEnumerable<Comment> comments { get; }
-
+        
         
 
     }

@@ -2,63 +2,62 @@
 
 <h2>Ticket</h2>
 
-<div>
 
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.CreateDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.CreateDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.DueDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.DueDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.CloseDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.CloseDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.UserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.UserId)
-        </dd>
-    </dl>
-</div>
 
 <br />
-<form asp-action="CommentCreate">
-
+<form asp-controller="Ticket" asp-action="createComment" asp-route-id="@Model.Ticket.Id">
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.CreateDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.CreateDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.DueDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.DueDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.CloseDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.CloseDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.UserId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.UserId)
+            </dd>
+        </dl>
+        
+    </div>
     <div class="form-horizontal">
         <h4>New Comment</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+        
         <div class="form-group">
-
             <div class="col-md-10">
-                Comment<textarea asp-for="Comment" rows="10" cols="10" class="form-control"></textarea>
+                Comment<textarea asp-for="Comment.Content" rows="10" cols="10" class="form-control"></textarea>
 
-                <span asp-validation-for="Comment" class="text-danger"></span>
+                <span asp-validation-for="Comment.Content" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -69,6 +68,62 @@
     </div>
 </form>
 
+
+@if (Model.Comments == null)
+{
+    <span>No Comments</span>
+}
+
+else
+
+{
+    <table class="table table-hover table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th class="col-md-2">
+
+                    @Html.DisplayNameFor(model => model.Comment.Commentor)
+                   
+                   
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment.Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment.Date)
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Comments)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Commentor.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                </tr>
+            }
+
+
+
+
+        </tbody>
+    </table>
+
+
+}
+
+
+
+
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Tickets</a>
 </div>

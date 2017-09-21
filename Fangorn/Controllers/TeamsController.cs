@@ -53,8 +53,10 @@ namespace Fangorn.Controllers
         {
             
             var users = _context.Users.ToList();
-            CreateTeamViewModel model = new CreateTeamViewModel();
-            model.Users = new MultiSelectList(users);
+            CreateTeamViewModel model = new CreateTeamViewModel
+            {
+                Users = new MultiSelectList(users)
+            };
 
             return View(model);
         }
@@ -68,10 +70,12 @@ namespace Fangorn.Controllers
             if (ModelState.IsValid)
             {
                 //Many-to-Many relationship
-                Team team = new Team();
-                team.Members = new List<TeamUser>();
-                team.Description = createTeam.Description;
-                team.Name = createTeam.Name;
+                Team team = new Team
+                {
+                    Members = new List<TeamUser>(),
+                    Description = createTeam.Description,
+                    Name = createTeam.Name
+                };
                 _context.Add(team);
 
                 //recent
