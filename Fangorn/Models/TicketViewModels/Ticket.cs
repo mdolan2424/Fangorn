@@ -30,6 +30,8 @@ namespace Fangorn.Models.TicketViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd H:mm}", ApplyFormatInEditMode = true)]
         public DateTime DueDate { get; set; }
 
+        public bool IsClosed { get; set; }
+
         [Display(Name = "Closed Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd H:mm}", ApplyFormatInEditMode = true)]
         public DateTime CloseDate { get; set; }

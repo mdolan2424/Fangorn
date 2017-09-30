@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Fangorn.Models.LocationViewModels;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Fangorn.Models.ClientViewModels
 {
     public class Client
@@ -14,9 +16,7 @@ namespace Fangorn.Models.ClientViewModels
         [Required]
         [Display(Name="Client Name")]
         public String Name { get; set; }
-        
-        public String MainContact { get; set; }
-
+       
         [DataType(DataType.EmailAddress)]
         public String Email { get; set; }
 
@@ -28,7 +28,8 @@ namespace Fangorn.Models.ClientViewModels
         [Required]
         public Address Address { get; set; }  
         
-
+        [Required]
+        public String MainContact { get; set; }
         
 
 

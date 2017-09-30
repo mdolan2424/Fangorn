@@ -47,6 +47,7 @@
     <Folder Include="Data\Migrations\" />
     <Folder Include="Models\FeedViewModels\" />
     <Folder Include="Models\CheckoutViewModels\" />
+    <Folder Include="Models\BillingViewModels\" />
     <Folder Include="Models\TagViewModels\" />
     <Folder Include="Models\VaultViewModels\" />
     <Folder Include="Models\WikiViewModels\" />

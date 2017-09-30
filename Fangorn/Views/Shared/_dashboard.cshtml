@@ -1,34 +1,16 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<head>
-    <link href="~/css/sidebar.css" rel="stylesheet" type="text/css" />
-
-</head>
-
+@section Styles {
+    link href="~/css/sidebar.css" rel="stylesheet" type="text/css" />
+}
 
 
 @if (SignInManager.IsSignedIn(User))
 {
 
-    <div class="col-xs-2 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
-        <div class="sidebar-nav">
-                <ul class="nav">
-                    <li class="active"><a href="#">Fangorn</a></li>
-                    <li><a href="#">My Profile</a></li>
-                    <li><a href="#">My Teams</a></li>
-                    <li class="nav-divider"></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-divider"></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
-            
-        </div>
 
-    </div>
+
 
 }
 
@@ -36,4 +18,6 @@ else
 {
 
 }
+
+
 

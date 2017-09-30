@@ -14,16 +14,16 @@ namespace Fangorn.Models.ClientViewModels
         public int Id {get;set;}
 
         [Required]
-        public String firstName { get; set; }
+        public String FirstName { get; set; }
 
         [Required]
-        public String lastName { get; set; }
+        public String LastName { get; set; }
         
         [Phone]
         public String Phone { get; set; }
 
         [ForeignKey("ClientID")]
-        public Client client { get; set; }
+        public Client Client { get; set; }
 
     }
 }

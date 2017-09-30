@@ -30,23 +30,22 @@ namespace Fangorn.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index(string sortOrder)
         {
-            //Creator is passed in as extra information to the view.
-            var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).ToListAsync();
-            
-            //taken from teams controller
-            /*var team = await _context.Teams
-                .Include(t => t.Members).ThenInclude(m => m.User)
-                .SingleOrDefaultAsync(m => m.Id == id);*/
 
+            var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).ToListAsync();
 
             return View(tickets);
         }
-        
-        
+
+        private void Filter()
+        {
+
+        }
+
+        #region Create
         [HttpGet]
         public IActionResult CreateTicket()
         {
-            var techs = _context.Users.OrderBy(u=>u.Email).Select(x => x.Email);
+            var techs = _context.Users.OrderBy(u => u.Email).Select(x => x.Email);
 
             var model = new CreateTicketViewModel
             {
@@ -62,7 +61,9 @@ namespace Fangorn.Controllers
             {
                 Title = ct.Title,
                 Description = ct.Description,
-                AssignedTo = await _userManager.FindByEmailAsync(ct.AssignedTo)
+                AssignedTo = await _userManager.FindByEmailAsync(ct.AssignedTo),
+                CreateDate = DateTime.Now,
+                CloseDate = ct.DueDate
             };
             var user = await _userManager.GetUserAsync(User);
 
@@ -70,18 +71,17 @@ namespace Fangorn.Controllers
 
             _context.Add(t);
 
-
             await _context.SaveChangesAsync();
 
-                    return RedirectToAction("Index");
-
-              
+            return RedirectToAction("Index");
         }
+        #endregion Create
 
+        #region Details
         [HttpGet]
         public ActionResult TicketCommentsDetailsView(int? ID)
         {
-            if (ID==null)
+            if (ID == null)
             {
                 return NotFound();
             }
@@ -96,58 +96,19 @@ namespace Fangorn.Controllers
             return View(ticketComments);
 
         }
-
-        [HttpGet]
-        public IActionResult CommentCreate(int? ID)
-        {
-            if (ID == null)
-            {
-                return NotFound();
-            }
-            var ticket = _context.Tickets.Find(ID);
-            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel
-            {
-                Ticket = ticket
-            };
-
-
-            return View(ticketComments);
-
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> createComment (TicketCommentsViewModel c, int id)
-        {
-                
-            var user = await _userManager.GetUserAsync(User);
-            var ticket = _context.Tickets.Find(id);
-
-            Comment Comment = new Comment
-            {
-                Commentor = user,
-                Date = DateTime.Now,
-                Content = c.Comment.Content,
-                Ticket = ticket
-            };
-
-            _context.Add(Comment);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
-               
-        }
+        #endregion Details
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? ID)
         {
 
-            if (ID==null)
+            if (ID == null)
             {
                 return NotFound();
             }
 
             var ticket = await _context.Tickets.SingleOrDefaultAsync(t => t.Id == ID);
-            
+
             if (ticket == null)
             {
                 return NotFound();
@@ -161,7 +122,7 @@ namespace Fangorn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int ID, [Bind("Id,Title,Description,CreateDate,DueDate,CloseDate,UserId")] Ticket ticket)
         {
-            if (ID!= ticket.Id)
+            if (ID != ticket.Id)
             {
 
                 return NotFound();
@@ -176,9 +137,9 @@ namespace Fangorn.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    
-                        throw;
-                    
+
+                    throw;
+
                 }
 
                 return RedirectToAction("Index");
@@ -186,9 +147,20 @@ namespace Fangorn.Controllers
 
             return View(ticket);
 
-            
+
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Close(Ticket ticket)
+        {
+            ticket.IsClosed = true;
+
+            await _context.SaveChangesAsync();
+
+
+            return View();
+        }
         
         [HttpGet]
         public ActionResult Delete(int? ID)
@@ -235,6 +207,48 @@ namespace Fangorn.Controllers
             return RedirectToAction("Index");
             
         }
-  
-    }   
+
+        #region Comments
+        [HttpGet]
+        public IActionResult CommentCreate(int? ID)
+        {
+            if (ID == null)
+            {
+                return NotFound();
+            }
+            var ticket = _context.Tickets.Find(ID);
+            TicketCommentsViewModel ticketComments = new TicketCommentsViewModel
+            {
+                Ticket = ticket
+            };
+
+
+            return View(ticketComments);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(TicketCommentsViewModel c, int id)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            var ticket = _context.Tickets.Find(id);
+
+            Comment Comment = new Comment
+            {
+                Commentor = user,
+                Date = DateTime.Now,
+                Content = c.Comment.Content,
+                Ticket = ticket
+            };
+
+            _context.Add(Comment);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }
+        #endregion Comments
+
+    }
 }

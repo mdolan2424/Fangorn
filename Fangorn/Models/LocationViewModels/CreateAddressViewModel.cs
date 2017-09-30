@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Fangorn.Models.LocationViewModels
 {
-    public class Address
+    public class CreateAddressViewModel
     {
-        public int Id { get; set; }
-
         [Required]
         public String Street { get; set; }
-        
-        public String Apartment { get; set; }
-        
+
+        public String Line2 { get; set; }
+
         [Required]
         public String City { get; set; }
 
@@ -29,6 +27,6 @@ namespace Fangorn.Models.LocationViewModels
         [Required]
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip code.")]
         public String Zip { get; set; }
-        
+
     }
 }
