@@ -7,24 +7,20 @@ namespace Fangorn.Views
 {
     public class HomeMenu : IMenu
     {
-        public List<String> Actions;
+        public List<String> Actions = new List<String>
+        {
+            
+        };
         public string Controller;
 
         public List<string> getActions()
         {
-            Actions = new List<String>();
-            this.Controller = "Ticket";
-
-            this.Actions.Add("Index");
-            this.Actions.Add("About Us");
-            this.Actions.Add("Contact Us");
-
-            return Actions;
+            return this.Actions;
         }
 
         public string getController()
         {
-            return "Home";
+            return this.Controller;
         }
     }
 }

@@ -9,12 +9,17 @@ namespace Fangorn.Views
     {
         public IMenu getMenu(string menuType)
         {
+            if (menuType == "Default")
+            {
+                return new DefaultMenu();
+            }
+
             if (menuType == "Ticket")
             {
                 return new TicketMenu();
             }
 
-            else if (menuType == null)
+            else if (menuType == "Home")
             {
                 return new HomeMenu();
             }
