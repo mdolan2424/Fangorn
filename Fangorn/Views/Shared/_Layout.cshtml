@@ -53,10 +53,32 @@
 
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            
+            @{
+                try
+                {
+
+                    var controllerName = ViewContext.RouteData.Values["controller"].ToString();
+
+                    Fangorn.Views.MenuFactory factory = new Fangorn.Views.MenuFactory();
+                    Fangorn.Views.IMenu menu = factory.getMenu(controllerName);
+
+                    foreach (String menuItem in menu.getActions())
+                    {
+                        <a asp-area="" asp-controller=@menu.getController() asp-action=@menuItem>@menuItem</a>
+                    }
+
+                }
+
+                catch
+                {
+
+
+                }
+
+
+
+            }
         </div>
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
