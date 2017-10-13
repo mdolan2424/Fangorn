@@ -28,17 +28,51 @@ namespace Fangorn.Controllers
 
 
         // GET: /<controller>/
-        public async Task<IActionResult> Index(string sortOrder)
+        
+        public IActionResult Index(string filter)
         {
-
-            var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).ToListAsync();
+            
+            var tickets = Filter(filter);
 
             return View(tickets);
         }
 
-        private void Filter()
+        public IActionResult Closed()
         {
+            return RedirectToAction("Index", "Ticket", new { filter = "Closed" });
+        }
 
+        public IActionResult Open()
+        {
+            return RedirectToAction("Index", "Ticket", new { filter = "Open" });
+        }
+
+        public IActionResult Assigned()
+        {
+            return RedirectToAction("Index", "Ticket", new { filter = "Assigned" });
+        }
+
+
+        public IQueryable Filter(string filter)
+        {
+            //default query
+            IQueryable<Ticket> query = _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.IsClosed == false);
+            
+            if (filter  == "Closed")
+            {
+                query = _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.IsClosed == true);
+            }
+            
+            else if (filter == "Assigned")
+            {
+                var user = _userManager.GetUserAsync(User);
+
+                query = _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.Id == user.Id);
+                
+            }
+
+            
+            return query;
         }
 
         #region Create
@@ -150,18 +184,29 @@ namespace Fangorn.Controllers
 
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Close(Ticket ticket)
+        
+        
+        public async Task<IActionResult> Close(int? ID)
         {
+            if (ID == null)
+            {
+                return NotFound();
+            }
+
+            var ticket = _context.Tickets.Find(ID);
+            var user = await _userManager.GetUserAsync(User);
+
             ticket.IsClosed = true;
+            ticket.CloseDate = DateTime.Now;
+            ticket.ClosedBy = user;
+
+            _context.Update(ticket);
 
             await _context.SaveChangesAsync();
 
-
-            return View();
+            return RedirectToAction("Index");
         }
-        
+
         [HttpGet]
         public ActionResult Delete(int? ID)
         {

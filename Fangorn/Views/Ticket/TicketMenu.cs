@@ -13,7 +13,7 @@ namespace Fangorn.Views
             "Open",
             "Assigned",
             "Closed",
-            "Archived", 
+            "Archived"
         };
 
         public string Controller;
