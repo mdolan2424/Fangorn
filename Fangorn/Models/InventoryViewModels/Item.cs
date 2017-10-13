@@ -10,22 +10,9 @@ namespace Fangorn.Models.InventoryViewModels
     /// </summary>
     public class Item
     {
-
         public int Id { get; set; }
-        
-        public String Name { get; set; }
-
-        public String Manufacturer { get; set; }
-
-        public String Type { get; set; }
-
-        public String Code { get; set; }
-
-        public Decimal? Price { get; set; }
-
-        public Decimal? Cost { get; set; }
-        
-
-
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Decimal Cost { get; set; }
     }
 }

@@ -73,10 +73,10 @@ namespace Fangorn.Migrations
 
                     b.Property<int>("AddressId");
 
-                    b.Property<string>("Email");
-
-                    b.Property<string>("MainContact")
+                    b.Property<int?>("ContactId")
                         .IsRequired();
+
+                    b.Property<string>("Email");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -86,6 +86,8 @@ namespace Fangorn.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("ContactId");
 
                     b.ToTable("Client");
                 });
@@ -97,13 +99,13 @@ namespace Fangorn.Migrations
 
                     b.Property<int?>("ClientID");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
                     b.Property<string>("Phone");
-
-                    b.Property<string>("firstName")
-                        .IsRequired();
-
-                    b.Property<string>("lastName")
-                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -142,17 +144,11 @@ namespace Fangorn.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Code");
+                    b.Property<decimal>("Cost");
 
-                    b.Property<decimal?>("Cost");
-
-                    b.Property<string>("Manufacturer");
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name");
-
-                    b.Property<decimal?>("Price");
-
-                    b.Property<string>("Type");
 
                     b.HasKey("Id");
 
@@ -298,6 +294,30 @@ namespace Fangorn.Migrations
                     b.ToTable("Tickets");
                 });
 
+            modelBuilder.Entity("Fangorn.Models.TrackerViewModels.TimeLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ClientId");
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<DateTime>("LoggedMinutes");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TimeLog");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -411,11 +431,16 @@ namespace Fangorn.Migrations
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fangorn.Models.ClientViewModels.Contact", "MainContact")
+                        .WithMany()
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Fangorn.Models.ClientViewModels.Contact", b =>
                 {
-                    b.HasOne("Fangorn.Models.ClientViewModels.Client", "client")
+                    b.HasOne("Fangorn.Models.ClientViewModels.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientID");
                 });
@@ -468,6 +493,17 @@ namespace Fangorn.Migrations
                     b.HasOne("Fangorn.Models.ApplicationUser", "Creator")
                         .WithMany()
                         .HasForeignKey("OpenUserId");
+                });
+
+            modelBuilder.Entity("Fangorn.Models.TrackerViewModels.TimeLog", b =>
+                {
+                    b.HasOne("Fangorn.Models.ClientViewModels.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
+                    b.HasOne("Fangorn.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

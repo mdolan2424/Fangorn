@@ -50,3 +50,14 @@ C:\Users\Matt\Source\Repos\Backups\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\UserS
 C:\Users\Matt\Source\Repos\Backups\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.AssemblyInfo.cs
 C:\Users\Matt\Source\Repos\Backups\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.dll
 C:\Users\Matt\Source\Repos\Backups\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.pdb
+C:\Users\mdola\Source\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.deps.json
+C:\Users\mdola\Source\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.runtimeconfig.json
+C:\Users\mdola\Source\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.runtimeconfig.dev.json
+C:\Users\mdola\Source\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.dll
+C:\Users\mdola\Source\Fangorn\Fangorn\bin\Debug\netcoreapp1.0\Fangorn.pdb
+C:\Users\mdola\Source\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.csprojResolveAssemblyReference.cache
+C:\Users\mdola\Source\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.csproj.CoreCompileInputs.cache
+C:\Users\mdola\Source\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs
+C:\Users\mdola\Source\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.AssemblyInfo.cs
+C:\Users\mdola\Source\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.dll
+C:\Users\mdola\Source\Fangorn\Fangorn\obj\Debug\netcoreapp1.0\Fangorn.pdb

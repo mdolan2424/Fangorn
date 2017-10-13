@@ -12,6 +12,7 @@ using Fangorn.Models.InventoryViewModels;
 using Fangorn.Models.HomeViewModels;
 using Fangorn.Models.ClientViewModels;
 using Fangorn.Models.LocationViewModels;
+using Fangorn.Models.TrackerViewModels;
 namespace Fangorn.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -53,5 +54,8 @@ namespace Fangorn.Data
 
 
         public DbSet<Fangorn.Models.LocationViewModels.Address> Address { get; set; }
+
+
+        public DbSet<Fangorn.Models.TrackerViewModels.TimeLog> TimeLog { get; set; }
     }
 }

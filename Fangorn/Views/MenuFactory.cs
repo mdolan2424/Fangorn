@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fangorn.Views.Tracker;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,11 @@ namespace Fangorn.Views
             else if (menuType == "Home")
             {
                 return new HomeMenu();
+            }
+
+            else if (menuType == "Tracker")
+            {
+                return new TrackerMenu();
             }
 
 

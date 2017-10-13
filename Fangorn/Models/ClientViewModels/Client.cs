@@ -29,7 +29,8 @@ namespace Fangorn.Models.ClientViewModels
         public Address Address { get; set; }  
         
         [Required]
-        public String MainContact { get; set; }
+        [ForeignKey("ContactId")]
+        public Contact MainContact { get; set; }
         
 
 
