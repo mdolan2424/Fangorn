@@ -71,10 +71,9 @@ namespace Fangorn.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AddressId");
+                    b.Property<int?>("AddressId");
 
-                    b.Property<int?>("ContactId")
-                        .IsRequired();
+                    b.Property<int?>("ContactId");
 
                     b.Property<string>("Email");
 
@@ -429,13 +428,11 @@ namespace Fangorn.Migrations
                 {
                     b.HasOne("Fangorn.Models.LocationViewModels.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("Fangorn.Models.ClientViewModels.Contact", "MainContact")
                         .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ContactId");
                 });
 
             modelBuilder.Entity("Fangorn.Models.ClientViewModels.Contact", b =>

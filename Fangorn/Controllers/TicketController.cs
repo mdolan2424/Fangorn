@@ -31,7 +31,7 @@ namespace Fangorn.Controllers
         
         public IActionResult Index(string filter)
         {
-            
+
             var tickets = Filter(filter);
 
             return View(tickets);
@@ -65,15 +65,15 @@ namespace Fangorn.Controllers
             
             else if (filter == "Assigned")
             {
-                var user = _userManager.GetUserAsync(User);
-
-                query = _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.Id == user.Id);
+                var user = _userManager.GetUserId(User);
+                
+                query = _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.AssignedTo.Id == user);
                 
             }
-
-            
             return query;
         }
+
+        
 
         #region Create
         [HttpGet]
@@ -99,6 +99,7 @@ namespace Fangorn.Controllers
                 CreateDate = DateTime.Now,
                 CloseDate = ct.DueDate
             };
+
             var user = await _userManager.GetUserAsync(User);
 
             t.Creator = user;
@@ -109,6 +110,12 @@ namespace Fangorn.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult New()
+        {
+            return RedirectToAction("CreateTicket");
+        }
+
         #endregion Create
 
         #region Details
@@ -241,8 +248,6 @@ namespace Fangorn.Controllers
         [ActionName("Index")]
         public async Task<IActionResult> IndexSearch(string search)
         {
-            
-
             if (!String.IsNullOrEmpty(search))
             {
                 var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.Description.Contains(search)).Where(t=>t.Description.Contains(search)).ToListAsync();
@@ -294,6 +299,18 @@ namespace Fangorn.Controllers
 
         }
         #endregion Comments
+
+        public async Task<IActionResult> Assign(int? Id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var ticket = _context.Tickets.Include(t=>t.AssignedTo).Where(t=>t.Id == Id).ToList();
+            ticket[0].AssignedTo = user;
+
+            _context.Update(ticket[0]);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
