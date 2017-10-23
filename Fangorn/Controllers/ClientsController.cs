@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Fangorn.Data;
 using Fangorn.Models;
 using Fangorn.Models.ClientsViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fangorn.Controllers
 {
@@ -24,9 +25,9 @@ namespace Fangorn.Controllers
         public IActionResult Index()
         {
             var model = new ListClients();
-            //get all clients
+            
             model.Clients = _context.Client.ToList();
-
+            
             return View("ClientListView",model);
         }
 
