@@ -250,7 +250,8 @@ namespace Fangorn.Controllers
         {
             if (!String.IsNullOrEmpty(search))
             {
-                var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.Description.Contains(search)).Where(t=>t.Description.Contains(search)).ToListAsync();
+                var tickets = await _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.Description.Contains(search) || t.Title.Contains(search)).ToListAsync();
+                
                 return View(tickets);
             }
 

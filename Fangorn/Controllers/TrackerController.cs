@@ -18,11 +18,6 @@ namespace Fangorn.Controllers
         [HttpGet]
         public IActionResult LogTime()
         {
-            //send in username
-            //send in timelog information
-            //send in client information
-
-
             return View("LogTimeViewModel");
         }
 
