@@ -13,6 +13,8 @@ using Fangorn.Data;
 using Fangorn.Models;
 using Fangorn.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Fangorn
 {
@@ -45,15 +47,13 @@ namespace Fangorn
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             //Only authorized users are allowed to view pages
-            services.Configure<CookieAuthenticationOptions>(options =>
-            {
-                options.LoginPath = new PathString("Account/Login");
-            });
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
             services.AddMvc();
 
             // Add application services.
@@ -81,7 +81,7 @@ namespace Fangorn
             
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            app.UseAuthentication();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
