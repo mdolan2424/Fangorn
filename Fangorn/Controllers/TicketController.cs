@@ -56,7 +56,9 @@ namespace Fangorn.Controllers
         public IQueryable Filter(string filter)
         {
             //default query
-            IQueryable<Ticket> query = _context.Tickets.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.IsClosed == false);
+            IQueryable<Ticket> query = _context.Tickets.Include(creator => creator.Creator)
+                .Include(t => t.AssignedTo)
+                .Where(t => t.IsClosed == false);
             
             if (filter  == "Closed")
             {
@@ -97,7 +99,7 @@ namespace Fangorn.Controllers
                 Description = ct.Description,
                 AssignedTo = await _userManager.FindByEmailAsync(ct.AssignedTo),
                 CreateDate = DateTime.Now,
-                CloseDate = ct.DueDate
+                DueDate = ct.DueDate
             };
 
             var user = await _userManager.GetUserAsync(User);
