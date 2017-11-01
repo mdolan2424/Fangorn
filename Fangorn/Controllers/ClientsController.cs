@@ -61,9 +61,21 @@ namespace Fangorn.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit()
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
         {
-            return View("ClientEditView");
+            var clientModel = await _context.Client.SingleOrDefaultAsync(c => c.Id == Id);
+            EditClient client = new EditClient
+            {
+                Id = clientModel.Id,
+                Name = clientModel.Name,
+                EmailAddress = clientModel.Email,
+                Phone = clientModel.Phone,
+                Address = clientModel.Address,
+                MainContact = clientModel.MainContact
+            };
+
+            return View("ClientEditView",client);
         }
     }
 }

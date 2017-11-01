@@ -18,6 +18,12 @@
           "bootstrap": "3.3.0"
         }
       },
+      "Chart.js/2.6.0": {
+        "type": "package"
+      },
+      "d3/4.11.0": {
+        "type": "package"
+      },
       "jQuery/1.12.4": {
         "type": "package"
       },
@@ -4159,6 +4165,32 @@
         "content/Scripts/bootstrap-datetimepicker.js",
         "content/Scripts/bootstrap-datetimepicker.min.js",
         "tools/install.ps1"
+      ]
+    },
+    "Chart.js/2.6.0": {
+      "sha512": "ysANhHgsuS9UUSqQlzbrM28acMbK7fBTIess2tUKuKj6NnsknR5LknGhj3fBSbqJ5lglWnOEBcyjIcoK7VqEOw==",
+      "type": "package",
+      "path": "chart.js/2.6.0",
+      "files": [
+        "chart.js.2.6.0.nupkg.sha512",
+        "chart.js.nuspec",
+        "content/Scripts/Chart.js",
+        "content/Scripts/Chart.min.js"
+      ]
+    },
+    "d3/4.11.0": {
+      "sha512": "a0hxJ09AnVKeg8ZGfG7sAuvY56QvAgcX+Qxs31qNcPEdSuqz6+37LDe6yCE6gVl0VnIqWad79AAR3XHMU5ZcgA==",
+      "type": "package",
+      "path": "d3/4.11.0",
+      "files": [
+        "content/Scripts/d3/API.md",
+        "content/Scripts/d3/CHANGES.md",
+        "content/Scripts/d3/LICENSE",
+        "content/Scripts/d3/README.md",
+        "content/Scripts/d3/d3.js",
+        "content/Scripts/d3/d3.min.js",
+        "d3.4.11.0.nupkg.sha512",
+        "d3.nuspec"
       ]
     },
     "jQuery/1.12.4": {
@@ -11150,6 +11182,7 @@
     ".NETCoreApp,Version=v2.0": [
       "Bootstrap.Datepicker >= 1.6.4",
       "Bootstrap.v3.Datetimepicker.CSS >= 4.17.45",
+      "Chart.js >= 2.6.0",
       "MailKit >= 1.16.1",
       "Microsoft.ApplicationInsights.AspNetCore >= 2.0.0",
       "Microsoft.AspNetCore >= 2.0.0",
@@ -11165,6 +11198,7 @@
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.BrowserLink >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.0",
+      "d3 >= 4.11.0",
       "jQuery.UI.Combined >= 1.12.1"
     ]
   },
@@ -11233,6 +11267,10 @@
             "target": "Package",
             "version": "2.0.0"
           },
+          "Chart.js": {
+            "target": "Package",
+            "version": "2.6.0"
+          },
           "Microsoft.EntityFrameworkCore.Tools": {
             "suppressParent": "All",
             "target": "Package",
@@ -11247,6 +11285,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "2.0.0"
+          },
+          "d3": {
+            "target": "Package",
+            "version": "4.11.0"
           },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",

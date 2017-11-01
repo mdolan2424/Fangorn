@@ -1,4 +1,4 @@
-@model Fangorn.Models.ClientViewModels.Client
+@model Fangorn.Models.ClientViewModels.EditClient
 
 @{
     ViewData["Title"] = "ClientEditView";
@@ -27,10 +27,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Email" class="col-md-2 control-label"></label>
+            <label asp-for="EmailAddress" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
