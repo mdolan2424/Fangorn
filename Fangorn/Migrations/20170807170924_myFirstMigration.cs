@@ -279,7 +279,7 @@ namespace Tower.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tickets",
+                name: "ServiceOrders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -297,27 +297,27 @@ namespace Tower.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.PrimaryKey("PK_ServiceOrders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_AspNetUsers_AssignedId",
+                        name: "FK_ServiceOrders_AspNetUsers_AssignedId",
                         column: x => x.AssignedId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tickets_AspNetUsers_ClosedUserId",
+                        name: "FK_ServiceOrders_AspNetUsers_ClosedUserId",
                         column: x => x.ClosedUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tickets_AspNetUsers_OpenUserId",
+                        name: "FK_ServiceOrders_AspNetUsers_OpenUserId",
                         column: x => x.OpenUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tickets_Contact_contactId",
+                        name: "FK_ServiceOrders_Contact_contactId",
                         column: x => x.contactId,
                         principalTable: "Contact",
                         principalColumn: "Id",
@@ -325,7 +325,7 @@ namespace Tower.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TicketComment",
+                name: "ServiceOrderComment",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -333,21 +333,21 @@ namespace Tower.Migrations
                     CommentorId = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    TicketId = table.Column<int>(nullable: true)
+                    ServiceOrderId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketComment", x => x.Id);
+                    table.PrimaryKey("PK_ServiceOrderComment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TicketComment_AspNetUsers_CommentorId",
+                        name: "FK_ServiceOrderComment_AspNetUsers_CommentorId",
                         column: x => x.CommentorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TicketComment_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
+                        name: "FK_ServiceOrderComment_ServiceOrders_ServiceOrderId",
+                        column: x => x.ServiceOrderId,
+                        principalTable: "ServiceOrders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -379,33 +379,33 @@ namespace Tower.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketComment_CommentorId",
-                table: "TicketComment",
+                name: "IX_ServiceOrderComment_CommentorId",
+                table: "ServiceOrderComment",
                 column: "CommentorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketComment_TicketId",
-                table: "TicketComment",
-                column: "TicketId");
+                name: "IX_ServiceOrderComment_ServiceOrderId",
+                table: "ServiceOrderComment",
+                column: "ServiceOrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_AssignedId",
-                table: "Tickets",
+                name: "IX_ServiceOrders_AssignedId",
+                table: "ServiceOrders",
                 column: "AssignedId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_ClosedUserId",
-                table: "Tickets",
+                name: "IX_ServiceOrders_ClosedUserId",
+                table: "ServiceOrders",
                 column: "ClosedUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_OpenUserId",
-                table: "Tickets",
+                name: "IX_ServiceOrders_OpenUserId",
+                table: "ServiceOrders",
                 column: "OpenUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_contactId",
-                table: "Tickets",
+                name: "IX_ServiceOrders_contactId",
+                table: "ServiceOrders",
                 column: "contactId");
 
             migrationBuilder.CreateIndex(
@@ -450,7 +450,7 @@ namespace Tower.Migrations
                 name: "TeamUsers");
 
             migrationBuilder.DropTable(
-                name: "TicketComment");
+                name: "ServiceOrderComment");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -471,7 +471,7 @@ namespace Tower.Migrations
                 name: "Teams");
 
             migrationBuilder.DropTable(
-                name: "Tickets");
+                name: "ServiceOrders");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

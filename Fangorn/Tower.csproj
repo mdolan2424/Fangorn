@@ -13,10 +13,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\BillingViewModels\**" />
     <Compile Remove="Models\CheckoutViewModels\**" />
+    <Compile Remove="Models\FeedViewModels\**" />
+    <Compile Remove="Models\TagViewModels\**" />
+    <Compile Remove="Models\VaultViewModels\**" />
+    <Compile Remove="Models\WikiViewModels\**" />
+    <Content Remove="Models\BillingViewModels\**" />
     <Content Remove="Models\CheckoutViewModels\**" />
+    <Content Remove="Models\FeedViewModels\**" />
+    <Content Remove="Models\TagViewModels\**" />
+    <Content Remove="Models\VaultViewModels\**" />
+    <Content Remove="Models\WikiViewModels\**" />
+    <EmbeddedResource Remove="Models\BillingViewModels\**" />
     <EmbeddedResource Remove="Models\CheckoutViewModels\**" />
+    <EmbeddedResource Remove="Models\FeedViewModels\**" />
+    <EmbeddedResource Remove="Models\TagViewModels\**" />
+    <EmbeddedResource Remove="Models\VaultViewModels\**" />
+    <EmbeddedResource Remove="Models\WikiViewModels\**" />
+    <None Remove="Models\BillingViewModels\**" />
     <None Remove="Models\CheckoutViewModels\**" />
+    <None Remove="Models\FeedViewModels\**" />
+    <None Remove="Models\TagViewModels\**" />
+    <None Remove="Models\VaultViewModels\**" />
+    <None Remove="Models\WikiViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,11 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Models\FeedViewModels\" />
-    <Folder Include="Models\BillingViewModels\" />
-    <Folder Include="Models\TagViewModels\" />
-    <Folder Include="Models\VaultViewModels\" />
-    <Folder Include="Models\WikiViewModels\" />
     <Folder Include="Extensions\" />
     <Folder Include="Views\Location\" />
   </ItemGroup>

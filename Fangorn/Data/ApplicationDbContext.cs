@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Tower.Models;
-using Tower.Models.TicketViewModels;
+using Tower.Models.ServiceOrderViewModels;
 using Tower.Models.ProjectViewModels;
 using Tower.Models.TeamViewModels;
 using Tower.Models.InventoryViewModels;
@@ -21,7 +21,7 @@ namespace Tower.Data
             : base(options)
         {}
 
-        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<ServiceOrder> ServiceOrders { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<TeamUser> TeamUsers { get; set; }
@@ -47,7 +47,7 @@ namespace Tower.Data
         public DbSet<Tower.Models.HomeViewModels.ContactModel> ContactModel { get; set; }
 
 
-        public DbSet<Tower.Models.TicketViewModels.CommentViewModels.Comment> Comment { get; set; }
+        public DbSet<Tower.Models.ServiceOrderViewModels.CommentViewModels.Comment> Comment { get; set; }
 
 
         public DbSet<Tower.Models.ClientViewModels.Client> Client { get; set; }

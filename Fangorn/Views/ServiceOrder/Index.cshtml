@@ -1,0 +1,109 @@
+@model IEnumerable<Tower.Models.ServiceOrderViewModels.ServiceOrder>
+@{
+    ViewData["Title"] = "view";
+    DateTime.Now.ToString("dd-MM-yyyy");
+}
+
+@section Styles {
+    <link href="~/css/ServiceOrder.css" rel="stylesheet" type="text/css"/>
+}
+
+<h2>Service Orders</h2>
+<form asp-controller="ServiceOrder" asp-action="Index">
+    
+        <input type="text" name="search">
+        <input type="submit" value="Search"/>
+        <span class="glyphicon glyphicon-search" aria-hidden="true" ></span>
+        <a asp-action="Index" style="padding-left:15px;">Reset</a>
+
+</form>
+
+
+<div id="dataContainer">
+   
+
+    <div class="ServiceOrder-grid">
+
+
+        <form asp-action="CreateServiceOrder" method="get">
+            <button type="submit">New Service Order</button>
+        </form>
+        <table id="tableServiceOrders" class="table table-hover table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-2">
+                        
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DueDate)
+                    </th>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.AssignedTo)
+                    </th>
+                    <th>
+                        Watch
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+             @foreach (var item in Model)
+             {
+                <tr>
+                    <td>
+                        
+                        <a asp-action="ServiceOrderCommentsDetailsView" asp-route-id="@item.Id">@item.Title</a>
+                    </td>
+                
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                    </td>
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignedTo.Email)
+                    </td>
+                    <td>
+                        <a asp-action="Assign" asp-route-id="@item.Id">Take Assignment</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Close" asp-route-id="@item.Id">Close</a>
+                    </td>
+                </tr>
+             }
+            </tbody>
+        </table>
+        <form asp-action="CreateServiceOrder" method="get">
+            <button type="submit">New ServiceOrder</button>
+        </form>
+    </div>
+
+</div>
+
+<!--<div id="modal-container" update class="modal fade hidden-print" tabindex="-1" role="dialog">
+
+
+    <div class="modal-dialog modal-large">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+<!--Create an pagination property on particular ServiceOrders-->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+

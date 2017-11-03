@@ -54,9 +54,9 @@ namespace Tower.Controllers
             return View();
         }
 
-        public IActionResult Tickets()
+        public IActionResult ServiceOrders()
         {
-            ViewData["Message"] = "Tickets.";
+            ViewData["Message"] = "ServiceOrders.";
 
             return View();
         }

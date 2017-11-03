@@ -202,7 +202,7 @@ namespace Tower.Migrations
                     b.ToTable("TeamUsers");
                 });
 
-            modelBuilder.Entity("Tower.Models.TicketViewModels.Comment", b =>
+            modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -213,18 +213,18 @@ namespace Tower.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int?>("TicketId");
+                    b.Property<int?>("ServiceOrderId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CommentorId");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("ServiceOrderId");
 
-                    b.ToTable("TicketComment");
+                    b.ToTable("ServiceOrderComment");
                 });
 
-            modelBuilder.Entity("Tower.Models.TicketViewModels.Ticket", b =>
+            modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.ServiceOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -262,7 +262,7 @@ namespace Tower.Migrations
 
                     b.HasIndex("contactId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("ServiceOrders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -399,18 +399,18 @@ namespace Tower.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Tower.Models.TicketViewModels.Comment", b =>
+            modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.Comment", b =>
                 {
                     b.HasOne("Tower.Models.ApplicationUser", "Commentor")
                         .WithMany()
                         .HasForeignKey("CommentorId");
 
-                    b.HasOne("Tower.Models.TicketViewModels.Ticket", "ticket")
+                    b.HasOne("Tower.Models.ServiceOrderViewModels.ServiceOrder", "ServiceOrder")
                         .WithMany("comments")
-                        .HasForeignKey("TicketId");
+                        .HasForeignKey("ServiceOrderId");
                 });
 
-            modelBuilder.Entity("Tower.Models.TicketViewModels.Ticket", b =>
+            modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.ServiceOrder", b =>
                 {
                     b.HasOne("Tower.Models.ApplicationUser", "AssignedTo")
                         .WithMany()

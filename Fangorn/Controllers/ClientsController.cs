@@ -77,5 +77,16 @@ namespace Tower.Controllers
 
             return View("ClientEditView",client);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateServiceOrder()
+        {
+            CreateServiceOrderViewModel model = new CreateServiceOrderViewModel();
+            //get a list of clients
+            //attach a ServiceOrder to service order.
+            //ServiceOrder ServiceOrder = new ServiceOrder();
+
+            return View(model);
+        }
     }
 }

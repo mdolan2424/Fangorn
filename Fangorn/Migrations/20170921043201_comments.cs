@@ -10,21 +10,21 @@ namespace Tower.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Tickets_Contact_contactId",
-                table: "Tickets");
+                name: "FK_ServiceOrders_Contact_contactId",
+                table: "ServiceOrders");
 
             migrationBuilder.DropTable(
-                name: "TicketComment");
+                name: "ServiceOrderComment");
 
             migrationBuilder.RenameColumn(
                 name: "contactId",
-                table: "Tickets",
+                table: "ServiceOrders",
                 newName: "ContactId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Tickets_contactId",
-                table: "Tickets",
-                newName: "IX_Tickets_ContactId");
+                name: "IX_ServiceOrders_contactId",
+                table: "ServiceOrders",
+                newName: "IX_ServiceOrders_ContactId");
 
             migrationBuilder.CreateTable(
                 name: "Comment",
@@ -35,7 +35,7 @@ namespace Tower.Migrations
                     CommentorId = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    TicketId = table.Column<int>(nullable: true)
+                    ServiceOrderId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,9 +47,9 @@ namespace Tower.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comment_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
+                        name: "FK_Comment_ServiceOrders_ServiceOrderId",
+                        column: x => x.ServiceOrderId,
+                        principalTable: "ServiceOrders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -60,13 +60,13 @@ namespace Tower.Migrations
                 column: "CommentorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_TicketId",
+                name: "IX_Comment_ServiceOrderId",
                 table: "Comment",
-                column: "TicketId");
+                column: "ServiceOrderId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Tickets_Contact_ContactId",
-                table: "Tickets",
+                name: "FK_ServiceOrders_Contact_ContactId",
+                table: "ServiceOrders",
                 column: "ContactId",
                 principalTable: "Contact",
                 principalColumn: "Id",
@@ -76,24 +76,24 @@ namespace Tower.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Tickets_Contact_ContactId",
-                table: "Tickets");
+                name: "FK_ServiceOrders_Contact_ContactId",
+                table: "ServiceOrders");
 
             migrationBuilder.DropTable(
                 name: "Comment");
 
             migrationBuilder.RenameColumn(
                 name: "ContactId",
-                table: "Tickets",
+                table: "ServiceOrders",
                 newName: "contactId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Tickets_ContactId",
-                table: "Tickets",
-                newName: "IX_Tickets_contactId");
+                name: "IX_ServiceOrders_ContactId",
+                table: "ServiceOrders",
+                newName: "IX_ServiceOrders_contactId");
 
             migrationBuilder.CreateTable(
-                name: "TicketComment",
+                name: "ServiceOrderComment",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -101,38 +101,38 @@ namespace Tower.Migrations
                     CommentorId = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    TicketId = table.Column<int>(nullable: true)
+                    ServiceOrderId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketComment", x => x.Id);
+                    table.PrimaryKey("PK_ServiceOrderComment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TicketComment_AspNetUsers_CommentorId",
+                        name: "FK_ServiceOrderComment_AspNetUsers_CommentorId",
                         column: x => x.CommentorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TicketComment_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
+                        name: "FK_ServiceOrderComment_ServiceOrders_ServiceOrderId",
+                        column: x => x.ServiceOrderId,
+                        principalTable: "ServiceOrders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketComment_CommentorId",
-                table: "TicketComment",
+                name: "IX_ServiceOrderComment_CommentorId",
+                table: "ServiceOrderComment",
                 column: "CommentorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketComment_TicketId",
-                table: "TicketComment",
-                column: "TicketId");
+                name: "IX_ServiceOrderComment_ServiceOrderId",
+                table: "ServiceOrderComment",
+                column: "ServiceOrderId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Tickets_Contact_contactId",
-                table: "Tickets",
+                name: "FK_ServiceOrders_Contact_contactId",
+                table: "ServiceOrders",
                 column: "contactId",
                 principalTable: "Contact",
                 principalColumn: "Id",

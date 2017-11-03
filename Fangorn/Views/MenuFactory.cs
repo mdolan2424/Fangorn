@@ -15,9 +15,9 @@ namespace Tower.Views
                 return new DefaultMenu();
             }
 
-            if (menuType == "Ticket")
+            if (menuType == "ServiceOrder")
             {
-                return new TicketMenu();
+                return new ServiceOrderMenu();
             }
 
             else if (menuType == "Home")

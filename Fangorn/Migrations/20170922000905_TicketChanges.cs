@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Tower.Migrations
 {
-    public partial class TicketChanges : Migration
+    public partial class ServiceOrderChanges : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
                 name: "IsClosed",
-                table: "Tickets",
+                table: "ServiceOrders",
                 nullable: false,
                 defaultValue: false);
 
@@ -26,7 +26,7 @@ namespace Tower.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "IsClosed",
-                table: "Tickets");
+                table: "ServiceOrders");
 
             migrationBuilder.AlterColumn<string>(
                 name: "MainContact",

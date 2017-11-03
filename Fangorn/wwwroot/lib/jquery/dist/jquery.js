@@ -21,7 +21,7 @@
 		// (such as Node.js), expose a factory as module.exports.
 		// This accentuates the need for the creation of a real `window`.
 		// e.g. var jQuery = require("jquery")(window);
-		// See ticket #14549 for more info.
+		// See ServiceOrder #14549 for more info.
 		module.exports = global.document ?
 			factory( global, true ) :
 			function( w ) {
@@ -1169,7 +1169,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// We allow this because of a bug in IE8/9 that throws an error
 	// whenever `document.activeElement` is accessed on an iframe
 	// So, we allow :focus to pass through QSA all the time to avoid the IE error
-	// See http://bugs.jquery.com/ticket/13378
+	// See http://bugs.jquery.com/ServiceOrder/13378
 	rbuggyQSA = [];
 
 	if ( (support.qsa = rnative.test( document.querySelectorAll )) ) {
@@ -1180,7 +1180,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// This is to test IE's treatment of not explicitly
 			// setting a boolean content attribute,
 			// since its presence should be enough
-			// http://bugs.jquery.com/ticket/12359
+			// http://bugs.jquery.com/ServiceOrder/12359
 			docElem.appendChild( div ).innerHTML = "<a id='" + expando + "'></a>" +
 				"<select id='" + expando + "-\r\\' msallowcapture=''>" +
 				"<option selected=''></option></select>";
@@ -7908,12 +7908,12 @@ support.focusin = "onfocusin" in window;
 
 // Support: Firefox
 // Firefox doesn't have focus(in | out) events
-// Related ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
+// Related ServiceOrder - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
 //
 // Support: Chrome, Safari
 // focus(in | out) events fire after focus & blur events,
 // which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
-// Related ticket - https://code.google.com/p/chromium/issues/detail?id=449857
+// Related ServiceOrder - https://code.google.com/p/chromium/issues/detail?id=449857
 if ( !support.focusin ) {
 	jQuery.each( { focus: "focusin", blur: "focusout" }, function( orig, fix ) {
 
@@ -8494,7 +8494,7 @@ jQuery.extend( {
 		s.url = ( ( url || s.url || location.href ) + "" ).replace( rhash, "" )
 			.replace( rprotocol, location.protocol + "//" );
 
-		// Alias method option to type as per ticket #12004
+		// Alias method option to type as per ServiceOrder #12004
 		s.type = options.method || options.type || s.method || s.type;
 
 		// Extract dataTypes list
@@ -8905,7 +8905,7 @@ jQuery.expr.filters.visible = function( elem ) {
 	// Support: Opera <= 12.12
 	// Opera reports offsetWidths and offsetHeights less than zero on some elements
 	// Use OR instead of AND as the element is not visible if either is true
-	// See tickets #10406 and #13132
+	// See ServiceOrders #10406 and #13132
 	return elem.offsetWidth > 0 || elem.offsetHeight > 0 || elem.getClientRects().length > 0;
 };
 
