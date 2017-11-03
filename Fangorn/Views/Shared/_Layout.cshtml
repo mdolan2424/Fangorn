@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Fangorn</title>
+    <title>@ViewData["Title"] - Tower</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -33,7 +33,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Fangorn</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Tower</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -55,7 +55,7 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             
             @{
-                Fangorn.Views.MenuFactory factory = new Fangorn.Views.MenuFactory();
+                Tower.Views.MenuFactory factory = new Tower.Views.MenuFactory();
 
                 try
                 {
@@ -63,7 +63,7 @@
                     var controllerName = ViewContext.RouteData.Values["controller"].ToString();
 
                     
-                    Fangorn.Views.IMenu menu = factory.getMenu(controllerName);
+                    Tower.Views.IMenu menu = factory.getMenu(controllerName);
 
                     foreach (String menuItem in menu.getActions())
                     {
@@ -75,7 +75,7 @@
                 catch
                 {
                     
-                    Fangorn.Views.IMenu menu = factory.getMenu("Default");
+                    Tower.Views.IMenu menu = factory.getMenu("Default");
 
                     foreach (String menuItem in menu.getActions())
                     {
@@ -103,7 +103,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                 </ul>
-                <p>&copy; In Development - 2017 - Fangorn</p>
+                <p>&copy; In Development - 2017 - Tower</p>
             </footer>
         </div>
         

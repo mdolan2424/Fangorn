@@ -1,10 +1,10 @@
-﻿using Fangorn.Models.ClientViewModels;
+﻿using Tower.Models.ClientViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.ClientsViewModels
+namespace Tower.Models.ClientsViewModels
 {
     public class ListClients
     {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Fangorn.Models.ManageViewModels
+namespace Tower.Models.ManageViewModels
 {
     public class ManageLoginsViewModel
     {

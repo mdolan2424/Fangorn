@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Fangorn.Data;
+using Tower.Data;
 
-namespace Fangorn.Migrations
+namespace Tower.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20170921043201_comments")]
@@ -17,7 +17,7 @@ namespace Fangorn.Migrations
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Fangorn.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Tower.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -67,7 +67,7 @@ namespace Fangorn.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.ClientViewModels.Client", b =>
+            modelBuilder.Entity("Tower.Models.ClientViewModels.Client", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -90,7 +90,7 @@ namespace Fangorn.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.ClientViewModels.Contact", b =>
+            modelBuilder.Entity("Tower.Models.ClientViewModels.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -112,7 +112,7 @@ namespace Fangorn.Migrations
                     b.ToTable("Contact");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.HomeViewModels.ContactModel", b =>
+            modelBuilder.Entity("Tower.Models.HomeViewModels.ContactModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -137,7 +137,7 @@ namespace Fangorn.Migrations
                     b.ToTable("ContactModel");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.InventoryViewModels.Item", b =>
+            modelBuilder.Entity("Tower.Models.InventoryViewModels.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -159,7 +159,7 @@ namespace Fangorn.Migrations
                     b.ToTable("Item");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.LocationViewModels.Address", b =>
+            modelBuilder.Entity("Tower.Models.LocationViewModels.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -186,7 +186,7 @@ namespace Fangorn.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.ProjectViewModels.Project", b =>
+            modelBuilder.Entity("Tower.Models.ProjectViewModels.Project", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -206,7 +206,7 @@ namespace Fangorn.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TeamViewModels.Team", b =>
+            modelBuilder.Entity("Tower.Models.TeamViewModels.Team", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -220,7 +220,7 @@ namespace Fangorn.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TeamViewModels.TeamUser", b =>
+            modelBuilder.Entity("Tower.Models.TeamViewModels.TeamUser", b =>
                 {
                     b.Property<string>("UserId");
 
@@ -233,7 +233,7 @@ namespace Fangorn.Migrations
                     b.ToTable("TeamUsers");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.CommentViewModels.Comment", b =>
+            modelBuilder.Entity("Tower.Models.TicketViewModels.CommentViewModels.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -255,7 +255,7 @@ namespace Fangorn.Migrations
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+            modelBuilder.Entity("Tower.Models.TicketViewModels.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -403,67 +403,67 @@ namespace Fangorn.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.ClientViewModels.Client", b =>
+            modelBuilder.Entity("Tower.Models.ClientViewModels.Client", b =>
                 {
-                    b.HasOne("Fangorn.Models.LocationViewModels.Address", "Address")
+                    b.HasOne("Tower.Models.LocationViewModels.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Fangorn.Models.ClientViewModels.Contact", b =>
+            modelBuilder.Entity("Tower.Models.ClientViewModels.Contact", b =>
                 {
-                    b.HasOne("Fangorn.Models.ClientViewModels.Client", "client")
+                    b.HasOne("Tower.Models.ClientViewModels.Client", "client")
                         .WithMany()
                         .HasForeignKey("ClientID");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.ProjectViewModels.Project", b =>
+            modelBuilder.Entity("Tower.Models.ProjectViewModels.Project", b =>
                 {
-                    b.HasOne("Fangorn.Models.ApplicationUser", "User")
+                    b.HasOne("Tower.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TeamViewModels.TeamUser", b =>
+            modelBuilder.Entity("Tower.Models.TeamViewModels.TeamUser", b =>
                 {
-                    b.HasOne("Fangorn.Models.TeamViewModels.Team", "Team")
+                    b.HasOne("Tower.Models.TeamViewModels.Team", "Team")
                         .WithMany("Members")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Fangorn.Models.ApplicationUser", "User")
+                    b.HasOne("Tower.Models.ApplicationUser", "User")
                         .WithMany("teams")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.CommentViewModels.Comment", b =>
+            modelBuilder.Entity("Tower.Models.TicketViewModels.CommentViewModels.Comment", b =>
                 {
-                    b.HasOne("Fangorn.Models.ApplicationUser", "Commentor")
+                    b.HasOne("Tower.Models.ApplicationUser", "Commentor")
                         .WithMany()
                         .HasForeignKey("CommentorId");
 
-                    b.HasOne("Fangorn.Models.TicketViewModels.Ticket", "Ticket")
+                    b.HasOne("Tower.Models.TicketViewModels.Ticket", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId");
                 });
 
-            modelBuilder.Entity("Fangorn.Models.TicketViewModels.Ticket", b =>
+            modelBuilder.Entity("Tower.Models.TicketViewModels.Ticket", b =>
                 {
-                    b.HasOne("Fangorn.Models.ApplicationUser", "AssignedTo")
+                    b.HasOne("Tower.Models.ApplicationUser", "AssignedTo")
                         .WithMany()
                         .HasForeignKey("AssignedId");
 
-                    b.HasOne("Fangorn.Models.ApplicationUser", "ClosedBy")
+                    b.HasOne("Tower.Models.ApplicationUser", "ClosedBy")
                         .WithMany()
                         .HasForeignKey("ClosedUserId");
 
-                    b.HasOne("Fangorn.Models.ClientViewModels.Contact", "Contact")
+                    b.HasOne("Tower.Models.ClientViewModels.Contact", "Contact")
                         .WithMany()
                         .HasForeignKey("ContactId");
 
-                    b.HasOne("Fangorn.Models.ApplicationUser", "Creator")
+                    b.HasOne("Tower.Models.ApplicationUser", "Creator")
                         .WithMany()
                         .HasForeignKey("OpenUserId");
                 });
@@ -478,7 +478,7 @@ namespace Fangorn.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Fangorn.Models.ApplicationUser")
+                    b.HasOne("Tower.Models.ApplicationUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -486,7 +486,7 @@ namespace Fangorn.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Fangorn.Models.ApplicationUser")
+                    b.HasOne("Tower.Models.ApplicationUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -499,7 +499,7 @@ namespace Fangorn.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Fangorn.Models.ApplicationUser")
+                    b.HasOne("Tower.Models.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

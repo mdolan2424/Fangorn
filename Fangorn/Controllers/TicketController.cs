@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Fangorn.Models;
+using Tower.Models;
 using Microsoft.AspNetCore.Identity;
-using Fangorn.Models.TicketViewModels;
+using Tower.Models.TicketViewModels;
 using Microsoft.EntityFrameworkCore;
-using Fangorn.Data;
+using Tower.Data;
 using Microsoft.AspNetCore.Authorization;
-using Fangorn.Models.TicketViewModels.CommentViewModels;
+using Tower.Models.TicketViewModels.CommentViewModels;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     [Authorize]
     public class TicketController : Controller

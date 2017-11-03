@@ -1,4 +1,4 @@
-﻿using Fangorn.Models.LocationViewModels;
+﻿using Tower.Models.LocationViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.ClientViewModels
+namespace Tower.Models.ClientViewModels
 {
     public class CreateClient
     {

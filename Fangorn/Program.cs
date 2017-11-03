@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
 
-namespace Fangorn
+namespace Tower
 {
     public class Program
     {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Fangorn.Models.ClientViewModels;
+using Tower.Models.ClientViewModels;
 using Microsoft.AspNetCore.Identity;
-using Fangorn.Data;
-using Fangorn.Models;
-using Fangorn.Models.ClientsViewModels;
+using Tower.Data;
+using Tower.Models;
+using Tower.Models.ClientsViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     public class ClientsController : Controller
     {

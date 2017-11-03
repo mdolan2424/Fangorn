@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     public class LocationController : Controller
     {

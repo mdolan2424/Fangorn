@@ -1,4 +1,4 @@
-@model Fangorn.Models.TrackerViewModels.TimeLog
+@model Tower.Models.TrackerViewModels.LogTimeAndLocationViewModel
 
 @{
     ViewData["Title"] = "Log Time";
@@ -32,6 +32,14 @@
                 <span asp-validation-for="LoggedMinutes" class="text-danger"></span>
             </div>
         </div>
+        <div class="form-group">
+            <label asp-for="Client" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <Select asp-for="Client" asp-items="@(new SelectList(Model.AllClients, "Name", "Email"))" class="form-control">
+                </Select>
+            </div>
+        </div>
+        <div></div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

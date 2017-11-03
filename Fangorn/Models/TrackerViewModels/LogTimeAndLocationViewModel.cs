@@ -1,16 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fangorn.Models.ClientViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Tower.Models.ClientViewModels;
 
-namespace Fangorn.Models.TrackerViewModels
+namespace Tower.Models.TrackerViewModels
 {
     public class LogTimeAndLocationViewModel
     {
+        public int Id { get; set; }
+        [Display(Name = "Starting Time")]
+        public DateTime StartTime { get; set; }
+        [Display(Name = "Ending Time")]
+        public DateTime EndTime { get; set; }
+        [Display(Name = "Total Minutes")]
+        public DateTime LoggedMinutes { get; set; }
         public ApplicationUser User { get; set; }
-        public TimeLog Time { get; set; }
-        public SelectList Clients {get;set;}
+        public Client Client { get; set; }
+        [Display(Name = "Select a Client")]
+        public List<Client> AllClients { get; set; }
     }
 }

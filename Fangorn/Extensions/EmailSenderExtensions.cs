@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Fangorn.Services;
+using Tower.Services;
 
-namespace Fangorn.Services
+namespace Tower.Services
 {
     public static class EmailSenderExtensions
     {

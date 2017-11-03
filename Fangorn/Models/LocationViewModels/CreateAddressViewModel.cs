@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.LocationViewModels
+namespace Tower.Models.LocationViewModels
 {
     public class CreateAddressViewModel
     {

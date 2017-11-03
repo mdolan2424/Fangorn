@@ -3,14 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Tower.Models.TrackerViewModels;
+using Microsoft.AspNetCore.Identity;
+using Tower.Models;
+using Tower.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     public class TrackerController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
+
+        public TrackerController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        {
+            _userManager = userManager;
+            _context = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+
+            LogTimeAndLocationViewModel model = new LogTimeAndLocationViewModel
+            {
+                AllClients = _context.Client.ToList()
+            };
+            
+            return View(model);
         }
 
         //Log a time
@@ -18,7 +39,10 @@ namespace Fangorn.Controllers
         [HttpGet]
         public IActionResult LogTime()
         {
-            return View("LogTimeViewModel");
+            TimeLog model = new TimeLog();
+
+
+            return View();
         }
 
         [HttpPost]
@@ -27,15 +51,15 @@ namespace Fangorn.Controllers
 
             return View();
         }
-       
-        
+
+
         [HttpGet]
         public IActionResult ReadTime()
         {
 
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult EditTime()
         {
@@ -62,17 +86,17 @@ namespace Fangorn.Controllers
             return View();
         }
 
-       
+
         public IActionResult LinkClient()
         {
 
             return View();
         }
-        
 
-        
 
-        
+
+
+
 
         //link a client.
     }

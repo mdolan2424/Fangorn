@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Fangorn.Data;
-using Fangorn.Models;
-using Fangorn.Services;
+using Tower.Data;
+using Tower.Models;
+using Tower.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace Fangorn
+namespace Tower
 {
     public class Startup
     {

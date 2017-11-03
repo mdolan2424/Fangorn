@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.TeamViewModels
+namespace Tower.Models.TeamViewModels
 {
     public class DetailsViewModel
     {

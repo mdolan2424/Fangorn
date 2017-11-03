@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Fangorn.Models.LocationViewModels;
-using Fangorn.Models.ClientViewModels;
+using Tower.Models.LocationViewModels;
+using Tower.Models.ClientViewModels;
+using System.ComponentModel.DataAnnotations;
 
-namespace Fangorn.Models.TrackerViewModels
+namespace Tower.Models.TrackerViewModels
 {
     public class TimeLog
     {
@@ -15,6 +16,5 @@ namespace Fangorn.Models.TrackerViewModels
         public DateTime LoggedMinutes { get; set; }
         public ApplicationUser User { get; set; }
         public Client Client { get; set; }
-        
     }
 }

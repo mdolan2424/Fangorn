@@ -1,5 +1,5 @@
-﻿using Fangorn.Data;
-using Fangorn.Models;
+﻿using Tower.Data;
+using Tower.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     public class ProjectController: Controller
     {

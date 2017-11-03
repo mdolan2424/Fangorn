@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.HomeViewModels
+namespace Tower.Models.HomeViewModels
 {
     public class ContactModel
     {

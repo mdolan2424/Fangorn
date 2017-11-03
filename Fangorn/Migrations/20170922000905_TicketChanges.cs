@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Fangorn.Migrations
+namespace Tower.Migrations
 {
     public partial class TicketChanges : Migration
     {

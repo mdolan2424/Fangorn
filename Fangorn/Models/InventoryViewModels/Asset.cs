@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.InventoryViewModels
+namespace Tower.Models.InventoryViewModels
 {
     /// <summary>
     /// An asset is something managed and/or owned by a client.

@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using Fangorn.Models.ClientViewModels;
-using Fangorn.Models.TicketViewModels.CommentViewModels;
+using Tower.Models.ClientViewModels;
+using Tower.Models.TicketViewModels.CommentViewModels;
 
-namespace Fangorn.Models.TicketViewModels
+namespace Tower.Models.TicketViewModels
 {
     public class Ticket
     {

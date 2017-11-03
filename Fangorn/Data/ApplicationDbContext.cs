@@ -4,16 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Fangorn.Models;
-using Fangorn.Models.TicketViewModels;
-using Fangorn.Models.ProjectViewModels;
-using Fangorn.Models.TeamViewModels;
-using Fangorn.Models.InventoryViewModels;
-using Fangorn.Models.HomeViewModels;
-using Fangorn.Models.ClientViewModels;
-using Fangorn.Models.LocationViewModels;
-using Fangorn.Models.TrackerViewModels;
-namespace Fangorn.Data
+using Tower.Models;
+using Tower.Models.TicketViewModels;
+using Tower.Models.ProjectViewModels;
+using Tower.Models.TeamViewModels;
+using Tower.Models.InventoryViewModels;
+using Tower.Models.HomeViewModels;
+using Tower.Models.ClientViewModels;
+using Tower.Models.LocationViewModels;
+using Tower.Models.TrackerViewModels;
+namespace Tower.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -25,7 +25,7 @@ namespace Fangorn.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<TeamUser> TeamUsers { get; set; }
-
+        public DbSet<Client> Clients { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -41,21 +41,21 @@ namespace Fangorn.Data
         }
 
 
-        public DbSet<Fangorn.Models.InventoryViewModels.Item> Item { get; set; }
+        public DbSet<Tower.Models.InventoryViewModels.Item> Item { get; set; }
 
 
-        public DbSet<Fangorn.Models.HomeViewModels.ContactModel> ContactModel { get; set; }
+        public DbSet<Tower.Models.HomeViewModels.ContactModel> ContactModel { get; set; }
 
 
-        public DbSet<Fangorn.Models.TicketViewModels.CommentViewModels.Comment> Comment { get; set; }
+        public DbSet<Tower.Models.TicketViewModels.CommentViewModels.Comment> Comment { get; set; }
 
 
-        public DbSet<Fangorn.Models.ClientViewModels.Client> Client { get; set; }
+        public DbSet<Tower.Models.ClientViewModels.Client> Client { get; set; }
 
 
-        public DbSet<Fangorn.Models.LocationViewModels.Address> Address { get; set; }
+        public DbSet<Tower.Models.LocationViewModels.Address> Address { get; set; }
 
 
-        public DbSet<Fangorn.Models.TrackerViewModels.TimeLog> TimeLog { get; set; }
+        public DbSet<Tower.Models.TrackerViewModels.TimeLog> TimeLog { get; set; }
     }
 }

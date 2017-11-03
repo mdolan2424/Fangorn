@@ -1,10 +1,10 @@
-﻿using Fangorn.Models.TicketViewModels.CommentViewModels;
+﻿using Tower.Models.TicketViewModels.CommentViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.TicketViewModels
+namespace Tower.Models.TicketViewModels
 {
     public class TicketCommentsViewModel
     {

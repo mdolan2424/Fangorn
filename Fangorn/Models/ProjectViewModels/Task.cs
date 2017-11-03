@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fangorn.Models.ProjectViewModels
+namespace Tower.Models.ProjectViewModels
 {
     public class Task
     {

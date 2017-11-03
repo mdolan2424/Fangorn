@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Fangorn.Models.HomeViewModels;
-using Fangorn.Data;
+using Tower.Models.HomeViewModels;
+using Tower.Data;
 using Microsoft.EntityFrameworkCore;
-using Fangorn.Services;
+using Tower.Services;
 using Microsoft.AspNetCore.Identity;
-using Fangorn.Models;
+using Tower.Models;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     public class HomeController : Controller
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Fangorn.Models.TicketViewModels.CommentViewModels
+namespace Tower.Models.TicketViewModels.CommentViewModels
 {
     public class Comment
     {

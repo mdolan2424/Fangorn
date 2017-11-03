@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Fangorn.Data;
-using Fangorn.Models.InventoryViewModels;
+using Tower.Data;
+using Tower.Models.InventoryViewModels;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     public class ItemsController : Controller
     {

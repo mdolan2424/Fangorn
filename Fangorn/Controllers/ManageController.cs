@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Fangorn.Models;
-using Fangorn.Models.ManageViewModels;
-using Fangorn.Services;
+using Tower.Models;
+using Tower.Models.ManageViewModels;
+using Tower.Services;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

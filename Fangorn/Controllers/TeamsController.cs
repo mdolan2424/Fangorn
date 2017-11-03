@@ -2,12 +2,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Fangorn.Data;
-using Fangorn.Models.TeamViewModels;
+using Tower.Data;
+using Tower.Models.TeamViewModels;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Fangorn.Controllers
+namespace Tower.Controllers
 {
     public class TeamsController : Controller
     {
