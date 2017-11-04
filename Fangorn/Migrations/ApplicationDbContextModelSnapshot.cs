@@ -301,17 +301,63 @@ namespace Tower.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<double>("PercentComplete");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<string>("UserId");
+                    b.HasKey("ID");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Tower.Models.ProjectViewModels.ProjectTask", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AssignedTeamId");
+
+                    b.Property<float>("CompletionPercentage");
+
+                    b.Property<int>("Complexity");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<bool>("InWork");
+
+                    b.Property<string>("Priority");
+
+                    b.Property<int?>("ProjectId");
+
+                    b.Property<int?>("ProjectTaskID");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Status");
+
+                    b.Property<int>("StoryPoints");
+
+                    b.Property<int?>("TaskId");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Type");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AssignedTeamId");
 
-                    b.ToTable("Projects");
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("ProjectTaskID");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("ProjectTask");
                 });
 
             modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.CommentViewModels.Comment", b =>
@@ -495,11 +541,23 @@ namespace Tower.Migrations
                         .HasForeignKey("ClientID");
                 });
 
-            modelBuilder.Entity("Tower.Models.ProjectViewModels.Project", b =>
+            modelBuilder.Entity("Tower.Models.ProjectViewModels.ProjectTask", b =>
                 {
-                    b.HasOne("Tower.Models.ApplicationUser", "User")
+                    b.HasOne("Tower.Models.TeamViewModels.Team", "AssignedTeam")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("AssignedTeamId");
+
+                    b.HasOne("Tower.Models.ProjectViewModels.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("Tower.Models.ProjectViewModels.ProjectTask")
+                        .WithMany("Dependencies")
+                        .HasForeignKey("ProjectTaskID");
+
+                    b.HasOne("Tower.Models.ProjectViewModels.Project")
+                        .WithMany("Tasks")
+                        .HasForeignKey("TaskId");
                 });
 
             modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.CommentViewModels.Comment", b =>

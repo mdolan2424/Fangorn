@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tower.Models.ProjectViewModels;
 
 namespace Tower.Controllers
 {
@@ -24,8 +25,50 @@ namespace Tower.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Projects.ToListAsync());
+            ListAllProjects model = new ListAllProjects();
+            return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            CreateProjectViewModel model = new CreateProjectViewModel
+            {
+                
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProject(CreateProjectViewModel model)
+        {
+            Project project = new Project
+            {
+                Title = model.Title,
+                Description = model.Description
+            };
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            return View();
+        }
+
+        /*[HttpGet]
+        public async Task<IActionResult> Delete(int Id?)
+        {
+
+        }*/
     }
+
 }

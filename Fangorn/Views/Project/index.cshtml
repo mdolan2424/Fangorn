@@ -1,0 +1,61 @@
+﻿@model Tower.Models.ProjectViewModels.ListAllProjects
+@{
+    ViewData["Title"] = "index";
+}
+
+<h2>Open Projects</h2>
+
+<h2>Clients</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr></tr>
+    </thead>
+</table>
+<table class="table">
+    <thead>
+    
+    </thead>
+    <tbody>
+
+        @if (Model.AllProjects.Count > 0)
+        {
+            @foreach (var project in Model.AllProjects)
+            {
+                <tr>
+
+                    <td>
+                        @project.Id
+                    </td>
+                    <td>
+                        @project.Title
+                    </td>
+                    <td>
+                        @project.Description
+                    </td>
+                    <td>
+                        @project.PercentComplete
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@project.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@project.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@project.Id">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        }
+        
+
+
+    </tbody>
+</table>
+
+
+

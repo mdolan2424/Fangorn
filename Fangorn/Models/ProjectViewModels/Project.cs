@@ -8,13 +8,15 @@ namespace Tower.Models.ProjectViewModels
 {
     public class Project
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
         public string Description { get; set; }
-        public ApplicationUser User { get; set; }
-
+        public Double PercentComplete { get; set; }
+        [ForeignKey("TaskId")]
+        public List<ProjectTask> Tasks { get; set; }
+        
     }
 }
