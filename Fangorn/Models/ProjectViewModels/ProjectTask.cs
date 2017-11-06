@@ -10,7 +10,7 @@ namespace Tower.Models.ProjectViewModels
 {
     public class ProjectTask
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
