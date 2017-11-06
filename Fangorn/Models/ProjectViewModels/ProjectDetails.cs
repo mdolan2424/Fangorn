@@ -7,9 +7,9 @@ namespace Tower.Models.ProjectViewModels
 {
     public class ProjectDetails
     {
-        public int ID { get; }
-        public string Title { get;}
-        public string Description { get; }
-        public List<ProjectTask> Tasks { get; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public List<ProjectTask> Tasks { get; set; }
     }
 }
