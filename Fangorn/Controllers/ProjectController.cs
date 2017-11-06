@@ -37,7 +37,7 @@ namespace Tower.Controllers
                 
             };
 
-            return View(model);
+            return View("CreateProjectView", model);
         }
 
         [HttpPost]
@@ -49,7 +49,22 @@ namespace Tower.Controllers
                 Description = model.Description
             };
 
-            return View();
+            //save to database
+            _context.Add(project);
+
+            await _context.SaveChangesAsync();
+
+            int Id = project.Id;
+
+            ProjectDetails details = new ProjectDetails()
+            {
+                Id = project.Id,
+                Title = project.Title,
+                Description = project.Description,
+                Tasks = project.Tasks
+            };
+            //go to details view
+            return View("DetailsProjectView", details);
         }
 
         [HttpGet]
