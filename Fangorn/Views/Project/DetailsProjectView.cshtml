@@ -9,7 +9,7 @@
 <div>
     <h4>ProjectDetails</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl">
         <dt>
             @Html.DisplayNameFor(model => model.Id)
         </dt>
@@ -30,6 +30,53 @@
         </dd>
         
     </dl>
+    <table class="table table-hover table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th class="col-md-2">
+
+                    @Html.DisplayNameFor(model => model.Tasks[0].Id)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].Status)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].Priority)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].StoryPoints)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].Complexity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].CompletionPercentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].Completed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tasks[0].CompletedBy)
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            
+        </tbody>
+
+    </table>
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
