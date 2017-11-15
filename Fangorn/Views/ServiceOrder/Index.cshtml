@@ -6,6 +6,7 @@
 
 @section Styles {
     <link href="~/css/ServiceOrder.css" rel="stylesheet" type="text/css"/>
+    
 }
 
 <h2>Service Orders</h2>
@@ -37,10 +38,10 @@
                     </th>
                     
                     <th>
-                        @Html.DisplayNameFor(model => model.CreateDate)
+                        @Html.DisplayNameFor(model => model.CreateDate.Date)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DueDate)
+                        @Html.DisplayNameFor(model => model.DueDate.Date)
                     </th>
                     
                     <th>
@@ -68,10 +69,15 @@
                     </td>
                 
                     <td>
-                        @Html.DisplayFor(modelItem => item.CreateDate)
+                        @item.CreateDate.ToShortDateString()
+                        <br />
+                        @item.CreateDate.ToShortTimeString()
                     </td>
+                 
                     <td>
-                        @Html.DisplayFor(modelItem => item.DueDate)
+                        @item.DueDate.ToShortDateString()
+                        <br />
+                        @item.DueDate.ToShortTimeString()
                     </td>
                     
                     <td>
@@ -89,7 +95,7 @@
             </tbody>
         </table>
         <form asp-action="CreateServiceOrder" method="get">
-            <button type="submit">New ServiceOrder</button>
+            <button type="submit">New Service Order</button>
         </form>
     </div>
 

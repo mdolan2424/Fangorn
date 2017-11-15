@@ -13,7 +13,8 @@ $(document).ready(function () {
 
     $('input[type=datetime]').datetimepicker({
         inline: true,
-        sideBySide: true
+        sideBySide: true,
+        defaultDate: new Date(),
         
     });
 

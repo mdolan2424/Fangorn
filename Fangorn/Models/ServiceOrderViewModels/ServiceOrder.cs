@@ -49,7 +49,7 @@ namespace Tower.Models.ServiceOrderViewModels
         [ForeignKey("ClosedUserId")]
         public ApplicationUser ClosedBy { get; set; }
 
-        public Contact Contact { get; set; }
+        public String Contact { get; set; }
         
         [Display(Name = "Total")]
         [DataType(DataType.Currency)]

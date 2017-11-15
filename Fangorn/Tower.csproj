@@ -71,6 +71,7 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Views\Items\" />
     <Folder Include="Views\Location\" />
   </ItemGroup>
   <ItemGroup>

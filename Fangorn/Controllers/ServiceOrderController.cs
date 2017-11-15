@@ -140,7 +140,7 @@ namespace Tower.Controllers
 
         }
         #endregion Details
-
+        #region Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int? ID)
         {
@@ -180,9 +180,7 @@ namespace Tower.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-
                     throw;
-
                 }
 
                 return RedirectToAction("Index");
@@ -192,9 +190,9 @@ namespace Tower.Controllers
 
 
         }
+        #endregion Edit
 
-        
-        
+        #region Close
         public async Task<IActionResult> Close(int? ID)
         {
             if (ID == null)
@@ -215,7 +213,9 @@ namespace Tower.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion Close
 
+        #region Delete
         [HttpGet]
         public ActionResult Delete(int? ID)
         {
@@ -245,7 +245,10 @@ namespace Tower.Controllers
             _context.SaveChanges();
             return RedirectToAction("index");
         }
-        
+
+        #endregion Delete
+
+        #region Search
         [HttpPost]
         [ActionName("Index")]
         public async Task<IActionResult> IndexSearch(string search)
@@ -260,6 +263,7 @@ namespace Tower.Controllers
             return RedirectToAction("Index");
             
         }
+        #endregion Search
 
         #region Comments
         [HttpGet]
@@ -303,6 +307,7 @@ namespace Tower.Controllers
         }
         #endregion Comments
 
+        #region Assign
         public async Task<IActionResult> Assign(int? Id)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -314,6 +319,8 @@ namespace Tower.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion Assign
 
+        
     }
 }

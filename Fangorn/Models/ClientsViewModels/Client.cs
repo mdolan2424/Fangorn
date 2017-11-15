@@ -28,8 +28,7 @@ namespace Tower.Models.ClientViewModels
         [ForeignKey("AddressId")]
         public Address Address { get; set; }  
         
-        [ForeignKey("ContactId")]
-        public Contact MainContact { get; set; }
+        public String MainContact { get; set; }
         
 
 

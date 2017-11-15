@@ -186,9 +186,9 @@ namespace Tower.Migrations
 
                     b.Property<int?>("AddressId");
 
-                    b.Property<int?>("ContactId");
-
                     b.Property<string>("Email");
+
+                    b.Property<string>("MainContact");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -199,31 +199,7 @@ namespace Tower.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("ContactId");
-
                     b.ToTable("Client");
-                });
-
-            modelBuilder.Entity("Tower.Models.ClientViewModels.Contact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("ClientID");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired();
-
-                    b.Property<string>("LastName")
-                        .IsRequired();
-
-                    b.Property<string>("Phone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientID");
-
-                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("Tower.Models.HomeViewModels.ContactModel", b =>
@@ -296,7 +272,7 @@ namespace Tower.Migrations
 
             modelBuilder.Entity("Tower.Models.ProjectViewModels.Project", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
@@ -307,14 +283,14 @@ namespace Tower.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Tower.Models.ProjectViewModels.ProjectTask", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AssignedTeamId");
@@ -331,7 +307,7 @@ namespace Tower.Migrations
 
                     b.Property<int?>("ProjectId");
 
-                    b.Property<int?>("ProjectTaskID");
+                    b.Property<int?>("ProjectTaskId");
 
                     b.Property<DateTime>("StartDate");
 
@@ -347,17 +323,17 @@ namespace Tower.Migrations
 
                     b.Property<string>("Type");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("AssignedTeamId");
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("ProjectTaskID");
+                    b.HasIndex("ProjectTaskId");
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("ProjectTask");
+                    b.ToTable("ProjectTasks");
                 });
 
             modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.CommentViewModels.Comment", b =>
@@ -393,7 +369,7 @@ namespace Tower.Migrations
 
                     b.Property<string>("ClosedUserId");
 
-                    b.Property<int?>("ContactId");
+                    b.Property<string>("Contact");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -419,8 +395,6 @@ namespace Tower.Migrations
                     b.HasIndex("AssignedId");
 
                     b.HasIndex("ClosedUserId");
-
-                    b.HasIndex("ContactId");
 
                     b.HasIndex("OpenUserId");
 
@@ -528,17 +502,6 @@ namespace Tower.Migrations
                     b.HasOne("Tower.Models.LocationViewModels.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
-
-                    b.HasOne("Tower.Models.ClientViewModels.Contact", "MainContact")
-                        .WithMany()
-                        .HasForeignKey("ContactId");
-                });
-
-            modelBuilder.Entity("Tower.Models.ClientViewModels.Contact", b =>
-                {
-                    b.HasOne("Tower.Models.ClientViewModels.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientID");
                 });
 
             modelBuilder.Entity("Tower.Models.ProjectViewModels.ProjectTask", b =>
@@ -553,7 +516,7 @@ namespace Tower.Migrations
 
                     b.HasOne("Tower.Models.ProjectViewModels.ProjectTask")
                         .WithMany("Dependencies")
-                        .HasForeignKey("ProjectTaskID");
+                        .HasForeignKey("ProjectTaskId");
 
                     b.HasOne("Tower.Models.ProjectViewModels.Project")
                         .WithMany("Tasks")
@@ -580,10 +543,6 @@ namespace Tower.Migrations
                     b.HasOne("Tower.Models.ApplicationUser", "ClosedBy")
                         .WithMany()
                         .HasForeignKey("ClosedUserId");
-
-                    b.HasOne("Tower.Models.ClientViewModels.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId");
 
                     b.HasOne("Tower.Models.ApplicationUser", "Creator")
                         .WithMany()

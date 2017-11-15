@@ -4,20 +4,22 @@
     ViewData["Title"] = "View";
 }
 
-<h2>View</h2>
+<h2>Edit</h2>
 
 <form asp-controller="ServiceOrder" asp-action="EditServiceOrder" method="post">
     <div class="form-horizontal">
-        <h4>ServiceOrder</h4>
+        <h4>Service Order</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
         <div class="form-group">
             <label asp-for="Title" class="col-md-2 control-label"></label>
+            
             <div class="col-md-10">
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+            
         </div>
         <div class="form-group">
             <label asp-for="Description" class="col-md-2 control-label"></label>
@@ -26,13 +28,7 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="CreateDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-        </div>
+        
         <div class="form-group">
             <label asp-for="DueDate" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -40,13 +36,7 @@
                 <span asp-validation-for="DueDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="CloseDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CloseDate" class="form-control" />
-                <span asp-validation-for="CloseDate" class="text-danger"></span>
-            </div>
-        </div>
+       
         
 
       
@@ -55,7 +45,6 @@
             <div class="col-md-offset-2 col-md-10">
                 
                 <input type="submit" value="Save" asp-route-id="@Model.Id" class="btn btn-default" />
-                <input typeof="submit" value="Close" asp-route-id="@Model.Id" class="btn btn-default"/>
             </div>
         </div>
     </div>
@@ -69,6 +58,8 @@
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <script src="~/js/ServiceOrder.js"></script>
 
 
