@@ -33,8 +33,6 @@ namespace Tower.Controllers
             return View("ClientListView",model);
         }
 
-
-
         [HttpGet]
         public IActionResult Create()
         {
@@ -49,27 +47,33 @@ namespace Tower.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCreateClient(CreateClient ClientViewData)
         {
-            Address address = new Address
+            if (ModelState.IsValid)
             {
-                Street = ClientViewData.Address.Street,
-                Apartment = ClientViewData.Address.Apartment,
-                City = ClientViewData.Address.City,
-                Country = ClientViewData.Address.Country,
-                State = ClientViewData.Address.State,
-                Zip = ClientViewData.Address.Zip
-            };
+                Address address = new Address
+                {
+                    Street = ClientViewData.Address.Street,
+                    Apartment = ClientViewData.Address.Apartment,
+                    City = ClientViewData.Address.City,
+                    Country = ClientViewData.Address.Country,
+                    State = ClientViewData.Address.State,
+                    Zip = ClientViewData.Address.Zip
+                };
+                _context.Add(address);
 
-            Client Client = new Client
-            {
-                Name = ClientViewData.Name,
-                Email = ClientViewData.Email,
-                Phone = ClientViewData.Phone,
-                Address = address
-            };
-            
-            _context.Add(Client);
+                Client client = new Client
+                {
+                    Name = ClientViewData.Name,
+                    Email = ClientViewData.Email,
+                    Phone = ClientViewData.Phone,
+                    Address = address
+                };
+                _context.Add(address);
+                _context.Add(client);
+                await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
+               
+            }
+
 
             return RedirectToAction("Index");
         }
@@ -92,10 +96,12 @@ namespace Tower.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int Id, EditClient editModel)
         {
             //find client
             var client = _context.Client.SingleOrDefault(c => c.Id == Id);
+
 
             if (client == null)
             {
@@ -104,6 +110,7 @@ namespace Tower.Controllers
 
             if (ModelState.IsValid)
             {
+                client.Id = editModel.Id;
                 client.Email = editModel.EmailAddress;
                 client.Name = editModel.Name;
                 client.Phone = editModel.Phone;
@@ -114,7 +121,7 @@ namespace Tower.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return View("ClientListView");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

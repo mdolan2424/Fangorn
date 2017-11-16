@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -28,5 +29,10 @@ namespace Tower.Models.LocationViewModels
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip code.")]
         public String Zip { get; set; }
 
+        public List<SelectListItem> States { get; set; }
+        
+        public List<String> ListOfCountries { get; set; }
+
+        
     }
 }

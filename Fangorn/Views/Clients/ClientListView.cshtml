@@ -69,11 +69,41 @@
             @item.Phone
         </td>
         <td>
+            
+                @if (item.Address != null)
+                {
+                    @item.Address.Street
+                    if (item.Address.Apartment != null)
+                    {
+                        <text>&nbsp;</text>
+                        @item.Address.Apartment
+
+                    }
+
+                    <br />
+                    @item.Address.City
+                    <text>&nbsp;</text>
+                    @item.Address.State
+
+
+                        <br />
+                        @item.Address.Zip
+
+
+                }
+
+                else
+                {
+
+
+                }
+            
 
         </td>
         <td>
-
+            @item.MainContact
         </td>
+     
         <td>
             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

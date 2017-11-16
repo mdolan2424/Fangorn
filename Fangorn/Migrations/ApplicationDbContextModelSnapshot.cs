@@ -250,20 +250,15 @@ namespace Tower.Migrations
 
                     b.Property<string>("Apartment");
 
-                    b.Property<string>("City")
-                        .IsRequired();
+                    b.Property<string>("City");
 
-                    b.Property<string>("Country")
-                        .IsRequired();
+                    b.Property<string>("Country");
 
-                    b.Property<string>("State")
-                        .IsRequired();
+                    b.Property<string>("State");
 
-                    b.Property<string>("Street")
-                        .IsRequired();
+                    b.Property<string>("Street");
 
-                    b.Property<string>("Zip")
-                        .IsRequired();
+                    b.Property<string>("Zip");
 
                     b.HasKey("Id");
 
@@ -275,7 +270,9 @@ namespace Tower.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(400);
 
                     b.Property<double>("PercentComplete");
 
