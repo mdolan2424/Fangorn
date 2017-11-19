@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tower.Views.Clients;
 
 namespace Tower.Views
 {
@@ -28,6 +29,11 @@ namespace Tower.Views
             else if (menuType == "Tracker")
             {
                 return new TrackerMenu();
+            }
+
+            else if (menuType == "Clients")
+            {
+                return new ClientMenu();
             }
 
 

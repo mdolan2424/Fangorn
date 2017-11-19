@@ -1,54 +1,26 @@
-@model Tower.Models.TrackerViewModels.LogTimeAndLocationViewModel
+@model Tower.Models.TrackerViewModels.RecentTimeLogsViewModel
 
-@{
-    ViewData["Title"] = "Log Time";
+@{ 
+    ViewData["Title"] = "ViewTimeLogView";
+
 }
 
-<h2>Log a Time</h2>
+<h2>My Recently Logged Times</h2>
 
-<form asp-action="LogTimeView">
-    <div class="form-horizontal">
-        
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="StartTime" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="EndTime" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="LoggedMinutes" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="LoggedMinutes" class="form-control" />
-                <span asp-validation-for="LoggedMinutes" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Client" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <Select asp-for="Client" asp-items="@(new SelectList(Model.AllClients, "Name", "Email"))" class="form-control">
-                </Select>
-            </div>
-        </div>
-        <div></div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TimeLogs)
+        {
+            <tr>
+                <td>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

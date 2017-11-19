@@ -136,6 +136,7 @@ namespace Tower.Controllers
 
             DetailsClient model = new DetailsClient
             {
+                Id = client.Id,
                 Name = client.Name,
                 EmailAddress = client.Email,
                 Address = client.Address,
@@ -143,7 +144,7 @@ namespace Tower.Controllers
                 Phone = client.Phone
             };
 
-            return View("ClientDetailView");
+            return View("ClientDetailView", model);
         }
 
         [HttpGet]
@@ -156,7 +157,25 @@ namespace Tower.Controllers
                 return NotFound();
             }
 
-            return View("ClientDeleteView");
+            return View("ClientDeleteView", client);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> DeletePost(int Id)
+        {
+            var client = _context.Client.SingleOrDefault(c => c.Id == Id);
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+
+
+            _context.Remove(client);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         
