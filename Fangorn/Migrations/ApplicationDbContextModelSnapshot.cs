@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using Tower.Data;
 
@@ -434,7 +432,7 @@ namespace Tower.Migrations
 
                     b.Property<DateTime>("EndTime");
 
-                    b.Property<DateTime>("LoggedMinutes");
+                    b.Property<int>("LoggedMinutes");
 
                     b.Property<DateTime>("StartTime");
 

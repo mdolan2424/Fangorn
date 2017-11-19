@@ -9,6 +9,7 @@ namespace Tower.Views.Tracker
     {
         public List<String> Actions = new List<String>
         {
+            "Check In",
             "Log Time",
             "View Log",
         };

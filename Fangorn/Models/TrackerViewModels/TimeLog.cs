@@ -13,7 +13,7 @@ namespace Tower.Models.TrackerViewModels
         public int Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public DateTime LoggedMinutes { get; set; }
+        public int LoggedMinutes { get; set; }
         public ApplicationUser User { get; set; }
         public Client Client { get; set; }
     }
