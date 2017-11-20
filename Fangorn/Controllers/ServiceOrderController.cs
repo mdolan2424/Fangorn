@@ -122,14 +122,19 @@ namespace Tower.Controllers
 
         #region Details
         [HttpGet]
-        public ActionResult ServiceOrderCommentsDetailsView(int? ID)
+        public ActionResult Details(int? ID)
         {
             if (ID == null)
             {
                 return NotFound();
             }
 
-            var ServiceOrder = _context.ServiceOrders.Find(ID);
+            var ServiceOrder = _context.ServiceOrders
+                .Include(so => so.Creator)
+                .Include(so => so.Client)
+                .ToList()
+                .Find(so=>so.Id == ID);
+
             var comments = _context.Comment.Where(c => c.ServiceOrder.Id == ID).Include(c => c.Commentor);
             ServiceOrderCommentsViewModel ServiceOrderComments = new ServiceOrderCommentsViewModel
             {

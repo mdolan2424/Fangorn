@@ -36,8 +36,6 @@ namespace Tower.Models.ServiceOrderViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd H:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime CloseDate { get; set; }
         
-        public String UserId { get; set; }
-        
         [ForeignKey("AssignedId")]
         [Display(Name = "Tech Assignment")]
         public ApplicationUser AssignedTo { get; set; }
@@ -49,12 +47,10 @@ namespace Tower.Models.ServiceOrderViewModels
         [ForeignKey("ClosedUserId")]
         public ApplicationUser ClosedBy { get; set; }
 
-        public String Contact { get; set; }
+        public Client Client { get; set; }
         
         [Display(Name = "Total")]
-        [DataType(DataType.Currency)]
+        [DataType(DataType.Currency)] 
         public float TotalCharge { get; set; }
-        
-
     }
 }

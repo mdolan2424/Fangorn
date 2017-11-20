@@ -10,6 +10,8 @@ using Tower.Models;
 using Tower.Models.ClientsViewModels;
 using Microsoft.EntityFrameworkCore;
 using Tower.Models.LocationViewModels;
+using Tower.Models.SettingsViewModels;
+
 namespace Tower.Controllers
 {
     public class SettingsController : Controller
@@ -26,41 +28,67 @@ namespace Tower.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            //get settings from DB. If none exist, create one.
 
-            return RedirectToAction("Read");
-        }
+            var settings = _context.SiteSettings.FirstOrDefault();
 
-        [HttpGet]
-        public IActionResult Setup()
-        {
+            if (settings == null)
+            {
+                Settings model = new Settings();
 
-            return View();
-        }
+                model.ChargeRate = 0;
+                model.SiteName = "Tower";
 
-        [HttpPost]
-        public IActionResult SetupPost()
-        {
+                _context.Add(model);
+                _context.SaveChanges();
 
-            return View();
-        }
+                return View(model);
+            }
 
-        [HttpGet]
-        public IActionResult Read()
-        {
-            return View();
+            
+            
+            return View(settings);
+            
+            
         }
 
         [HttpGet]
         public IActionResult Edit()
         {
-            return View();
+            var settings = _context.SiteSettings.FirstOrDefault();
+
+            if (settings == null)
+            {
+                Settings model = new Settings();
+
+                model.ChargeRate = 0;
+                model.SiteName = "Tower";
+
+                _context.Add(model);
+                _context.SaveChanges();
+
+                return View(model);
+            }
+            
+            return View(settings);
         }
 
 
         [HttpPost]
-        public IActionResult EditPost()
+        public async Task<IActionResult> EditPost(Settings model)
         {
-            return View();
+            var settings = _context.SiteSettings.FirstOrDefault();
+
+            if (ModelState.IsValid)
+            {
+                settings.SiteName = model.SiteName;
+                settings.ChargeRate = model.ChargeRate;
+
+                _context.Update(settings);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
         }
 
     }
