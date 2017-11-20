@@ -13,6 +13,8 @@ using Tower.Models.HomeViewModels;
 using Tower.Models.ClientViewModels;
 using Tower.Models.LocationViewModels;
 using Tower.Models.TrackerViewModels;
+using Tower.Models.SettingsViewModels;
+
 namespace Tower.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -27,6 +29,8 @@ namespace Tower.Data
         public DbSet<TeamUser> TeamUsers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<ProjectTask> ProjectTasks { get; set; }
+        public DbSet<Settings> SiteSettings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

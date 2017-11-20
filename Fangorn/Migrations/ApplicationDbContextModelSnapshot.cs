@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using Tower.Data;
 
@@ -360,11 +362,11 @@ namespace Tower.Migrations
 
                     b.Property<string>("AssignedId");
 
+                    b.Property<int?>("ClientId");
+
                     b.Property<DateTime>("CloseDate");
 
                     b.Property<string>("ClosedUserId");
-
-                    b.Property<string>("Contact");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -383,17 +385,31 @@ namespace Tower.Migrations
 
                     b.Property<float>("TotalCharge");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedId");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("ClosedUserId");
 
                     b.HasIndex("OpenUserId");
 
                     b.ToTable("ServiceOrders");
+                });
+
+            modelBuilder.Entity("Tower.Models.SettingsViewModels.Settings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<float>("ChargeRate");
+
+                    b.Property<string>("SiteName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteSettings");
                 });
 
             modelBuilder.Entity("Tower.Models.TeamViewModels.Team", b =>
@@ -534,6 +550,10 @@ namespace Tower.Migrations
                     b.HasOne("Tower.Models.ApplicationUser", "AssignedTo")
                         .WithMany()
                         .HasForeignKey("AssignedId");
+
+                    b.HasOne("Tower.Models.ClientViewModels.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
 
                     b.HasOne("Tower.Models.ApplicationUser", "ClosedBy")
                         .WithMany()
