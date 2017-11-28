@@ -10,7 +10,6 @@ namespace Tower.Models.InventoryViewModels
     /// </summary>
     public class Asset
     {
-
         public int Id { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }

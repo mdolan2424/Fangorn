@@ -55,17 +55,13 @@
                     @Html.DisplayNameFor(model => model.Tasks[0].Complexity)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].StartDate)
+                    @Html.DisplayNameFor(model => model.Tasks[0].CompletionDate)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].EndDate)
-                </th>
+                
                 <th>
                     @Html.DisplayNameFor(model => model.Tasks[0].CompletionPercentage)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].Completed)
-                </th>
+                
                 <th>
                     @Html.DisplayNameFor(model => model.Tasks[0].CompletedBy)
                 </th>
@@ -80,5 +76,7 @@
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="CreateProjectTask">Create a task</a>
     <a asp-action="Index">Back to List</a>
+
 </div>

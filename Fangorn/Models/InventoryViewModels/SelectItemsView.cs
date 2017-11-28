@@ -8,8 +8,6 @@ namespace Tower.Models.InventoryViewModels
     public class SelectItemsView
     {
         public IEnumerable<Item> Items { get; set; }
-        
-
     }
 
     

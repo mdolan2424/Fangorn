@@ -23,6 +23,20 @@
     <tbody>
         @if (Model.AllProjects != null)
         {
+
+            <th>
+                    Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Percent Complete
+            </th>
+
             @foreach (var project in Model.AllProjects)
             {
                 <tr>

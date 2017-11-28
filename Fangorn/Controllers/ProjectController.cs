@@ -25,7 +25,9 @@ namespace Tower.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
             ListAllProjects model = new ListAllProjects();
+            model.AllProjects = _context.Projects.ToList();
             return View(model);
         }
 
@@ -70,13 +72,13 @@ namespace Tower.Controllers
         [HttpGet]
         public async Task<IActionResult> Details()
         {
-            return View();
+            return View("DetailsProjectView");
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            return View();
+            return View("EditProjectView");
         }
 
         /*[HttpGet]
@@ -84,6 +86,41 @@ namespace Tower.Controllers
         {
 
         }*/
+
+        [HttpGet]
+        public async Task<IActionResult> CreateProjectTask()
+        {
+
+            return View("CreateProjectTaskView");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostCreateProjectTask(CreateProjectTaskViewModel model)
+        {
+            
+            ProjectTask task = new ProjectTask
+            {
+                Title = model.Title,
+                Type = model.Type,
+                Status = model.Status,
+                Project = model.Project,
+                StoryPoints = model.StoryPoints,
+                Complexity = model.Complexity,
+                InWork = model.InWork,
+                CompletionDate = model.CompletionDate,
+                
+            };
+
+            _context.Add(task);
+
+            await _context.SaveChangesAsync();
+
+
+            return View();
+        }
+
+
+
     }
 
 }

@@ -20,14 +20,10 @@ namespace Tower.Models.ProjectViewModels
         public int StoryPoints { get; set; }
         public int Complexity { get; set; }
         public bool InWork { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime CompletionDate { get; set; }
         public float CompletionPercentage { get; set; }
-        public Boolean Completed { get; }
         public ApplicationUser CompletedBy { get; }
         [ForeignKey("ProjectId")]
         public Project Project { get; set; }
-        public List<ProjectTask> Dependencies { get; set; }
-        public Team AssignedTeam { get; set; }
     }
 }
