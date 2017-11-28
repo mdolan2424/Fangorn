@@ -3,39 +3,42 @@
     ViewData["Title"] = "index";
 }
 
+
 <h2>Open Projects</h2>
 
-<h2>There are no open projects.</h2>
+@if (Model.AllProjects == null)
+{
+    <h4>There are no open projects.</h4>
+}
 
 <p>
     <a asp-action="Create">Create New Project</a>
 </p>
 
+
 <table class="table">
-    <thead>
-        <tr></tr>
-    </thead>
-</table>
-<table class="table">
-    <thead>
-    
-    </thead>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Percent Complete
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
     <tbody>
         @if (Model.AllProjects != null)
         {
 
-            <th>
-                    Id
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Percent Complete
-            </th>
+            
 
             @foreach (var project in Model.AllProjects)
             {
@@ -52,8 +55,8 @@
                     <td>
                         @project.PercentComplete
                     </td>
-                    <td></td>
-                    <td></td>
+                    
+                    
                     <td>
                         <a asp-action="Edit" asp-route-id="@project.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@project.Id">Details</a> |

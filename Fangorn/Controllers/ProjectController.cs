@@ -119,6 +119,36 @@ namespace Tower.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditProjectTask(EditProjectTaskViewModel model)
+        {
+
+            return View("EditProjectTaskView");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCreateProjectTask(EditProjectTaskViewModel model)
+        {
+
+            ProjectTask task = new ProjectTask
+            {
+                Title = model.Title,
+                Type = model.Type,
+                Status = model.Status,
+                StoryPoints = model.StoryPoints,
+                Complexity = model.Complexity,
+                InWork = model.InWork,
+                CompletionDate = model.CompletionDate,
+
+            };
+
+            _context.Update(task);
+
+            await _context.SaveChangesAsync();
+
+
+            return View("DetailsProjectView");
+        }
 
 
     }
