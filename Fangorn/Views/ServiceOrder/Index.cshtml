@@ -25,91 +25,88 @@
 
     <div class="ServiceOrder-grid">
 
-
         <form asp-action="CreateServiceOrder" method="get">
             <button type="submit">New Service Order</button>
         </form>
-        <table id="tableServiceOrders" class="table table-hover table-condensed table-bordered">
-            <thead>
-                <tr>
-                    <th class="col-md-2">
-                        
-                        @Html.DisplayNameFor(model => model.Title)
-                    </th>
-                    
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreateDate.Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DueDate.Date)
-                    </th>
-                    
-                    <th>
-                        @Html.DisplayNameFor(model => model.AssignedTo)
-                    </th>
-                    <th>
-                        Watch
-                    </th>
-                    <th>
-                        Options
-                    </th>
-                    <th>
-                        Total
-                    </th>
-                </tr>
-            </thead>
+        <div class="table-overflow">
+            <table id="tableServiceOrders" class="table table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">
 
-            <tbody>
-             @foreach (var item in Model)
-             {
-                <tr>
-                    <td>
-                        
-                        <a asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
-                    </td>
-                
-                    <td>
-                        @item.CreateDate.ToShortDateString()
-                        <br />
-                        @item.CreateDate.ToShortTimeString()
-                    </td>
-                 
-                    <td>
-                        @item.DueDate.ToShortDateString()
-                        <br />
-                        @item.DueDate.ToShortTimeString()
-                    </td>
-                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AssignedTo.Email)
-                    </td>
-                    <td>
-                        <a asp-action="Assign" asp-route-id="@item.Id">Take Assignment</a>
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Close" asp-route-id="@item.Id">Close</a>
-                    </td>
-                </tr>
-             }
-            </tbody>
-        </table>
-        <form asp-action="CreateServiceOrder" method="get">
-            <button type="submit">New Service Order</button>
-        </form>
-    </div>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
 
-</div>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreateDate.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DueDate.Date)
+                        </th>
 
-<!--<div id="modal-container" update class="modal fade hidden-print" tabindex="-1" role="dialog">
+                        <th>
+                            @Html.DisplayNameFor(model => model.AssignedTo)
+                        </th>
+                        <th>
+                            Watch
+                        </th>
+                        <th>
+                            Options
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
 
+                                <a asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
+                            </td>
 
-    <div class="modal-dialog modal-large">
-        <div class="modal-content">
+                            <td>
+                                @item.CreateDate.ToShortDateString()
+                                <br />
+                                @item.CreateDate.ToShortTimeString()
+                            </td>
 
+                            <td>
+                                @item.DueDate.ToShortDateString()
+                                <br />
+                                @item.DueDate.ToShortTimeString()
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssignedTo.Email)
+                            </td>
+                            <td>
+                                <a asp-action="Assign" asp-route-id="@item.Id">Take Assignment</a>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Close" asp-route-id="@item.Id">Close</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <form asp-action="CreateServiceOrder" method="get">
+                <button type="submit">New Service Order</button>
+            </form>
         </div>
     </div>
 </div>
-<!--Create an pagination property on particular ServiceOrders-->
+
+@section Scripts {
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/js/site.js"></script>
+}
+
+
 

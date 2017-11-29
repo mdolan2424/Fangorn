@@ -24,64 +24,8 @@
 </head>
 
 <body class="body-site">
-    </br>
-    </br>
     
-    <button class="btn" id="menu-toggle">
-
-
-        Menu
-    </button>
-    <div id="wrapper">
-        
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                   
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    
-                </li>
-                @{ Tower.Views.MenuFactory factory = new Tower.Views.MenuFactory(); try
-                    {
-                        var controllerName = ViewContext.RouteData.Values["controller"].ToString(); Tower.Views.IMenu menu = factory.getMenu(controllerName); foreach (String menuItem in menu.getActions())
-                        {
-                            <li><a asp-area="" asp-controller=@menu.getController() asp-action=@menuItem>@menuItem</a></li>
-                        }
-
-                    }
-
-                    catch
-                    {
-
-                        Tower.Views.IMenu menu = factory.getMenu("Default");
-
-                        foreach (String menuItem in menu.getActions())
-                        {
-                            <a asp-area="" asp-controller=@menu.getController() asp-action=@menuItem>@menuItem</a>
-                        }
-
-                    }
-
-
-
-                }
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- Page Content -->
-        
-        <div id="page-content-wrapper">
-            
-            <div class="container-fluid">
-                
-
-                <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -108,27 +52,69 @@
         </div>
     </nav>
 
-                <div class="container body-content">
 
-                    <div class="jumbotron">
+    <div class="container-fluid">
 
-                        @RenderBody()
-                    </div>
+        <div class="row">
+            <nav id="sidebar" class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+                
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a></li>
+                        @{ Tower.Views.MenuFactory factory = new Tower.Views.MenuFactory(); try
+            {
+                var controllerName = ViewContext.RouteData.Values["controller"].ToString(); Tower.Views.IMenu menu = factory.getMenu(controllerName); foreach (String menuItem in menu.getActions())
+                {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller=@menu.getController() asp-action=@menuItem>@menuItem</a></li>
+                                }
 
-                    <hr />
-                    <footer class="footer">
-                        <ul class="list-inline">
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        </ul>
-                        <p>&copy; In Development - 2017 - Tower</p>
-                    </footer>
+                            }
+
+                            catch
+                            {
+
+                                Tower.Views.IMenu menu = factory.getMenu("Default");
+
+                                foreach (String menuItem in menu.getActions())
+                                {
+                                    <a asp-area="" asp-controller=@menu.getController() asp-action=@menuItem>@menuItem</a>
+                                }
+
+                            }
+
+
+
+                        }
+
+                    </ul>
+            </nav>
+            </div>
+
+
+
+
+
+            <div class="container body-content">
+                
+                <div class="jumbotron">
+                    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Actions</span>
+                    @RenderBody()
                 </div>
 
+                <hr />
+                <footer class="footer">
+                    <ul class="list-inline">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    </ul>
+                    <p>&copy; In Development - 2017 - Tower</p>
+                </footer>
             </div>
+
         </div>
-        <!-- /#page-content-wrapper -->
-    </div>
+
+
+    
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -147,22 +133,28 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
 
 
     </environment>
-    <script>
-
-         $("#menu-toggle").click(function (e) {
-             e.preventDefault();
-             $("#wrapper").toggleClass("toggled");
-         });
-    </script>
+    
 
     @RenderSection("Styles", required: false)
     @RenderSection("Scripts", required: false)
 
+    <script>
+        function openNav() {
+
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    
+    </script>
 
 
 
