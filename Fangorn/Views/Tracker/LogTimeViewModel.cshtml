@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Client" class="col-md-2 control-label"></label>
+            <label asp-for="AllClients" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <Select asp-for="Client" asp-items="@(new SelectList(Model.AllClients, "Name", "Email"))" class="form-control"></Select>
             </div>

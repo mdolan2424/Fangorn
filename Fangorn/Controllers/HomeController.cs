@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Tower.Models.HomeViewModels;
 using Tower.Data;
-using Microsoft.EntityFrameworkCore;
-using Tower.Services;
-using Microsoft.AspNetCore.Identity;
 using Tower.Models;
+using Tower.Models.ClientsViewModels;
+using Tower.Models.HomeViewModels;
+using Tower.Models.ServiceOrderViewModels;
+using Tower.Services;
+
 
 namespace Tower.Controllers
 {
@@ -31,11 +33,12 @@ namespace Tower.Controllers
         //require a login to access the website.
         public async Task<IActionResult> Index()
         {
+
+            var model = new DashboardHomePageViewModel();
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
-                
-
+               
             }
 
             else
@@ -43,8 +46,13 @@ namespace Tower.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            //return a list of dashboard items.
 
-            return View();
+            //default query
+            var query = _context.ServiceOrders
+                .Where(so => so.CreateDate > DateTime.Now.AddDays(-30) && so.CreateDate <= DateTime.Now).Count();
+            model.RecentServiceOrders = query;
+            return View(model);
         }
         
         public IActionResult About()
@@ -101,5 +109,11 @@ namespace Tower.Controllers
         {
             return View();
         }
+        
+        
+            
+            
+
+
     }
 }
