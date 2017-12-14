@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tower.Data;
@@ -35,6 +36,7 @@ namespace Tower.Controllers
         {
 
             var model = new DashboardHomePageViewModel();
+            model.RecentServiceOrders = new List<int>();
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
@@ -49,9 +51,29 @@ namespace Tower.Controllers
             //return a list of dashboard items.
 
             //default query
-            var query = _context.ServiceOrders
-                .Where(so => so.CreateDate > DateTime.Now.AddDays(-30) && so.CreateDate <= DateTime.Now).Count();
-            model.RecentServiceOrders = query;
+            int? monthOne = _context.ServiceOrders
+                .Where(so => so.CreateDate > DateTime.Now.AddDays(-DateTime.Now.Day) && so.CreateDate <= DateTime.Now).Count();
+            
+            if (monthOne !=null)
+            {
+                model.RecentServiceOrders.Add((int)monthOne);
+            }
+            
+            for (int i=1; i<6; i++)
+            {
+                int? month = _context.ServiceOrders
+                .Where(so => so.CreateDate > (DateTime.Now.AddMonths(-i).AddDays(-DateTime.Now.Day)) && so.CreateDate <= DateTime.Now.AddMonths(-1*(i-1)).AddDays(-DateTime.Now.Day)).Count();
+                if (month != null)
+                {
+                    model.RecentServiceOrders.Add((int)month);
+                }
+                else
+                {
+                    model.RecentServiceOrders.Add(0);
+                }
+                
+            }
+            
             return View(model);
         }
         

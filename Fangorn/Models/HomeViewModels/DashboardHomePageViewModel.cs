@@ -12,7 +12,8 @@ namespace Tower.Models.HomeViewModels
     {
 
         //see service orders
-        public int RecentServiceOrders { get; set; }
+        public List<int> RecentServiceOrders { get; set; }
+
         //see project tasks done
         public List<ProjectTask> RecentProjectTasksComplete { get; set; } 
         

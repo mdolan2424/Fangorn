@@ -8,19 +8,32 @@
     <script src="~/lib/chart.js/2.6.0/content/Scripts/Chart.js"></script>
     <h3>Dashboard</h3>
 
-    <div>
+    <div class="graph">
         
         <canvas id="myChart" width="400" height="400"></canvas>
+    
         <script type="text/javascript">
-            var Count = @Model.RecentServiceOrders;
+            var monthOne = @Model.RecentServiceOrders[5];
+            var monthtwo = @Model.RecentServiceOrders[4];
+            var monthThree = @Model.RecentServiceOrders[3];
+            var monthFour = @Model.RecentServiceOrders[2];
+            var monthFive = @Model.RecentServiceOrders[1];
+            var monthSix = @Model.RecentServiceOrders[0];
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    labels: [
+                        
+                        "@DateTime.Now.AddMonths(-5).ToString("MMM")",
+                        "@DateTime.Now.AddMonths(-4).ToString("MMM")",
+                        "@DateTime.Now.AddMonths(-3).ToString("MMM")",
+                        "@DateTime.Now.AddMonths(-2).ToString("MMM")",
+                        "@DateTime.Now.AddMonths(-1).ToString("MMM")",
+                        "@DateTime.Now.ToString("MMM")",],
                     datasets: [{
-                        label: '# of Votes',
-                        data: [Count,3],
+                        label: 'Service Orders By Month',
+                        data: [monthOne, monthtwo, monthThree, monthFour, monthFive, monthSix],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -44,17 +57,18 @@
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                callback: function (value) { if (value % 1 === 0) { return value; } }
                             }
                         }]
                     }
-                   
+
                 }
             });
         </script>
     </div>
 
-    <div>
+    <div class="graph">
 
         <canvas id="myChart2" width="400" height="400"></canvas>
         <script>
@@ -99,3 +113,6 @@
     </div>
 }
 
+@section Styles {
+<link rel="stylesheet" href="~/css/dashboard.css" />
+}
