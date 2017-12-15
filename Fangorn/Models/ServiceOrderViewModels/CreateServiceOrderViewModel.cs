@@ -41,6 +41,12 @@ namespace Tower.Models.ServiceOrderViewModels
         [Display(Name = "Tech Assignment")]
         public SelectList TeamMembers { get; set; }
 
-        
+        [Display(Name = "Client Selection")]
+        public IEnumerable<SelectListItem> Clients { get; set; }
+
+        public string Client { get; set;}
+
+
+
     }
 }

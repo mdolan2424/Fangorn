@@ -5,6 +5,13 @@
 }
 
 <h2>Clients</h2>
+<form asp-controller="Clients" asp-action="IndexSearch">
+
+    <input type="text" name="search">
+    <input type="submit" value="Search" />
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    <a asp-action="Index" style="padding-left:15px;">Reset</a>
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>

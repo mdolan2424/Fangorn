@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Tower.Data;
 using Microsoft.AspNetCore.Authorization;
 using Tower.Models.ServiceOrderViewModels.CommentViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Tower.Controllers
 {
@@ -82,10 +83,17 @@ namespace Tower.Controllers
         public IActionResult CreateServiceOrder()
         {
             var techs = _context.Users.OrderBy(u => u.Email).Select(x => x.Email);
+            var clients = _context.Clients.ToList();
 
             var model = new CreateServiceOrderViewModel
             {
-                TeamMembers = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(techs)
+                TeamMembers = new SelectList(techs),
+
+                Clients = clients.Select(c =>
+                new SelectListItem()
+                {
+                    Text = c.Name.ToString()
+                }),
             };
             return View(model);
         }
@@ -93,13 +101,16 @@ namespace Tower.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateServiceOrder(CreateServiceOrderViewModel ct)
         {
+            var client = _context.Clients.SingleOrDefault(c => c.Name == ct.Client);
             ServiceOrder t = new ServiceOrder
             {
                 Title = ct.Title,
                 Description = ct.Description,
                 AssignedTo = await _userManager.FindByEmailAsync(ct.AssignedTo),
                 CreateDate = DateTime.Now,
-                DueDate = ct.DueDate
+                DueDate = ct.DueDate,
+                Client = client
+               
             };
 
             var user = await _userManager.GetUserAsync(User);
@@ -168,29 +179,28 @@ namespace Tower.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int ID, [Bind("Id,Title,Description,CreateDate,DueDate,CloseDate,UserId")] ServiceOrder ServiceOrder)
+        public async Task<IActionResult> EditServiceOrder(int? ID, ServiceOrder model)
         {
-            if (ID != ServiceOrder.Id)
+          
+            ServiceOrder serviceOrder;
+            try
             {
-                return NotFound();
+                serviceOrder = _context.ServiceOrders.SingleOrDefault(so => so.Id == ID);
+                serviceOrder.Title = model.Title;
+                serviceOrder.Description = model.Description;
+                serviceOrder.DueDate = model.DueDate;
+                _context.Update(serviceOrder);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(ServiceOrder);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    throw;
-                }
+                
+            
 
-                return RedirectToAction("Index");
-            }
-
-            return View(ServiceOrder);
+            return RedirectToAction("Index");
 
 
         }

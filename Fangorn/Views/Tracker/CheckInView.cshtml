@@ -1,11 +1,8 @@
 ﻿@model Tower.Models.TrackerViewModels.CheckInViewModel
-
 @{
     ViewData["Title"] = "CheckInView";
 }
-
 <h2>Start Time Log</h2>
-
 <h4>Select A Client</h4>
 <hr />
 <div class="row">
@@ -15,7 +12,7 @@
             <div class="form-group">
                 <label class="col-md-2 control-label">Select</label>
                 <div class="col-md-10">
-                    
+
                     @Html.DropDownListFor(Model => Model.Client.Email, Model.Clients)
                     <span asp-validation-for="@Model.Clients" class="text-danger"></span>
                 </div>
@@ -28,11 +25,9 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

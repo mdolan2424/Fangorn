@@ -178,6 +178,26 @@ namespace Tower.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        #region Search
+        [HttpPost]
+        public async Task<IActionResult> IndexSearch(string search)
+        {
+            if (!String.IsNullOrEmpty(search))
+            {
+                var Clients = await _context.Clients
+                    .Where(t => t.Name.Contains(search) || t.Email.Contains(search))
+                    .ToListAsync();
+                var model = new ListClients();
+                model.Clients = Clients;
+                return View("ClientListView", model);
+            }
+
+            return RedirectToAction("Index");
+
+        }
+        #endregion Search
+
+
+
     }
 }

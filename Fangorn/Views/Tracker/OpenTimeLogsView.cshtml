@@ -1,0 +1,61 @@
+﻿@model Tower.Models.TrackerViewModels.OpenTimeLogsViewModel
+
+@{
+    ViewData["Title"] = "OpenTimeLogsView";
+}
+
+<h2>Your Open Time Logs</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                Client Name
+            </th>
+        
+       
+            <th>
+                Start Time
+            </th>
+      
+        
+            <th>
+                Logged Minutes
+            </th>
+            <th>
+                Pause Timelog
+            </th>
+            <th>
+                Finalize Timelog
+            </th>
+        </tr>
+            @foreach (var log in Model.OpenLogs)
+            {
+                <tr>
+                    <td>
+                        @log.Client.Name
+                    </td>
+                    <td>
+                        @log.StartTime
+                    </td>
+                    <td>
+                        @log.LoggedMinutes
+                    </td>
+                    <td>
+                        <a asp-action="Pause" asp-route-id="@log.Id">Pause</a> 
+                    </td>
+                    <td>
+                        <a asp-action="Finalize" asp-route-id="@log.Id">Finalize</a>
+                    </td>
+                    
+                </tr>
+
+
+            }
+    </tbody>
+</table>

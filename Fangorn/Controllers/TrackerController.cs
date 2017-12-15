@@ -31,9 +31,8 @@ namespace Tower.Controllers
             {
                 TimeLogs = timeLogs
             };
-            
 
-            return View(model);
+            return RedirectToAction("OpenTimeLogs");
         }
 
         //Log a time
@@ -152,11 +151,45 @@ namespace Tower.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> OpenTimeLogs()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var logs = _context.TimeLog.Where(tl => tl.User == user && tl.EndTime == DateTime.MinValue).Include(tl => tl.Client).ToList();
+            
+            
+            OpenTimeLogsViewModel model = new OpenTimeLogsViewModel
+            {
+                OpenLogs = logs
+            };
 
+            //update recorded time since last checked.
 
+            foreach (var log in model.OpenLogs)
+            {
+                //logged minutes is equal to now minus the start time.
+                log.LoggedMinutes = (int)(DateTime.Now - log.StartTime).TotalMinutes;
+                _context.Update(log);
+            }
+            
+            await _context.SaveChangesAsync();
 
+            return View("OpenTimeLogsView",model);
+        }
 
-
-        //link a client.
+        [HttpGet]
+        public async Task<IActionResult> RecentTimeLogs()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var logs = _context.TimeLog.Where(tl => tl.User == user && tl.EndTime != null).ToList();
+            
+            RecentTimeLogsViewModel model = new RecentTimeLogsViewModel
+            {
+                TimeLogs = logs
+            };
+            
+            return View(model);
+        }
+        
     }
 }
