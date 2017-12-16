@@ -9,6 +9,6 @@ namespace Tower.Models.SettingsViewModels
     {
         public int Id { get; set; }
         public String SiteName { get; set; }
-        public float ChargeRate { get; set; }
+        public double ChargeRate { get; set; }
     }
 }

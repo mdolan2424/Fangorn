@@ -12,6 +12,7 @@ using Tower.Data;
 using Microsoft.AspNetCore.Authorization;
 using Tower.Models.ServiceOrderViewModels.CommentViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Tower.Models.ServiceOrderViewModels.BillableViewModels;
 
 namespace Tower.Controllers
 {
@@ -146,11 +147,20 @@ namespace Tower.Controllers
                 .ToList()
                 .Find(so=>so.Id == ID);
 
-            var comments = _context.Comment.Where(c => c.ServiceOrder.Id == ID).Include(c => c.Commentor);
+            var comments = _context.Comment.Where(c => c.ServiceOrder.Id == ID)
+                .Include(c => c.Commentor);
+            var billedCosts = _context.BillableTime.Where(bt => bt.ServiceOrder == ServiceOrder).ToList();
+            var settings = _context.SiteSettings.First();
+            double total = 0;
+            foreach (var cost in billedCosts)
+            {
+                total += Math.Round(((double)cost.Cost),2);
+            }
             ServiceOrderCommentsViewModel ServiceOrderComments = new ServiceOrderCommentsViewModel
             {
                 ServiceOrder = ServiceOrder,
-                Comments = comments.ToList()
+                Comments = comments.ToList(),
+                BillableCost = total
             };
             return View(ServiceOrderComments);
 
@@ -335,6 +345,55 @@ namespace Tower.Controllers
         }
         #endregion Assign
 
-        
+        #region CreateBillableTime
+        [HttpGet]
+        public IActionResult CreateBillableTimeGet(int Id)
+        {
+            var serviceOrder = _context.ServiceOrders.Where(so => so.Id == Id).First();
+            CreateBillableTimeViewModel model = new CreateBillableTimeViewModel
+            {
+                ServiceOrder = serviceOrder
+            };
+
+            return View("BillableTime/CreateBillableTimeView", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBillableTimePost (CreateBillableTimeViewModel model, int Id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var settings = _context.SiteSettings.First();
+            var serviceOrder = _context.ServiceOrders.Where(so => so.Id == Id).First();
+            BillableTime billableTime = new BillableTime
+            {
+                Minutes = model.Minutes,
+                ServiceOrder = serviceOrder,
+                AddedBy = user,
+                Cost = (((Math.Round(model.Minutes / 15.0) * 15)) * (settings.ChargeRate/60.0)),
+                WorkPerformed = model.WorkPerformed
+            };
+
+             _context.Add(billableTime);
+
+            await _context.SaveChangesAsync();
+            
+            return RedirectToAction("SeeBillableTimes", new { Id = Id });
+        }
+        #endregion CreateBillableTime
+
+
+        [HttpGet]
+        public async Task<IActionResult> SeeBillableTimes(int Id)
+        {
+            SeeBillableTimesOnServiceOrderrViewModel model = new SeeBillableTimesOnServiceOrderrViewModel();
+            //find service order
+            var serviceOrder = _context.ServiceOrders.Where(so => so.Id == Id).First();
+            var billableTimes = _context.BillableTime.Where(b => b.ServiceOrder == serviceOrder)
+                .Include(b=>b.AddedBy).ToList();
+            model.ServiceOrder = serviceOrder;
+            model.BillableTimes = billableTimes;
+            
+            return View("BillableTime/SeeBillableTimesOnServiceOrderView", model);
+        }
     }
 }

@@ -3,25 +3,20 @@
     ViewData["Title"] = "view";
     DateTime.Now.ToString("dd-MM-yyyy");
 }
-
 @section Styles {
-    <link href="~/css/ServiceOrder.css" rel="stylesheet" type="text/css"/>
-    
-}
+    <link href="~/css/ServiceOrder.css" rel="stylesheet" type="text/css" />
 
+}
 <h2>Service Orders</h2>
 <form asp-controller="ServiceOrder" asp-action="Index">
-    
-        <input type="text" name="search">
-        <input type="submit" value="Search"/>
-        <span class="glyphicon glyphicon-search" aria-hidden="true" ></span>
-        <a asp-action="Index" style="padding-left:15px;">Reset</a>
 
+    <input type="text" name="search">
+    <input type="submit" value="Search" />
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    <a asp-action="Index" style="padding-left:15px;">Reset</a>
 </form>
 
-
 <div id="dataContainer">
-   
 
     <div class="ServiceOrder-grid">
 
@@ -33,7 +28,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">
-                            
+
                             @Html.DisplayNameFor(model => model.Title)
                         </th>
 
@@ -100,13 +95,10 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-<script src="~/js/site.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js"></script>
 }
-
-
 

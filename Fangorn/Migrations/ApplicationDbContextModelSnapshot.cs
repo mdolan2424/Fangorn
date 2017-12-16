@@ -323,6 +323,30 @@ namespace Tower.Migrations
                     b.ToTable("ProjectTasks");
                 });
 
+            modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.BillableViewModels.BillableTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AddedById");
+
+                    b.Property<double>("Cost");
+
+                    b.Property<int>("Minutes");
+
+                    b.Property<int?>("ServiceOrderId");
+
+                    b.Property<string>("WorkPerformed");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddedById");
+
+                    b.HasIndex("ServiceOrderId");
+
+                    b.ToTable("BillableTime");
+                });
+
             modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.CommentViewModels.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -393,7 +417,7 @@ namespace Tower.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<float>("ChargeRate");
+                    b.Property<double>("ChargeRate");
 
                     b.Property<string>("SiteName");
 
@@ -514,6 +538,17 @@ namespace Tower.Migrations
                     b.HasOne("Tower.Models.ProjectViewModels.Project")
                         .WithMany("Tasks")
                         .HasForeignKey("TaskId");
+                });
+
+            modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.BillableViewModels.BillableTime", b =>
+                {
+                    b.HasOne("Tower.Models.ApplicationUser", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById");
+
+                    b.HasOne("Tower.Models.ServiceOrderViewModels.ServiceOrder", "ServiceOrder")
+                        .WithMany()
+                        .HasForeignKey("ServiceOrderId");
                 });
 
             modelBuilder.Entity("Tower.Models.ServiceOrderViewModels.CommentViewModels.Comment", b =>

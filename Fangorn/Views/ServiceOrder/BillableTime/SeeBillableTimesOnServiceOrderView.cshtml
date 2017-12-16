@@ -1,0 +1,58 @@
+﻿@model Tower.Models.ServiceOrderViewModels.BillableViewModels.SeeBillableTimesOnServiceOrderrViewModel
+@{
+    ViewData["Title"] = "SeeBillableTimesOnServiceOrderView";
+}
+<h2>Billable Time Entries</h2>
+<div>
+    <h4>Service Order: @Model.ServiceOrder.Title</h4>
+    <hr />
+    <dl class="dl-horizontal"></dl>
+</div>
+
+<div>
+    <a asp-action="CreateBillableTimeGet" asp-route-id="@Model.ServiceOrder.Id">Add Entry</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Work Performed
+            </th>
+            <th>
+                Total Minutes
+            </th>
+
+            <th>
+                Total Cost
+            </th>
+
+            <th>
+                Added By
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BillableTimes)
+        {
+            <tr>
+
+                <td>
+                    @item.WorkPerformed
+                </td>
+                <td>
+                    @item.Minutes
+                </td>
+                <td>
+                   
+                   @Html.DisplayFor(m=>item.Cost)
+                </td>
+                <td>
+                    @item.AddedBy.UserName
+                </td>
+            </tr>
+        }
+        </tbody>
+
+    </table>
+

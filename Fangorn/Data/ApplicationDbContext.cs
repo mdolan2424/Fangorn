@@ -21,7 +21,7 @@ namespace Tower.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {}
+        { }
 
         public DbSet<ServiceOrder> ServiceOrders { get; set; }
         public DbSet<Project> Projects { get; set; }
@@ -62,6 +62,7 @@ namespace Tower.Data
 
 
         public DbSet<Tower.Models.TrackerViewModels.TimeLog> TimeLog { get; set; }
-        
+
+        public DbSet<Tower.Models.ServiceOrderViewModels.BillableViewModels.BillableTime> BillableTime {get; set;}
     }
 }

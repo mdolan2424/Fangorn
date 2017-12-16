@@ -1,8 +1,5 @@
 ﻿@model Tower.Models.ServiceOrderViewModels.ServiceOrderCommentsViewModel
-
 <h2>Service Order</h2>
-
-
 
 <br />
 <form asp-controller="ServiceOrder" asp-action="createComment" asp-route-id="@Model.ServiceOrder.Id">
@@ -46,9 +43,9 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.ServiceOrder.CloseDate)
-                </dd>   
+                </dd>
             }
-          
+
             <dt>
                 @Html.DisplayNameFor(model => model.ServiceOrder.Creator)
             </dt>
@@ -62,17 +59,27 @@
                 @Html.DisplayFor(model => model.ServiceOrder.AssignedTo.Email)
             </dd>
         </dl>
-        
+
+    </div>
+    <hr />
+    <div class="dl-horizontal">
+        <h4>Billed Cost</h4>
+
+        Total Cost:  @Html.DisplayFor(Model => Model.BillableCost)
+        <div>
+            <a asp-action="SeeBillableTimes" asp-route-id="@Model.ServiceOrder.Id">Billable Times</a>
+        </div>
+
+        <hr />
     </div>
     <div class="form-horizontal">
         <h4>New Comment</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <div class="form-group">
             <div class="col-md-10">
                 Comment<textarea asp-for="Comment.Content" rows="10" cols="10" class="form-control"></textarea>
-
                 <span asp-validation-for="Comment.Content" class="text-danger"></span>
             </div>
         </div>
@@ -83,7 +90,6 @@
         </div>
     </div>
 </form>
-
 
 @if (Model.Comments == null)
 {
@@ -97,10 +103,9 @@ else
         <thead>
             <tr>
                 <th class="col-md-2">
-
                     @Html.DisplayNameFor(model => model.Comment.Commentor)
-                   
-                   
+
+
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Comment.Content)
@@ -110,7 +115,6 @@ else
                 </th>
             </tr>
         </thead>
-
         <tbody>
             @foreach (var item in Model.Comments)
             {
@@ -121,7 +125,6 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.Content)
                     </td>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
@@ -129,15 +132,11 @@ else
             }
 
 
-
-
         </tbody>
     </table>
 
 
 }
-
-
 
 
 <div>
