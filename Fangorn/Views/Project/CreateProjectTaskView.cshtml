@@ -1,14 +1,12 @@
 ﻿@model Tower.Models.ProjectViewModels.CreateProjectTaskViewModel
-
 @{
     ViewData["Title"] = "AddProjectTaskView";
 }
-
 <h4>Add Task</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="PostCreateProjectTask">
+        <form asp-action="PostCreateProjectTask" asp-route-id="@Model.Project.Id">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -46,22 +44,18 @@
                 <span asp-validation-for="CompletionDate" class="text-danger"></span>
             </div>
 
-
-
-
-
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
+    
 </div>
+
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-

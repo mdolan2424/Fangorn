@@ -34,7 +34,7 @@
         <thead>
             <tr>
                 <th class="col-md-2">
-
+                    
                     @Html.DisplayNameFor(model => model.Tasks[0].Id)
                 </th>
 
@@ -69,14 +69,48 @@
         </thead>
 
         <tbody>
+
+            @foreach (var task in Model.Tasks)
+            {
+                <tr>
+                    <td>
+                        @task.Id
+                    </td>
+                    <td>
+                        @task.Title
+                    </td>
+                    <td>
+                        @task.Status
+                    </td>
+                    <td>
+                        @task.Priority
+                    </td>
+                    <td>
+                        @task.StoryPoints
+                    </td>
+                    <td>
+                        @task.Complexity
+                    </td>
+                    <td>
+                        @task.CompletionDate
+                    </td>
+                    <td>
+                        @task.CompletionPercentage
+                    </td>
+                    <td>
+                        @task.CompletedBy
+                    </td>
+                </tr>
+                
+            }
             
         </tbody>
 
     </table>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="CreateProjectTask">Create a task</a>
+    
+    <a asp-action="CreateProjectTask" asp-route-id="@Model.Id">Create a task</a>
     <a asp-action="Index">Back to List</a>
 
 </div>

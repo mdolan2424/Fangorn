@@ -70,9 +70,21 @@ namespace Tower.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(int Id)
         {
-            return View("DetailsProjectView");
+            var project = _context.Projects
+                .Where(p => p.Id == Id)
+                .Include(p=>p.Tasks)
+                .First();
+            //var projectTasks = _context.ProjectTasks.Where(pt => pt.Project.Id == Id);
+            ProjectDetails details = new ProjectDetails()
+            {
+                Id = project.Id,
+                Description = project.Description,
+                Tasks = project.Tasks,
+                Title = project.Title
+            };
+            return View("DetailsProjectView", details);
         }
 
         [HttpGet]
@@ -88,22 +100,31 @@ namespace Tower.Controllers
         }*/
 
         [HttpGet]
-        public async Task<IActionResult> CreateProjectTask()
+        public async Task<IActionResult> CreateProjectTask(int Id)
         {
+            //find project
+            var project = _context.Projects
+                .Where(p => p.Id == Id).First();
 
-            return View("CreateProjectTaskView");
+
+            CreateProjectTaskViewModel model = new CreateProjectTaskViewModel
+            {
+                Project = project
+            };
+
+            return View("CreateProjectTaskView", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCreateProjectTask(CreateProjectTaskViewModel model)
+        public async Task<IActionResult> PostCreateProjectTask(CreateProjectTaskViewModel model, int Id)
         {
-            
+            var project = _context.Projects.Where(p => p.Id == Id).First();
             ProjectTask task = new ProjectTask
             {
                 Title = model.Title,
                 Type = model.Type,
                 Status = model.Status,
-                Project = model.Project,
+                Project = project,
                 StoryPoints = model.StoryPoints,
                 Complexity = model.Complexity,
                 InWork = model.InWork,
@@ -111,12 +132,22 @@ namespace Tower.Controllers
                 
             };
 
+            //if project has no tasks, make one
+            if(project.Tasks == null)
+            {
+                project.Tasks = new List<ProjectTask>();
+            }
+            
             _context.Add(task);
+
+
+            project.Tasks.Add(task);
+            _context.Update(project);
 
             await _context.SaveChangesAsync();
 
 
-            return View();
+            return RedirectToAction("Details", new { Id = Id });
         }
 
         [HttpGet]
