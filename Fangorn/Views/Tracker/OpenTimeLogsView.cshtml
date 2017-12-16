@@ -1,11 +1,8 @@
 ﻿@model Tower.Models.TrackerViewModels.OpenTimeLogsViewModel
-
 @{
     ViewData["Title"] = "OpenTimeLogsView";
 }
-
 <h2>Your Open Time Logs</h2>
-
 <table class="table">
     <thead>
         <tr>
@@ -17,13 +14,13 @@
             <th>
                 Client Name
             </th>
-        
-       
+
+
             <th>
                 Start Time
             </th>
-      
-        
+
+
             <th>
                 Logged Minutes
             </th>
@@ -34,28 +31,42 @@
                 Finalize Timelog
             </th>
         </tr>
-            @foreach (var log in Model.OpenLogs)
+        @foreach (var log in Model.OpenLogs)
             {
-                <tr>
+            <tr>
+                <td>
+                    @log.Client.Name
+                </td>
+                <td>
+                    @log.StartTime
+                </td>
+                @if (log.PausedTime == DateTime.MinValue)
+                { 
+                <td>
+                    @log.LoggedMinutes <b>(Tracking)</b>
+                </td>
+               
                     <td>
-                        @log.Client.Name
+                        <a asp-action="Pause" asp-route-id="@log.Id">Pause</a>
+                    </td>
+                }
+
+                else
+                {
+                    <td>
+                        @log.LoggedMinutes (Paused)
                     </td>
                     <td>
-                        @log.StartTime
+                        <a asp-action="Continue" asp-route-id="@log.Id">Continue</a>
                     </td>
-                    <td>
-                        @log.LoggedMinutes
-                    </td>
-                    <td>
-                        <a asp-action="Pause" asp-route-id="@log.Id">Pause</a> 
-                    </td>
-                    <td>
-                        <a asp-action="Finalize" asp-route-id="@log.Id">Finalize</a>
-                    </td>
-                    
-                </tr>
+                }
+                <td>
+                    <a asp-action="Finalize" asp-route-id="@log.Id">Finalize</a>
+                </td>
+
+            </tr>
 
 
-            }
+        }
     </tbody>
 </table>

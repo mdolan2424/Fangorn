@@ -22,7 +22,7 @@ namespace Tower.Controllers
             _userManager = userManager;
             _context = context;
         }
-        
+
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -32,7 +32,7 @@ namespace Tower.Controllers
                 TimeLogs = timeLogs
             };
 
-            return RedirectToAction("OpenTimeLogs");
+            return RedirectToAction("View Open Timelogs");
         }
 
         //Log a time
@@ -47,7 +47,7 @@ namespace Tower.Controllers
                 AllClients = _context.Client.ToList()
             };
 
-            return View("LogTimeViewModel",model);
+            return View("LogTimeViewModel", model);
         }
 
         [HttpPost]
@@ -98,15 +98,18 @@ namespace Tower.Controllers
                 StartTime = DateTime.Now,
                 LoggedMinutes = 0,
                 User = user,
+                Sessions = new List<TimeSession>(),
+                ContinueTime = DateTime.Now
+                
             };
 
             _context.Add(timeLog);
 
             await _context.SaveChangesAsync();
-             
+
             return RedirectToAction("Index");
         }
-        
+
         public IActionResult ViewLog()
         {
             return View();
@@ -152,44 +155,147 @@ namespace Tower.Controllers
         }
 
         [HttpGet]
+        [ActionName("View Open Timelogs")]
         public async Task<IActionResult> OpenTimeLogs()
         {
             var user = await _userManager.GetUserAsync(User);
-            var logs = _context.TimeLog.Where(tl => tl.User == user && tl.EndTime == DateTime.MinValue).Include(tl => tl.Client).ToList();
-            
-            
+            var logs = _context.TimeLog.Where(tl => tl.User == user && tl.EndTime == DateTime.MinValue)
+                .Include(tl => tl.Client)
+                .Include(tl => tl.User)
+                .Include(tl=>tl.Sessions)
+                .ToList();
+
+
             OpenTimeLogsViewModel model = new OpenTimeLogsViewModel
             {
                 OpenLogs = logs
             };
 
             //update recorded time since last checked.
-
-            foreach (var log in model.OpenLogs)
+            if (logs != null)
             {
-                //logged minutes is equal to now minus the start time.
-                log.LoggedMinutes = (int)(DateTime.Now - log.StartTime).TotalMinutes;
-                _context.Update(log);
+                foreach (var log in model.OpenLogs)
+                {
+                    log.LoggedMinutes = 0;
+                    for (int i = 0; i < log.Sessions.Count; i++)
+                    {
+                        log.LoggedMinutes += log.Sessions[i].Minutes;
+                    }
+                    if(log.PausedTime == DateTime.MinValue)
+                    {
+                        log.LoggedMinutes += (int)(DateTime.Now - log.ContinueTime).TotalMinutes;
+                    }
+                    
+                    _context.Update(log);
+                    await _context.SaveChangesAsync();
+                }
+              
+                
             }
-            
-            await _context.SaveChangesAsync();
+           
 
-            return View("OpenTimeLogsView",model);
+
+
+
+            return View("OpenTimeLogsView", model);
         }
 
         [HttpGet]
+        [ActionName("View Closed Timelogs")]
         public async Task<IActionResult> RecentTimeLogs()
         {
             var user = await _userManager.GetUserAsync(User);
-            var logs = _context.TimeLog.Where(tl => tl.User == user && tl.EndTime != null).ToList();
-            
+            var logs = _context.TimeLog.Where(tl => tl.User == user && tl.EndTime != DateTime.MinValue)
+                .Include(tl => tl.User)
+                .Include(tl => tl.Client)
+                .ToList();
+
             RecentTimeLogsViewModel model = new RecentTimeLogsViewModel
             {
                 TimeLogs = logs
             };
-            
-            return View(model);
+
+            return View("RecentTimeLogsView", model);
         }
-        
+
+        //end time session
+        public async Task<IActionResult> Pause(int Id)
+        {
+            var timeLog = _context.TimeLog.Where(tl => tl.Id == Id).First();
+            if (timeLog.EndTime == DateTime.MinValue)
+            {
+                timeLog.PausedTime = DateTime.Now;
+
+                TimeSession session = new TimeSession
+                {
+                    Minutes = (int)(DateTime.Now - timeLog.ContinueTime).TotalMinutes,
+                    TimeLog = timeLog
+                };
+
+                _context.Update(timeLog);
+                _context.Add(session);
+
+
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("View Open Timelogs");
+        }
+
+        //create new timesession
+        public async Task<IActionResult> Continue(int Id)
+        {
+
+            var timeLog = _context.TimeLog.Where(tl => tl.Id == Id).First();
+            if (timeLog.EndTime == DateTime.MinValue)
+            {
+
+                timeLog.PausedTime = DateTime.MinValue;
+                timeLog.ContinueTime = DateTime.Now;
+                _context.Update(timeLog);
+
+
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("View Open Timelogs");
+
+        }
+
+
+        public async Task<IActionResult> Finalize(int Id)
+        {
+
+            var timeLog = _context.TimeLog.Where(tl => tl.Id == Id).First();
+            var sessions = _context.TimeSessions.Where(ts => ts.Id == Id).ToList();
+
+            if (timeLog.EndTime == DateTime.MinValue)
+            {
+                
+                TimeSession session = new TimeSession
+                {
+                    Minutes = (int)(DateTime.Now - timeLog.ContinueTime).TotalMinutes,
+                    TimeLog = timeLog
+                };
+
+                _context.Update(timeLog);
+                _context.Add(session);
+
+
+                //hopefully do this once
+                for (int i = 0; i < timeLog.Sessions.Count; i++)
+                {
+                    timeLog.LoggedMinutes = 0;
+                    timeLog.LoggedMinutes += timeLog.Sessions[i].Minutes + session.Minutes;
+                }
+
+
+                timeLog.EndTime = DateTime.Now;
+
+                _context.Update(timeLog);
+
+                await _context.SaveChangesAsync();
+                }
+            
+            return RedirectToAction("View Open Timelogs");
+        }
     }
 }

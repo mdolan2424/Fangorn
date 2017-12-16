@@ -30,7 +30,7 @@ namespace Tower.Controllers
 
 
         // GET: /<controller>/
-        
+
         public IActionResult Index(string filter)
         {
 
@@ -61,23 +61,23 @@ namespace Tower.Controllers
             IQueryable<ServiceOrder> query = _context.ServiceOrders.Include(creator => creator.Creator)
                 .Include(t => t.AssignedTo)
                 .Where(t => t.IsClosed == false);
-            
-            if (filter  == "Closed")
+
+            if (filter == "Closed")
             {
                 query = _context.ServiceOrders.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.IsClosed == true);
             }
-            
+
             else if (filter == "Assigned")
             {
                 var user = _userManager.GetUserId(User);
-                
+
                 query = _context.ServiceOrders.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.AssignedTo.Id == user);
-                
+
             }
             return query;
         }
 
-        
+
 
         #region Create
         [HttpGet]
@@ -111,7 +111,7 @@ namespace Tower.Controllers
                 CreateDate = DateTime.Now,
                 DueDate = ct.DueDate,
                 Client = client
-               
+
             };
 
             var user = await _userManager.GetUserAsync(User);
@@ -145,7 +145,7 @@ namespace Tower.Controllers
                 .Include(so => so.Creator)
                 .Include(so => so.Client)
                 .ToList()
-                .Find(so=>so.Id == ID);
+                .Find(so => so.Id == ID);
 
             var comments = _context.Comment.Where(c => c.ServiceOrder.Id == ID)
                 .Include(c => c.Commentor);
@@ -154,7 +154,7 @@ namespace Tower.Controllers
             double total = 0;
             foreach (var cost in billedCosts)
             {
-                total += Math.Round(((double)cost.Cost),2);
+                total += Math.Round(((double)cost.Cost), 2);
             }
             ServiceOrderCommentsViewModel ServiceOrderComments = new ServiceOrderCommentsViewModel
             {
@@ -191,7 +191,7 @@ namespace Tower.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditServiceOrder(int? ID, ServiceOrder model)
         {
-          
+
             ServiceOrder serviceOrder;
             try
             {
@@ -207,8 +207,8 @@ namespace Tower.Controllers
                 throw;
             }
 
-                
-            
+
+
 
             return RedirectToAction("Index");
 
@@ -257,7 +257,7 @@ namespace Tower.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteServiceOrder(int? ID)
         {
-            if (ID ==null)
+            if (ID == null)
             {
                 return NotFound();
             }
@@ -280,12 +280,12 @@ namespace Tower.Controllers
             if (!String.IsNullOrEmpty(search))
             {
                 var ServiceOrders = await _context.ServiceOrders.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.Description.Contains(search) || t.Title.Contains(search)).ToListAsync();
-                
+
                 return View(ServiceOrders);
             }
 
             return RedirectToAction("Index");
-            
+
         }
         #endregion Search
 
@@ -335,7 +335,7 @@ namespace Tower.Controllers
         public async Task<IActionResult> Assign(int? Id)
         {
             var user = await _userManager.GetUserAsync(User);
-            var ServiceOrder = _context.ServiceOrders.Include(t=>t.AssignedTo).Where(t=>t.Id == Id).ToList();
+            var ServiceOrder = _context.ServiceOrders.Include(t => t.AssignedTo).Where(t => t.Id == Id).ToList();
             ServiceOrder[0].AssignedTo = user;
 
             _context.Update(ServiceOrder[0]);
@@ -359,7 +359,7 @@ namespace Tower.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBillableTimePost (CreateBillableTimeViewModel model, int Id)
+        public async Task<IActionResult> CreateBillableTimePost(CreateBillableTimeViewModel model, int Id)
         {
             var user = await _userManager.GetUserAsync(User);
             var settings = _context.SiteSettings.First();
@@ -369,14 +369,14 @@ namespace Tower.Controllers
                 Minutes = model.Minutes,
                 ServiceOrder = serviceOrder,
                 AddedBy = user,
-                Cost = (((Math.Round(model.Minutes / 15.0) * 15)) * (settings.ChargeRate/60.0)),
+                Cost = (((Math.Round(model.Minutes / 15.0) * 15)) * (settings.ChargeRate / 60.0)),
                 WorkPerformed = model.WorkPerformed
             };
 
-             _context.Add(billableTime);
+            _context.Add(billableTime);
 
             await _context.SaveChangesAsync();
-            
+
             return RedirectToAction("SeeBillableTimes", new { Id = Id });
         }
         #endregion CreateBillableTime
@@ -389,10 +389,10 @@ namespace Tower.Controllers
             //find service order
             var serviceOrder = _context.ServiceOrders.Where(so => so.Id == Id).First();
             var billableTimes = _context.BillableTime.Where(b => b.ServiceOrder == serviceOrder)
-                .Include(b=>b.AddedBy).ToList();
+                .Include(b => b.AddedBy).ToList();
             model.ServiceOrder = serviceOrder;
             model.BillableTimes = billableTimes;
-            
+
             return View("BillableTime/SeeBillableTimesOnServiceOrderView", model);
         }
     }

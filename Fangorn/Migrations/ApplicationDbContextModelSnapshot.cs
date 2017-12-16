@@ -460,9 +460,13 @@ namespace Tower.Migrations
 
                     b.Property<int?>("ClientId");
 
+                    b.Property<DateTime>("ContinueTime");
+
                     b.Property<DateTime>("EndTime");
 
                     b.Property<int>("LoggedMinutes");
+
+                    b.Property<DateTime>("PausedTime");
 
                     b.Property<DateTime>("StartTime");
 
@@ -475,6 +479,22 @@ namespace Tower.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TimeLog");
+                });
+
+            modelBuilder.Entity("Tower.Models.TrackerViewModels.TimeSession", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Minutes");
+
+                    b.Property<int?>("TimeLogId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TimeLogId");
+
+                    b.ToTable("TimeSessions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -603,6 +623,13 @@ namespace Tower.Migrations
                     b.HasOne("Tower.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Tower.Models.TrackerViewModels.TimeSession", b =>
+                {
+                    b.HasOne("Tower.Models.TrackerViewModels.TimeLog", "TimeLog")
+                        .WithMany("Sessions")
+                        .HasForeignKey("TimeLogId");
                 });
 #pragma warning restore 612, 618
         }

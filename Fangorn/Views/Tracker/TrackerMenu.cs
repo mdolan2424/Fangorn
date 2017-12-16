@@ -11,7 +11,8 @@ namespace Tower.Views.Tracker
         {
             "Check In",
             "Log Time",
-            "View Log",
+            "View Open Timelogs",
+            "View Closed Timelogs"
         };
 
         public string Controller;

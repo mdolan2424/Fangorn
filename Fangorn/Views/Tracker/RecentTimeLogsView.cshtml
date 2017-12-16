@@ -1,0 +1,66 @@
+﻿@model Tower.Models.TrackerViewModels.RecentTimeLogsViewModel
+
+@{
+    ViewData["Title"] = "RecentTimeLogsView";
+}
+
+<h2>Recent Time Logs</h2>
+
+<div>
+    <h4>Closed</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                Client Name
+            </th>
+            <th>
+                Start Time
+            </th>
+
+            <th>
+                Closed Time
+            </th>
+            <th>
+                Total Logged Minutes
+            </th>
+            <th>
+                Owning User
+            </th>
+            
+        </tr>
+        @foreach (var log in Model.TimeLogs)
+            {
+            <tr>
+                <td>
+                    @log.Client.Name
+                </td>
+                <td>
+                    @log.StartTime
+                </td>
+                <td>
+                    @log.EndTime
+                </td>
+                <td>
+                    @log.LoggedMinutes
+                </td>
+                <td>
+                    @log.User
+                </td>
+                
+            </tr>
+
+
+        }
+    </tbody>
+</table>
+

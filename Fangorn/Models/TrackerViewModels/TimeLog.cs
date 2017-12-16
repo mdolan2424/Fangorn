@@ -14,6 +14,9 @@ namespace Tower.Models.TrackerViewModels
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int LoggedMinutes { get; set; }
+        public DateTime PausedTime { get; set; }
+        public DateTime ContinueTime { get; set; }
+        public List<TimeSession> Sessions { get; set; }
         public ApplicationUser User { get; set; }
         public Client Client { get; set; }
     }

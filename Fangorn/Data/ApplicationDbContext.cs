@@ -30,7 +30,7 @@ namespace Tower.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<ProjectTask> ProjectTasks { get; set; }
         public DbSet<Settings> SiteSettings { get; set; }
-
+        public DbSet<TimeSession> TimeSessions { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
