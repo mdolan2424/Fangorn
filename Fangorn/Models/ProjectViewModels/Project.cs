@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Tower.Models.TeamViewModels;
+
 namespace Tower.Models.ProjectViewModels
 {
     public class Project
@@ -21,6 +23,8 @@ namespace Tower.Models.ProjectViewModels
         public Double PercentComplete { get; set; }
         [ForeignKey("TaskId")]
         public List<ProjectTask> Tasks { get; set; }
+
+        public Team Team { get; set; }
         
     }
 }

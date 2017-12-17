@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tower.Models.TeamViewModels;
 
 namespace Tower.Models.ProjectViewModels
 {
@@ -11,6 +12,7 @@ namespace Tower.Models.ProjectViewModels
         public string Title { get; set; }
         public string Description { get; set; }
         public List<ProjectTask> Tasks { get; set; }
+        public Team Team { get; set; }
 
         public int completeStoryTasks { get; set; }
         public int incompleteStoryTasks { get; set; }

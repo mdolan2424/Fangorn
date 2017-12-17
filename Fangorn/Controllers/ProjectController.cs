@@ -8,15 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tower.Models.ProjectViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Tower.Controllers
 {
-    public class ProjectController: Controller
+    public class ProjectController : Controller
     {
-        
+
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
-        
+
         public ProjectController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
@@ -25,7 +26,7 @@ namespace Tower.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
+
             ListAllProjects model = new ListAllProjects();
             model.AllProjects = _context.Projects.ToList();
             return View(model);
@@ -34,9 +35,15 @@ namespace Tower.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            //list of teams
+
+
+
+
+            var Teams = _context.Teams.OrderBy(t => t.Name).Select(t => t.Name);
             CreateProjectViewModel model = new CreateProjectViewModel
             {
-                
+                AllTeams = new SelectList(Teams)
             };
 
             return View("CreateProjectView", model);
@@ -45,10 +52,12 @@ namespace Tower.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProject(CreateProjectViewModel model)
         {
+            var team = _context.Teams.SingleOrDefault(t => t.Name == model.Team.Name);
             Project project = new Project
             {
                 Title = model.Title,
-                Description = model.Description
+                Description = model.Description,
+                Team = team
             };
 
             //save to database
@@ -76,7 +85,7 @@ namespace Tower.Controllers
         {
             var project = _context.Projects
                 .Where(p => p.Id == Id)
-                .Include(p=>p.Tasks)
+                .Include(p => p.Tasks)
                 .First();
             //var projectTasks = _context.ProjectTasks.Where(pt => pt.Project.Id == Id);
             ProjectDetails details = new ProjectDetails()
@@ -90,11 +99,11 @@ namespace Tower.Controllers
                 incompleteComplexityTasks = 0,
                 incompleteStoryTasks = 0,
                 inWorkComplexityTasks = 0,
-                inWorkStoryTasks =0
+                inWorkStoryTasks = 0
             };
-            
 
-            foreach(var task in details.Tasks)
+
+            foreach (var task in details.Tasks)
             {
                 if (task.Status == Status.Complete)
                 {
@@ -104,7 +113,7 @@ namespace Tower.Controllers
 
                 else if (task.Status == Status.Incomplete)
                 {
-                    details.incompleteStoryTasks +=task.StoryPoints;
+                    details.incompleteStoryTasks += task.StoryPoints;
                     details.incompleteComplexityTasks += task.Complexity;
                 }
 
@@ -118,11 +127,44 @@ namespace Tower.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int Id)
+        public IActionResult Edit(int Id)
         {
-            return View("EditProjectView");
+            //fid
+            var project = _context.Projects
+                .Include(p => p.Team).SingleOrDefault(p => p.Id == Id);
+
+            var Teams = _context.Teams.OrderBy(t => t.Name).Select(t => t.Name);
+            EditProjectViewModel model = new EditProjectViewModel
+            {
+                Id = project.Id,
+                Team = project.Team,
+                Description = project.Description,
+                Title = project.Title,
+                AllTeams = new SelectList(Teams)
+
+            };
+
+            return View("EditProjectView", model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditPost(EditProjectViewModel model, int Id)
+        {
+           
+            var project = _context.Projects
+               .Where(p => p.Id == Id).First();
+            var team = _context.Teams.SingleOrDefault(t => t.Name == model.Team.Name);
+            
+            project.Team = team;
+            project.Title =  model.Title;
+            project.Description = model.Description;
+
+            _context.Update(project);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", new { Id = Id });
+        }
         /*[HttpGet]
         public async Task<IActionResult> Delete(int Id?)
         {

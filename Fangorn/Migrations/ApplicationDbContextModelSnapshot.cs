@@ -277,11 +277,15 @@ namespace Tower.Migrations
 
                     b.Property<double>("PercentComplete");
 
+                    b.Property<string>("TeamId");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Projects");
                 });
@@ -544,6 +548,13 @@ namespace Tower.Migrations
                     b.HasOne("Tower.Models.LocationViewModels.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
+                });
+
+            modelBuilder.Entity("Tower.Models.ProjectViewModels.Project", b =>
+                {
+                    b.HasOne("Tower.Models.TeamViewModels.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId");
                 });
 
             modelBuilder.Entity("Tower.Models.ProjectViewModels.ProjectTask", b =>
