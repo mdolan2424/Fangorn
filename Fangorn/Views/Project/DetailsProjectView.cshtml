@@ -1,9 +1,7 @@
 ﻿@model Tower.Models.ProjectViewModels.ProjectDetails
-
 @{
     ViewData["Title"] = "DetailsProjectView";
 }
-
 
 <script src="~/lib/chart.js/2.6.0/content/Scripts/Chart.js"></script>
 <div>
@@ -28,18 +26,18 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-        
+
     </dl>
     <h3>Story Points</h3>
     <div>
         <canvas id="pie-chart1" width="437" height="218" class="chartjs-render-monitor" style="display: block; width: 437px; height: 218px;"></canvas>
     </div>
-    
+
     <h3>Complexity Points</h3>
     <div>
-        <canvas id="pie-chart2"  width="437" height="218" class="chartjs-render-monitor" style="display: block; width: 437px; height: 218px;"></canvas>
+        <canvas id="pie-chart2" width="437" height="218" class="chartjs-render-monitor" style="display: block; width: 437px; height: 218px;"></canvas>
     </div>
-   
+
     <script type="text/javascript">
 
         var config = {
@@ -69,7 +67,7 @@
                 responsive: true
             }
         };
-        
+
             var config2 = {
                 type: 'pie',
                 data: {
@@ -78,7 +76,7 @@
                             @Model.incompleteStoryTasks,
                             @Model.inWorkStoryTasks,
                             @Model.completeStoryTasks
-                            
+
                         ],
                         backgroundColor: [
 
@@ -105,89 +103,85 @@
                 var ctx1 = document.getElementById("pie-chart1").getContext("2d");
                 window.myPie = new Chart(ctx1, config);
             };
-        
+
     </script>
     <hr />
     <h3>Tasks</h3>
-    
-    <table class="table table-hover table-condensed table-bordered">
-        <thead>
-            <tr>
-                <th class="col-md-2">
-                    
-                    @Html.DisplayNameFor(model => model.Tasks[0].Id)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].Status)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].StoryPoints)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].Complexity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].CompletionDate)
-                </th>
-                <th>
-                    Options
-                </th>
-            </tr>
-        </thead>
-        
-        <tbody>
-            @if (Model.Tasks != null)
-            {
-
-
-
-            @foreach (var task in Model.Tasks)
-            {
+    <div class="table-overflow">
+        <table class="table table-hover table-condensed table-bordered">
+            <thead>
                 <tr>
-                    <td>
-                        @task.Id
-                    </td>
-                    <td>
-                        @task.Title
-                    </td>
-                    <td>
-                        @task.Status
-                    </td>
-                   
-                    <td>
-                        @task.StoryPoints
-                    </td>
-                    <td>
-                        @task.Complexity
-                    </td>
-                    <td>
-                        @task.CompletionDate
-                    </td>
-                 
-                    <td>
-                        <div class="form-group">
-                            <a asp-action="EditProjectTask" asp-route-id="@task.Id">Edit</a> 
-                        </div>
-                       
-                    </td>
+                    <th class="col-md-2">
+
+                        @Html.DisplayNameFor(model => model.Tasks[0].Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tasks[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tasks[0].Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tasks[0].StoryPoints)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tasks[0].Complexity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tasks[0].CompletionDate)
+                    </th>
+                    <th>
+                        Options
+                    </th>
                 </tr>
+            </thead>
 
-            }
-            }
+            <tbody>
+                @if (Model.Tasks != null)
+            {
 
-        </tbody>
 
-    </table>
-</div>
+
+                    @foreach (var task in Model.Tasks)
+                {
+                        <tr>
+                            <td>
+                                @task.Id
+                            </td>
+                            <td>
+                                @task.Title
+                            </td>
+                            <td>
+                                @task.Status
+                            </td>
+
+                            <td>
+                                @task.StoryPoints
+                            </td>
+                            <td>
+                                @task.Complexity
+                            </td>
+                            <td>
+                                @task.CompletionDate
+                            </td>
+
+                            <td>
+                                <div class="form-group">
+                                    <a asp-action="EditProjectTask" asp-route-id="@task.Id">Edit</a>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
 <div>
-    
+
     <a asp-action="CreateProjectTask" asp-route-id="@Model.Id">Create a task</a>
-   
 
 </div>
 <div>

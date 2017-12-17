@@ -12,51 +12,52 @@
 <div>
     <a asp-action="CreateBillableTimeGet" asp-route-id="@Model.ServiceOrder.Id">Add Entry</a>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Work Performed
-            </th>
-            <th>
-                Total Minutes
-            </th>
-
-            <th>
-                Total Cost
-            </th>
-
-            <th>
-                Added By
-            </th>
-        </tr>
-
-    </thead>
-    <tbody>
-        @foreach (var item in Model.BillableTimes)
-        {
+<div class="table-overflow">
+    <table class="table">
+        <thead>
             <tr>
+                <th>
+                    Work Performed
+                </th>
+                <th>
+                    Total Minutes
+                </th>
 
-                <td>
-                    @item.WorkPerformed
-                </td>
-                <td>
-                    @item.Minutes
-                </td>
-                <td>
-                   
-                   @Html.DisplayFor(m=>item.Cost)
-                </td>
-                <td>
-                    @item.AddedBy.UserName
-                </td>
+                <th>
+                    Total Cost
+                </th>
+
+                <th>
+                    Added By
+                </th>
             </tr>
-        }
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BillableTimes)
+            {
+                <tr>
+
+                    <td>
+                        @item.WorkPerformed
+                    </td>
+                    <td>
+                        @item.Minutes
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(m => item.Cost)
+                    </td>
+                    <td>
+                        @item.AddedBy.UserName
+                    </td>
+                </tr>
+            }
         </tbody>
 
     </table>
-
-<div>
-    <a asp-action="Index">Back to Service Orders</a>
-</div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to Service Orders</a>
+    </div>
 

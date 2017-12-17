@@ -15,62 +15,62 @@
     <a asp-action="Create">Create New Project</a>
 </p>
 
-
-<table class="table">
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Percent Complete
-        </th>
-        <th>
-            Options
-        </th>
-    </tr>
-    <tbody>
-        @if (Model.AllProjects != null)
-        {
-
-            
-
-            @foreach (var project in Model.AllProjects)
+<div class="table-overflow">
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Percent Complete
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+        <tbody>
+            @if (Model.AllProjects != null)
             {
-                <tr>
-                    <td>
-                        @project.Id
-                    </td>
-                    <td>
-                        @project.Title
-                    </td>
-                    <td>
-                        @project.Description
-                    </td>
-                    <td>
-                        @project.PercentComplete
-                    </td>
-                    
-                    
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@project.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@project.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@project.Id">Delete</a>
-                    </td>
 
-                </tr>
+
+
+                @foreach (var project in Model.AllProjects)
+                {
+                    <tr>
+                        <td>
+                            @project.Id
+                        </td>
+                        <td>
+                            @project.Title
+                        </td>
+                        <td>
+                            @project.Description
+                        </td>
+                        <td>
+                            @project.PercentComplete
+                        </td>
+
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@project.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@project.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@project.Id">Delete</a>
+                        </td>
+
+                    </tr>
+                }
             }
-        }
-        
 
 
-    </tbody>
-</table>
 
+        </tbody>
+    </table>
+    </div>
 
 
