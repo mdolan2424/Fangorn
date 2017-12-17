@@ -31,7 +31,7 @@ namespace Tower.Views
                 return new TrackerMenu();
             }
 
-            else if (menuType == "Clients")
+            else if (menuType == "Client")
             {
                 return new ClientMenu();
             }

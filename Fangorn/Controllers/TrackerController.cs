@@ -9,7 +9,7 @@ using Tower.Models;
 using Tower.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Tower.Models.ClientsViewModels;
+using Tower.Models.ClientViewModels;
 namespace Tower.Controllers
 {
     public class TrackerController : Controller

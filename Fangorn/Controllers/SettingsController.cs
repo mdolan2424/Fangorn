@@ -7,7 +7,7 @@ using Tower.Models.ClientViewModels;
 using Microsoft.AspNetCore.Identity;
 using Tower.Data;
 using Tower.Models;
-using Tower.Models.ClientsViewModels;
+
 using Microsoft.EntityFrameworkCore;
 using Tower.Models.LocationViewModels;
 using Tower.Models.SettingsViewModels;

@@ -12,9 +12,15 @@ namespace Tower.Models.ProjectViewModels
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
+        [Display(Name = "Story Points")]
         public int StoryPoints { get; set; }
+        [Display(Name = "Complexity Points")]
         public int Complexity { get; set; }
-        public Status Status { get; set; }
+
+        [Display(Name = "Date of Completion")]
         public DateTime CompletionDate { get; set; }
+
+        public Status Status { get; set; }
+       
     }
 }

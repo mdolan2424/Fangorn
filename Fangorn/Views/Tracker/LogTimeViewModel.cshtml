@@ -31,7 +31,7 @@
                 
                 <select asp-for="ClientId"
                         asp-items="@(new SelectList(Model.AllClients,"Id","Name"))">
-                    <option>Please select one</option>
+                    <option value="">--none--</option>
                 </select>
             </div>
         </div>
@@ -48,3 +48,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

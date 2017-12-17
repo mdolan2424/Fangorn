@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tower.Data;
 using Tower.Models;
-using Tower.Models.ClientsViewModels;
+using Tower.Models.ClientViewModels;
 using Tower.Models.HomeViewModels;
 using Tower.Models.ServiceOrderViewModels;
 using Tower.Services;

@@ -18,8 +18,9 @@ namespace Tower.Models.ProjectViewModels
         public string Description { get; set; }
 
         [Required]
+        [Display(Name ="Team Name")]
         public Team Team { get; set; }
-
+        [Required]
         public IEnumerable<SelectListItem> AllTeams { get; set; }
     }
 }

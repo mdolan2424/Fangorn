@@ -16,9 +16,12 @@ namespace Tower.Models.ProjectViewModels
 
         [EnumDataType(typeof(Status))]
         public Status Status { get; set; }
+        [Display(Name ="Story Points")]
         public int StoryPoints { get; set; }
+        [Display(Name = "Complexity Points")]
         public int Complexity { get; set; }
-        public bool InWork { get; set; }
+        
+        [Display(Name = "Date of Completion")]
         public DateTime CompletionDate { get; set; }
         
         [ForeignKey("ProjectId")]

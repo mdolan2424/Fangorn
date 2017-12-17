@@ -23,7 +23,7 @@ namespace Tower.Models.ProjectViewModels
         public Double PercentComplete { get; set; }
         [ForeignKey("TaskId")]
         public List<ProjectTask> Tasks { get; set; }
-
+        [Required]
         public Team Team { get; set; }
         
     }

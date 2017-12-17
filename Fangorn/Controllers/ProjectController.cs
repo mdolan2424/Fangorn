@@ -131,7 +131,8 @@ namespace Tower.Controllers
         {
             //fid
             var project = _context.Projects
-                .Include(p => p.Team).SingleOrDefault(p => p.Id == Id);
+                .Include(t=>t.Team)
+                .Where(p => p.Id == Id).First();
 
             var Teams = _context.Teams.OrderBy(t => t.Name).Select(t => t.Name);
             EditProjectViewModel model = new EditProjectViewModel
