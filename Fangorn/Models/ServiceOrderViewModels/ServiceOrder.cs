@@ -51,6 +51,6 @@ namespace Tower.Models.ServiceOrderViewModels
         
         [Display(Name = "Total")]
         [DataType(DataType.Currency)] 
-        public float TotalCharge { get; set; }
+        public double TotalCharge { get; set; }
     }
 }

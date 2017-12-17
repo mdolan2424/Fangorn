@@ -12,11 +12,9 @@ namespace Tower.Models.ProjectViewModels
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
-        public string Type { get; set; } //revisit
-        public string Status { get; set; }
         public int StoryPoints { get; set; }
         public int Complexity { get; set; }
-        public bool InWork { get; set; }
+        public Status Status { get; set; }
         public DateTime CompletionDate { get; set; }
     }
 }

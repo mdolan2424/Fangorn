@@ -13,7 +13,9 @@ namespace Tower.Models.ProjectViewModels
         [MaxLength(100)]
         public string Title { get; set; }
         public string Type { get; set; } //revisit
-        public string Status { get; set; }
+
+        [EnumDataType(typeof(Status))]
+        public Status Status { get; set; }
         public int StoryPoints { get; set; }
         public int Complexity { get; set; }
         public bool InWork { get; set; }

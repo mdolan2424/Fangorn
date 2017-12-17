@@ -4,10 +4,10 @@
     ViewData["Title"] = "DetailsProjectView";
 }
 
-<h2>DetailsProjectView</h2>
 
+<script src="~/lib/chart.js/2.6.0/content/Scripts/Chart.js"></script>
 <div>
-    <h4>ProjectDetails</h4>
+    <h4>Project Details</h4>
     <hr />
     <dl class="dl">
         <dt>
@@ -30,6 +30,86 @@
         </dd>
         
     </dl>
+    <h3>Story Points</h3>
+    <div>
+        <canvas id="pie-chart1" width="437" height="218" class="chartjs-render-monitor" style="display: block; width: 437px; height: 218px;"></canvas>
+    </div>
+    
+    <h3>Complexity Points</h3>
+    <div>
+        <canvas id="pie-chart2"  width="437" height="218" class="chartjs-render-monitor" style="display: block; width: 437px; height: 218px;"></canvas>
+    </div>
+   
+    <script type="text/javascript">
+
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        @Model.incompleteComplexityTasks,
+                        @Model.inWorkComplexityTasks,
+                        @Model.completeComplexityTasks
+                    ],
+                    backgroundColor: [
+
+                        "Red",
+                        "Orange",
+                        "Green"
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    "Incomplete",
+                    "In Work",
+                    "Complete",
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        };
+        
+            var config2 = {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: [
+                            @Model.incompleteStoryTasks,
+                            @Model.inWorkStoryTasks,
+                            @Model.completeStoryTasks
+                            
+                        ],
+                        backgroundColor: [
+
+                            "Red",
+                            "Orange",
+                            "Green"
+                        ],
+                        label: 'Dataset 2'
+                    }],
+                    labels: [
+                        "Incomplete",
+                        "In Work",
+                        "Complete",
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            };
+
+            window.onload = function () {
+                var ctx2 = document.getElementById("pie-chart2").getContext("2d");
+                window.myPie2 = new Chart(ctx2, config2);
+                var ctx1 = document.getElementById("pie-chart1").getContext("2d");
+                window.myPie = new Chart(ctx1, config);
+            };
+        
+    </script>
+    <hr />
+    <h3>Tasks</h3>
+    
     <table class="table table-hover table-condensed table-bordered">
         <thead>
             <tr>
@@ -46,9 +126,6 @@
                 </th>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].Priority)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Tasks[0].StoryPoints)
                 </th>
                 <th>
@@ -57,17 +134,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Tasks[0].CompletionDate)
                 </th>
-                
                 <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].CompletionPercentage)
-                </th>
-                
-                <th>
-                    @Html.DisplayNameFor(model => model.Tasks[0].CompletedBy)
+                    Options
                 </th>
             </tr>
         </thead>
-
+        
         <tbody>
 
             @foreach (var task in Model.Tasks)
@@ -82,9 +154,7 @@
                     <td>
                         @task.Status
                     </td>
-                    <td>
-                        @task.Priority
-                    </td>
+                   
                     <td>
                         @task.StoryPoints
                     </td>
@@ -94,11 +164,12 @@
                     <td>
                         @task.CompletionDate
                     </td>
+                 
                     <td>
-                        @task.CompletionPercentage
-                    </td>
-                    <td>
-                        @task.CompletedBy
+                        <div class="form-group">
+                            <a asp-action="EditProjectTask" asp-route-id="@task.Id">Edit</a> 
+                        </div>
+                       
                     </td>
                 </tr>
                 
@@ -111,6 +182,9 @@
 <div>
     
     <a asp-action="CreateProjectTask" asp-route-id="@Model.Id">Create a task</a>
-    <a asp-action="Index">Back to List</a>
+   
 
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>

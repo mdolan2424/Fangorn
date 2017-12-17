@@ -27,10 +27,10 @@ namespace Tower.Controllers
         public IActionResult Index()
         {
             var model = new ListClients();
-            
-            model.Clients = _context.Client.Include(c=>c.Address).ToList();
-            
-            return View("ClientListView",model);
+
+            model.Clients = _context.Client.Include(c => c.Address).ToList();
+
+            return View("ClientListView", model);
         }
 
         [HttpGet]
@@ -38,10 +38,10 @@ namespace Tower.Controllers
         {
             var model = new CreateClient
             {
-                
+
             };
-            return View("CreateClient",model);
-            
+            return View("CreateClient", model);
+
         }
 
         [HttpPost]
@@ -71,7 +71,7 @@ namespace Tower.Controllers
                 _context.Add(client);
                 await _context.SaveChangesAsync();
 
-               
+
             }
 
 
@@ -81,7 +81,9 @@ namespace Tower.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            var clientModel = await _context.Client.SingleOrDefaultAsync(c => c.Id == Id);
+            var clientModel = await _context.Client
+                 .Include(c => c.Address)
+                 .SingleOrDefaultAsync(c => c.Id == Id);
             EditClient client = new EditClient
             {
                 Id = clientModel.Id,
@@ -92,7 +94,7 @@ namespace Tower.Controllers
                 MainContact = clientModel.MainContact
             };
 
-            return View("ClientEditView",client);
+            return View("ClientEditView", client);
         }
 
         [HttpPost]
@@ -100,9 +102,10 @@ namespace Tower.Controllers
         public async Task<IActionResult> EditPost(int Id, EditClient editModel)
         {
             //find client
-            var client = _context.Client.SingleOrDefault(c => c.Id == Id);
-
-
+            var client = _context.Client
+                .Include(a=>a.Address)
+                .SingleOrDefault(c => c.Id == Id);
+            
             if (client == null)
             {
                 return NotFound();
@@ -115,7 +118,12 @@ namespace Tower.Controllers
                 client.Name = editModel.Name;
                 client.Phone = editModel.Phone;
                 client.MainContact = editModel.MainContact;
-                
+                client.Address.Street = editModel.Address.Street; 
+                client.Address.Apartment = editModel.Address.Apartment;
+                client.Address.City = editModel.Address.City;
+                client.Address.State = editModel.Address.State;
+                client.Address.Zip = editModel.Address.Zip;
+
                 _context.Update(client);
 
                 await _context.SaveChangesAsync();
@@ -127,7 +135,9 @@ namespace Tower.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int Id)
         {
-            var client = _context.Client.SingleOrDefault(c => c.Id == Id);
+            var client = _context.Client
+                .Include(c=>c.Address).
+                SingleOrDefault(c => c.Id == Id);
 
             if (client == null)
             {
@@ -151,7 +161,7 @@ namespace Tower.Controllers
         public async Task<IActionResult> Delete(int Id)
         {
             var client = _context.Client.SingleOrDefault(c => c.Id == Id);
-            
+
             if (client == null)
             {
                 return NotFound();
@@ -159,7 +169,7 @@ namespace Tower.Controllers
 
             return View("ClientDeleteView", client);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> DeletePost(int Id)
         {

@@ -54,15 +54,20 @@ namespace Tower.Controllers
         public async Task<IActionResult> LogTimePost(LogTimeAndLocationViewModel model)
         {
             var user = await _userManager.GetUserAsync(User);
+            var client = _context.Clients.Where(m => m.Id == model.ClientId)
+                .First();
             TimeLog log = new TimeLog
             {
-                Client = model.Client,
+                Client = client,
                 LoggedMinutes = model.LoggedMinutes,
                 StartTime = model.StartTime,
-                EndTime = model.EndTime,
-                User = user
+                EndTime = DateTime.Now,
+                User = user,
             };
 
+            _context.Add(log);
+
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }

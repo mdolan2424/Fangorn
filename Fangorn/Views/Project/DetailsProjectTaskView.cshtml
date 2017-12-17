@@ -1,0 +1,54 @@
+﻿@model Tower.Models.ProjectViewModels.ProjectTask
+
+@{
+    ViewData["Title"] = "DetailsProjectTaskView";
+}
+
+<h2>Project Task</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StoryPoints)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StoryPoints)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Complexity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Complexity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletionDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompletionDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to Project List</a>
+</div>

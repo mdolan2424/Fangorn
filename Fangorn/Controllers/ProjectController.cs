@@ -13,10 +13,10 @@ namespace Tower.Controllers
 {
     public class ProjectController: Controller
     {
-
+        
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
-
+        
         public ProjectController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
@@ -65,6 +65,8 @@ namespace Tower.Controllers
                 Description = project.Description,
                 Tasks = project.Tasks
             };
+
+
             //go to details view
             return View("DetailsProjectView", details);
         }
@@ -82,8 +84,36 @@ namespace Tower.Controllers
                 Id = project.Id,
                 Description = project.Description,
                 Tasks = project.Tasks,
-                Title = project.Title
+                Title = project.Title,
+                completeComplexityTasks = 0,
+                completeStoryTasks = 0,
+                incompleteComplexityTasks = 0,
+                incompleteStoryTasks = 0,
+                inWorkComplexityTasks = 0,
+                inWorkStoryTasks =0
             };
+            
+
+            foreach(var task in details.Tasks)
+            {
+                if (task.Status == Status.Complete)
+                {
+                    details.completeComplexityTasks += task.Complexity;
+                    details.completeStoryTasks += task.StoryPoints;
+                }
+
+                else if (task.Status == Status.Incomplete)
+                {
+                    details.incompleteStoryTasks +=task.StoryPoints;
+                    details.incompleteComplexityTasks += task.Complexity;
+                }
+
+                else if (task.Status == Status.InWork)
+                {
+                    details.inWorkComplexityTasks += task.Complexity;
+                    details.inWorkStoryTasks += task.StoryPoints;
+                }
+            }
             return View("DetailsProjectView", details);
         }
 
@@ -118,16 +148,20 @@ namespace Tower.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCreateProjectTask(CreateProjectTaskViewModel model, int Id)
         {
+
+            
+
             var project = _context.Projects.Where(p => p.Id == Id).First();
+
+            var user = await _userManager.GetUserAsync(User);
             ProjectTask task = new ProjectTask
             {
                 Title = model.Title,
-                Type = model.Type,
-                Status = model.Status,
+               
                 Project = project,
+                Status = model.Status,
                 StoryPoints = model.StoryPoints,
                 Complexity = model.Complexity,
-                InWork = model.InWork,
                 CompletionDate = model.CompletionDate,
                 
             };
@@ -137,7 +171,10 @@ namespace Tower.Controllers
             {
                 project.Tasks = new List<ProjectTask>();
             }
-            
+            if (task.Status == Status.Complete)
+            {
+                task.CompletedBy = user;
+            }
             _context.Add(task);
 
 
@@ -151,37 +188,54 @@ namespace Tower.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditProjectTask(EditProjectTaskViewModel model)
+        public async Task<IActionResult> EditProjectTask(int Id)
         {
+            var projectTask = _context.ProjectTasks.Where(pt => pt.Id == Id).First();
 
-            return View("EditProjectTaskView");
+            EditProjectTaskViewModel model = new EditProjectTaskViewModel
+            {
+                Title = projectTask.Title,
+               
+                CompletionDate = projectTask.CompletionDate,
+                Complexity = projectTask.Complexity,
+                Status = projectTask.Status,
+                StoryPoints = projectTask.StoryPoints
+            };
+            return View("EditProjectTaskView", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCreateProjectTask(EditProjectTaskViewModel model)
+        public async Task<IActionResult> EditProjectTask(EditProjectTaskViewModel model, int Id)
         {
+            var task = _context.ProjectTasks.Where(m => m.Id == Id)
+                .Include(m=>m.Project).First();
+            var user = await _userManager.GetUserAsync(User);
 
-            ProjectTask task = new ProjectTask
+            task.Title = model.Title;
+            task.StoryPoints = model.StoryPoints;
+            task.Complexity = model.Complexity;
+            task.Status = model.Status;
+            task.CompletionDate = model.CompletionDate;
+
+            if (task.Status == Status.Complete)
             {
-                Title = model.Title,
-                Type = model.Type,
-                Status = model.Status,
-                StoryPoints = model.StoryPoints,
-                Complexity = model.Complexity,
-                InWork = model.InWork,
-                CompletionDate = model.CompletionDate,
-
-            };
+                task.CompletedBy = user;
+            }
 
             _context.Update(task);
 
             await _context.SaveChangesAsync();
 
 
-            return View("DetailsProjectView");
+            return RedirectToAction("Details", new { Id = task.Project.Id });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DetailsProjectTaskView(int Id)
+        {
 
+            return View();
+        }
     }
 
 }

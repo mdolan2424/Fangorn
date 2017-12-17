@@ -15,7 +15,7 @@ namespace Tower.Models.TrackerViewModels
         [Display(Name = "Total Minutes")]
         public int LoggedMinutes { get; set; }
         public ApplicationUser User { get; set; }
-        public Client Client { get; set; }
+        public int ClientId { get; set; }
         [Display(Name = "Select a Client")]
         public List<Client> AllClients { get; set; }
     }

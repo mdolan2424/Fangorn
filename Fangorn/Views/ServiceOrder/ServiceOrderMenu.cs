@@ -12,8 +12,7 @@ namespace Tower.Views
             "New",
             "Open",
             "Assigned",
-            "Closed",
-            "Archived"
+            "Closed"
         };
 
         public string Controller;

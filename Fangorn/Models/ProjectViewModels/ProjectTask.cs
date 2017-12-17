@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,16 +15,26 @@ namespace Tower.Models.ProjectViewModels
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
-        public string Type { get; set; } //revisit
-        public string Status { get; set; }
-        public string Priority { get; set; }
+       
+        [EnumDataType(typeof(Status))]
+        public Status Status { get; set; }
         public int StoryPoints { get; set; }
         public int Complexity { get; set; }
-        public bool InWork { get; set; }
         public DateTime CompletionDate { get; set; }
-        public float CompletionPercentage { get; set; }
-        public ApplicationUser CompletedBy { get; }
+        public ApplicationUser CompletedBy { get; set; }
         [ForeignKey("ProjectId")]
         public Project Project { get; set; }
     }
+
+    public enum Status
+    {
+        [Display(Name = "Incomplete")]
+        Incomplete = 1,
+
+        [Display(Name = "In Work")]
+        InWork = 2,
+
+        [Display(Name = "Complete")]
+        Complete = 3
+    };
 }

@@ -6,7 +6,7 @@
 
 <h2>Log a Time</h2>
 
-<form asp-action="LogTimeView">
+<form asp-action="LogTimePost">
     <div class="form-horizontal">
 
         <hr />
@@ -19,13 +19,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="EndTime" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
             <label asp-for="LoggedMinutes" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="LoggedMinutes" class="form-control" />
@@ -35,10 +28,14 @@
         <div class="form-group">
             <label asp-for="AllClients" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <Select asp-for="Client" asp-items="@(new SelectList(Model.AllClients, "Name", "Email"))" class="form-control"></Select>
+                
+                <select asp-for="ClientId"
+                        asp-items="@(new SelectList(Model.AllClients,"Id","Name"))">
+                    <option>Please select one</option>
+                </select>
             </div>
         </div>
-        <div></div>
+       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using Tower.Data;
+using Tower.Models.ProjectViewModels;
 
 namespace Tower.Migrations
 {
@@ -290,19 +291,15 @@ namespace Tower.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CompletionDate");
+                    b.Property<string>("CompletedById");
 
-                    b.Property<float>("CompletionPercentage");
+                    b.Property<DateTime>("CompletionDate");
 
                     b.Property<int>("Complexity");
 
-                    b.Property<bool>("InWork");
-
-                    b.Property<string>("Priority");
-
                     b.Property<int?>("ProjectId");
 
-                    b.Property<string>("Status");
+                    b.Property<int>("Status");
 
                     b.Property<int>("StoryPoints");
 
@@ -312,9 +309,9 @@ namespace Tower.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<string>("Type");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CompletedById");
 
                     b.HasIndex("ProjectId");
 
@@ -397,7 +394,7 @@ namespace Tower.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
-                    b.Property<float>("TotalCharge");
+                    b.Property<double>("TotalCharge");
 
                     b.HasKey("Id");
 
@@ -551,6 +548,10 @@ namespace Tower.Migrations
 
             modelBuilder.Entity("Tower.Models.ProjectViewModels.ProjectTask", b =>
                 {
+                    b.HasOne("Tower.Models.ApplicationUser", "CompletedBy")
+                        .WithMany()
+                        .HasForeignKey("CompletedById");
+
                     b.HasOne("Tower.Models.ProjectViewModels.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");

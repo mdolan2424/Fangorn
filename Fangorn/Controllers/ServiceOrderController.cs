@@ -71,7 +71,8 @@ namespace Tower.Controllers
             {
                 var user = _userManager.GetUserId(User);
 
-                query = _context.ServiceOrders.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.AssignedTo.Id == user);
+                query = _context.ServiceOrders.Include(creator => creator.Creator).Include(Assigned => Assigned.AssignedTo).Where(t => t.AssignedTo.Id == user)
+                    .Where(t => t.IsClosed == false);
 
             }
             return query;
@@ -239,6 +240,27 @@ namespace Tower.Controllers
         }
         #endregion Close
 
+        public async Task<IActionResult> OpenServiceOrder(int? ID)
+        {
+            if (ID == null)
+            {
+                return NotFound();
+            }
+
+            var ServiceOrder = _context.ServiceOrders.Find(ID);
+            var user = await _userManager.GetUserAsync(User);
+
+            ServiceOrder.IsClosed = false;
+            ServiceOrder.CloseDate = DateTime.MinValue;
+            ServiceOrder.ClosedBy = null;
+
+            _context.Update(ServiceOrder);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
         #region Delete
         [HttpGet]
         public ActionResult Delete(int? ID)
@@ -374,6 +396,18 @@ namespace Tower.Controllers
             };
 
             _context.Add(billableTime);
+
+            var billedCosts = _context.BillableTime.Where(bt => bt.ServiceOrder == serviceOrder).ToList();
+            
+            double total = 0;
+            foreach (var cost in billedCosts)
+            {
+                total += Math.Round(((double)cost.Cost), 2);
+            }
+
+            serviceOrder.TotalCharge = total + billableTime.Cost;
+
+            _context.Update(serviceOrder);
 
             await _context.SaveChangesAsync();
 
